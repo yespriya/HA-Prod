@@ -91,8 +91,8 @@ class ListOfSymptomsViewController: UIViewController {
         viewModel.addSymptoms(params: params)
         viewModel.symptomsUpdateSuccess = {
             self.showAlertWithHandler(message: self.viewModel.addSymptomsRes?.message ?? "Error", okActionTitle: "OKay", enableCancel: false, okActionHandler: {_ in
-                let defaults = UserDefaults.standard
-                var array = defaults.array(forKey: "filledArray")  as? [Int] ?? [Int]()
+//                let defaults = UserDefaults.standard
+//                var array = defaults.array(forKey: "filledArray")  as? [Int] ?? [Int]()
                 
                 self.updateUserStatusApiCall()
             })
@@ -165,8 +165,8 @@ class ListOfSymptomsViewController: UIViewController {
             }
         }
         dashboardViewModel.errorMessageAlert = {
-            print(self.dashboardViewModel.errorMessage ?? "Error")
-//            self.showAlert(self.dashboardViewModel.errorMessage ?? "Error")
+//            print(self.dashboardViewModel.errorMessage ?? "Error")
+            self.showAlert(self.dashboardViewModel.errorMessage ?? "Error")
         }
     }
     

@@ -128,7 +128,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             showAlert("Please enter a text")
             return
         }
-        appendMessage(text, isSender: true)
+        appendMessage(text.trimmingCharacters(in: .whitespacesAndNewlines), isSender: true)
         // updateMessageApiCall(text: text)
         
         inputMessageTextView.isEditable = false
@@ -136,7 +136,10 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         self.dataLoading = true
         tableView.reloadData()
         scrollToLast()
-        sendPostRequest(message: text) { response in
+        
+        eduChatViewModel.sendPostRequest(message: text.trimmingCharacters(in: .whitespacesAndNewlines), sessionID: sessionID ?? "")
+        
+        sendPostRequest(message: text.trimmingCharacters(in: .whitespacesAndNewlines)) { response in
             if(self.messages[self.messages.count - 1].text == "LOADING")
             {
                 self.messages.removeLast()
