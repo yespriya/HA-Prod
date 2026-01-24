@@ -18,9 +18,12 @@ class DashboardViewController: UIViewController
     
     var categories = ["Health Hub","Expert Monitoring","List your Symptoms","Lifestyle Goals","Optimal Risk Management"]
     var cartegoriesBG = ["C1DCEB","EBD6D6","FCF4E1","E2FCE1","F0E1FC"]
-    override func viewDidLoad()
-    {
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleForceLogout), name: .forceLogout, object: nil)
+        
         bottomView.delegate = self
         headerView.delegate = self
         dashboardCategoriesTableview.register(UINib(nibName: "DashboardColouredTableViewCell", bundle: .main), forCellReuseIdentifier: "DashboardColouredTableViewCell")
@@ -29,10 +32,16 @@ class DashboardViewController: UIViewController
         dashboardCategoriesTableview.dataSource = self
         // Do any additional setup after loading the view.
         let defaults = UserDefaults.standard
-        var name = defaults.string(forKey: "Username")
-        nameTextFeild.text = "Hello \(name!)"
+        let name = defaults.string(forKey: "Username")
+        nameTextFeild.text = "Hello \(name ?? "")"
         getUserStatusApiCall()
     }
+    
+    @objc func handleForceLogout() {
+        clearStoredData()
+        navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

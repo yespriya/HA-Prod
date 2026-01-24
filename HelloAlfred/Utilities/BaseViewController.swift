@@ -9,7 +9,14 @@ class BaseViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleForceLogout), name: .forceLogout, object: nil)
+        
         setupTextFields()
+    }
+    
+    @objc func handleForceLogout() {
+        clearStoredData()
+        navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
     }
     
     func setupTextFields() {
