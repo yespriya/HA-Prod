@@ -114,50 +114,14 @@ class EducationChatViewModel {
         }
     }
     
-    func  sendPostRequest(message: String, sessionID: String) {
-        
-        let url = "https://prod.helloalfred.ai/stream_api/bots/knowledge-bot/v1/ask/stream"
-        
-        var headers: HTTPHeaders = [
-            "Content-Type": "application/json"
-        ]
-        if let token = UserDefaults.standard.string(forKey: "Authorization"), !token.isEmpty {
-            headers.add(name: "Authorization", value: token)
-        }
-
-
-        AF.request(
-            url,
-            method: .post,
-            parameters: ["message": message,"session_id": sessionID],
-            encoding: JSONEncoding.default,
-            headers: headers
-        )
-        .responseData { response in
-
-            switch response.result {
-            case .success(let data):
-                let responseString = String(data: data, encoding: .utf8) ?? ""
-                print("✅ Response:", responseString)
-                self.saveChat(params: [
-                    "session_id": sessionID,
-                    "alfred": responseString,
-                    "user": message,
-                    "refference": [:]
-                ])
-            case .failure(let error):
-                print("❌ API Error:", error.localizedDescription)
-            }
-        }
-    }
-    
     func saveChat(params: [String: Any]) {
-        
+        print(params)
         let url = "https://prod.helloalfred.ai/stream_api/educational-bot-answer-dump"
         
         var headers: HTTPHeaders = [
             "Content-Type": "application/json"
         ]
+        
         if let token = UserDefaults.standard.string(forKey: "Authorization"), !token.isEmpty {
             headers.add(name: "Authorization", value: token)
         }

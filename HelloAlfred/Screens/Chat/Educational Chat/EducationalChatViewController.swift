@@ -19,7 +19,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
     @IBOutlet var textViewHeight: NSLayoutConstraint!
     @IBOutlet var recordButton: UIButton!
     
-    var completionHandler: ((String) -> Void)?
+    var completionHandler: ((String, Bool) -> Void)?
     var msg = ""
     var viewModel = ChatViewModel()
     var messages: [Message] = []
@@ -27,6 +27,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
     var dataLoading = false
     var tempVoiceText = ""
     var eduChatViewModel = EducationChatViewModel()
+    var isFinish:Bool = false
     
     // MARK: - Speech Properties
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US")) // Use the locale identifier for your language
@@ -61,10 +62,17 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Disable IQKeyboardManager for this view controller
         IQKeyboardManager.shared.isEnabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Ensures the chat is at the bottom when the view first becomes visible
+        scrollToLast()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,7 +136,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             showAlert("Please enter a text")
             return
         }
-        appendMessage(text.trimmingCharacters(in: .whitespacesAndNewlines), isSender: true)
+        appendMessage(text.trimmingCharacters(in: .whitespaces), isSender: true)
         // updateMessageApiCall(text: text)
         
         inputMessageTextView.isEditable = false
@@ -137,9 +145,8 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         tableView.reloadData()
         scrollToLast()
         
-        eduChatViewModel.sendPostRequest(message: text.trimmingCharacters(in: .whitespacesAndNewlines), sessionID: sessionID ?? "")
-        
-        sendPostRequest(message: text.trimmingCharacters(in: .whitespacesAndNewlines)) { response in
+       
+        sendPostRequest(message: text.trimmingCharacters(in: .whitespaces)) { response, isFinished in
             if(self.messages[self.messages.count - 1].text == "LOADING")
             {
                 self.messages.removeLast()
@@ -151,6 +158,15 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             else
             {
                 self.updateLastMessage(with: response)
+            }
+            
+            if isFinished {
+                self.eduChatViewModel.saveChat(params: [
+                    "session_id": self.sessionID ?? "",
+                    "alfred": self.messages[self.messages.count - 1].text,
+                    "user": text.trimmingCharacters(in: .whitespaces),
+                    "refference": [:]
+                ])
             }
         }
         inputMessageTextView.text = ""
@@ -213,6 +229,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         }
     }
     
+    
     func removeElements(from index: Int) {
         DispatchQueue.main.async {
             print("index \(index)")
@@ -222,11 +239,9 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             self.messages.removeLast(numberOfElementsToRemove)
             
             self.tableView.reloadData()
-            // self.scrollToLast() // Uncomment if needed
+            self.scrollToLast() // Uncomment if needed
         }
     }
-    
-    
     
     
     private func initializeChat(welcomeMessage: String) {
@@ -243,7 +258,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         scrollToLast()
     }
     
-    func sendPostRequest(message: String, completion: @escaping (String) -> Void) {
+    func sendPostRequest(message: String, completion: @escaping (String, Bool) -> Void) {
         guard let url = URL(string: "https://prod.helloalfred.ai/stream_api/bots/knowledge-bot/v1/ask/stream") else {
             print("Invalid URL")
             return
@@ -285,6 +300,7 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         tableView.reloadData()
         scrollToLast()
     }
+    
     func updateMessageApiCall(text:String)
     {
         let params = [
@@ -604,12 +620,12 @@ extension EducationalChatViewController: URLSessionDataDelegate {
         // Process the data as it arrives
         if let jsonResponse = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
             DispatchQueue.main.async {
-                self.completionHandler?("Received JSON chunk: \(jsonResponse)")
+                self.completionHandler?("Received JSON chunk: \(jsonResponse)", false)
             }
         } else {
             let stringResponse = String(data: data, encoding: .utf8)
             DispatchQueue.main.async {
-                self.completionHandler?(stringResponse ?? "Unknown data format")
+                self.completionHandler?(stringResponse ?? "Unknown data format", false)
             }
         }
     }
@@ -622,6 +638,7 @@ extension EducationalChatViewController: URLSessionDataDelegate {
         if let error = error {
             print("Error completing request: \(error)")
         } else {
+            self.completionHandler?("", true)
             print("Request completed successfully")
         }
     }
