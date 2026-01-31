@@ -532,8 +532,7 @@ extension EducationalChatViewController: UITableViewDelegate, UITableViewDataSou
             // Handle the dislike button action here
             if(chipName == "more")
             {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let currentViewController = storyboard.instantiateViewController(withIdentifier: "ChatFeedbackViewController") as? ChatFeedbackViewController {
+                if let currentViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "ChatFeedbackViewController") as? ChatFeedbackViewController {
 
                     currentViewController.remarkText = { remark in
                         let params = [

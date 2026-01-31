@@ -1,5 +1,7 @@
 
 import Foundation
+import UIKit
+
 struct DataService
 {
    // static let developmentBaseURL = "https://testingappspr.azurewebsites.net/"
@@ -12,6 +14,9 @@ struct DataService
 }
 
 public struct Constants {
+    static let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+    static let helpPhoneNumber = ""
+    
    static let termsAndPolicy = """
 <!DOCTYPE html>\n
 <html lang=\"en\">

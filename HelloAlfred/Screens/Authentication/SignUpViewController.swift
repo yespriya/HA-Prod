@@ -8,7 +8,7 @@
 import UIKit
 import FlagPhoneNumber
 
-class SignUpViewController: BaseViewController,UIDocumentPickerDelegate, TermsAndConditionsViewControllerDelegate 
+class SignUpViewController: BaseViewController,UIDocumentPickerDelegate
 {
 
 //    @IBOutlet var uploadFileTopConstraint: NSLayoutConstraint!
@@ -99,11 +99,12 @@ class SignUpViewController: BaseViewController,UIDocumentPickerDelegate, TermsAn
         present(documentPicker, animated: true, completion: nil)
     }
     @IBAction func termsAndConditionsClicked(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let currentViewController = storyboard.instantiateViewController(withIdentifier: "TermsAndConditionsViewController") as? TermsAndConditionsViewController {
+        if let currentViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "TermsAndConditionsViewController") as? TermsAndConditionsViewController {
             currentViewController.isChecked = isChecked
             currentViewController.email = emailTextFeild.text ?? ""
-            currentViewController.delegate = self
+            currentViewController.isAccept = { isAccept in
+                self.isChecked = isAccept
+            }
             currentViewController.modalPresentationStyle = .overFullScreen
             present(currentViewController, animated: true)
         }
@@ -309,12 +310,4 @@ extension SignUpViewController:DatePickerDelegate
         return true
       }
     }
-    
-    //data from the terms and conditions screen
-    func didDismissWithData(_ data: Bool) {
-        print(data)
-        isChecked = data
-    }
-
-    
 }

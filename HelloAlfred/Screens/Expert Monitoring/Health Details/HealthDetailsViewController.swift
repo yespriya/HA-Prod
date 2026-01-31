@@ -30,8 +30,6 @@ class HealthDetailsViewController: BaseViewController {
     @IBOutlet var diastolicBPTextField: UITextField!
     @IBOutlet var systolicBPTextField: UITextField!
     @IBOutlet var lastUpdateSymptomsLabel: UILabel!
-    
-    @IBOutlet var noHealthDetailsView: UIView!
     @IBOutlet var prevHealthDetailsView: Myview!
     
     var tappedTextFeild = UITextField()

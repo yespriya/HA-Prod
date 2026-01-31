@@ -52,8 +52,7 @@ extension AppDelegate {
     func gotoOnboardingScreen()
     {
         if UserDefaults.standard.bool(forKey: "IS_APP_OPENED") {
-            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewcontroller: SignInViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+            let viewcontroller: SignInViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
             viewcontroller.modalTransitionStyle = .crossDissolve
             
             let navController:UINavigationController = UINavigationController.init(rootViewController: viewcontroller)
@@ -61,8 +60,7 @@ extension AppDelegate {
             window?.rootViewController = navController
             window?.makeKeyAndVisible()
         } else {
-            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewcontroller: AppIntroViewController = storyboard.instantiateViewController(withIdentifier: "AppIntroViewController") as! AppIntroViewController
+            let viewcontroller: AppIntroViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "AppIntroViewController") as! AppIntroViewController
             viewcontroller.modalTransitionStyle = .crossDissolve
             let navController:UINavigationController = UINavigationController.init(rootViewController: viewcontroller)
             window?.rootViewController = navController
@@ -71,8 +69,7 @@ extension AppDelegate {
     }
     
     func redirectToLogin(errorMsg: String?) {
-        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewcontroller: SignInViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        let viewcontroller: SignInViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
         viewcontroller.modalTransitionStyle = .crossDissolve
         viewcontroller.clearStoredData()
         let navController:UINavigationController = UINavigationController.init(rootViewController: viewcontroller)
@@ -83,8 +80,7 @@ extension AppDelegate {
     }
     
     func gotoHome() {
-        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewcontroller: DashboardViewController = storyboard.instantiateViewController(withIdentifier: "DashboardViewController") as! DashboardViewController
+        let viewcontroller: DashboardViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "DashboardViewController") as! DashboardViewController
         viewcontroller.modalTransitionStyle = .crossDissolve
         let navController:UINavigationController = UINavigationController.init(rootViewController: viewcontroller)
         window?.rootViewController = navController
