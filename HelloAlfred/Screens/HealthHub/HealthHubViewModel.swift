@@ -138,7 +138,7 @@ class HealthHubViewModel {
     func fetchHealthHubDropDownData() {
         isLoading = true
         
-        APIClient.fetchHealthHubDropDownData(params: ["subdomain": "prod.helloalfred.ai/be"]) { result in
+        APIClient.fetchHealthHubDropDownData(params: ["subdomain": "helloalfred.ai/be"]) { result in
             self.isLoading = false
             
             switch result {
@@ -175,7 +175,7 @@ class HealthHubViewModel {
     func fetchHealthHubOverviewData() {
         isLoading = true
         
-        APIClient.fetechHealthHubOverview(params: ["subdomain":"prod.helloalfred.ai/be"]) { result in
+        APIClient.fetechHealthHubOverview(params: ["subdomain":"helloalfred.ai/be"]) { result in
             self.isLoading = false
             
             switch result {

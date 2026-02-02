@@ -100,6 +100,7 @@ class AuthViewModel {
                 debugPrint("Request failed with error: \(error.localizedDescription)")
                 self.errorMessage = error.localizedDescription
                 self.error = error
+                self.errorMessageAlert?()
             }
         }
     }
