@@ -16,9 +16,14 @@ struct UserRepository {
         return api.request(router: .signup(model: model))
     }
     
-    // signup
+    // signIn
     func signIn(with model: SignInRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
         return api.request(router: .signIn(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // socialAuth
+    func socialAuth(with model: SignInRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+        return api.request(router: .socialAuth(model: model), checking: isShowLoader ? .checked : .unchecked)
     }
 
 }

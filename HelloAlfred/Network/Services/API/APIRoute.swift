@@ -13,10 +13,11 @@ enum APIRoute {
     case fetchAddress(input: String)
     case signup(model: SignupRequestModel)
     case signIn(model: SignInRequestModel)
+    case socialAuth(model: SignInRequestModel)
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn:
+        case .signup, .signIn, .socialAuth:
             return .post
         default:
             return .get
@@ -36,6 +37,8 @@ enum APIRoute {
             return "common/create_account"
         case .signIn:
             return "common/login_account"
+        case .socialAuth:
+            return "common/socialauth"
         case .fetchAddress:
             return "address/search"
         }
@@ -46,6 +49,8 @@ enum APIRoute {
         case .signup(let model):
             return parseModel(data: model)
         case .signIn(let model):
+            return parseModel(data: model)
+        case .socialAuth(let model):
             return parseModel(data: model)
         case .fetchAddress(let input):
             let params: [String: Any] = ["input": input]

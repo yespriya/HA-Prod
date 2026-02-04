@@ -78,27 +78,52 @@ class AuthViewModel {
         }
     }
 
-    // Signin User
-    func signinUser(model: SignInRequestModel, completion: @escaping((AccessToken?) -> Void)) {
+    // Signin User with Email
+    func signinUser(model: SignInRequestModel, completion: (() -> Void)? = nil) {
         userRepository.signIn(with: model, isShowLoader: true)
             .subscribe(onSuccess: { [weak self] response in
                 self?.signInToken = response.data
                 if response.status ?? false == false {
                     self?.errorMessage = response.message
                     self?.isError = true
-                    completion(nil)
+                    self?.errorMessageAlert?()
+                    completion?()
                 } else {
                     KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
-                    completion(response.data ?? nil)
+                    completion?()
                 }
             }, onFailure: { [weak self] error in
                 self?.errorMessage = error.localizedDescription
                 self?.isError = true
-                completion(nil)
+                self?.errorMessageAlert?()
+                completion?()
             })
             .disposed(by: disposeBag)
     }
     
+    // Signin User
+    func socialSignIn(model: SignInRequestModel, completion: (() -> Void)? = nil) {
+        userRepository.socialAuth(with: model, isShowLoader: true)
+            .subscribe(onSuccess: { [weak self] response in
+                self?.signInToken = response.data
+                if response.status ?? false == false {
+                    self?.errorMessage = response.message
+                    self?.isError = true
+                    self?.errorMessageAlert?()
+                    completion?()
+                } else {
+                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
+                    completion?()
+                }
+            }, onFailure: { [weak self] error in
+                self?.errorMessage = error.localizedDescription
+                self?.isError = true
+                self?.errorMessageAlert?()
+                completion?()
+            })
+            .disposed(by: disposeBag)
+    }
+    /*
     func signinUser(params: [String: Any]) {
         isLoading = true
         APIClient.signInUser(params: params) { result in
@@ -130,7 +155,7 @@ class AuthViewModel {
             }
         }
     }
-
+*/
     // Generate OTP
     func generateOTP(params: [String: Any]) {
         isLoading = true
@@ -265,6 +290,7 @@ class AuthViewModel {
     }
 
     // Google Auth
+    /*
     func googleAuth(params: [String: Any]) {
         isLoading = true
         APIClient.googleAuth(params: params) { result in
@@ -295,7 +321,7 @@ class AuthViewModel {
             }
         }
     }
-    /*
+    
     func fetchTermsAndConditions() {
         isLoading = true
         APIClient.fetchTermsAndConditions { result in

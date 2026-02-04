@@ -286,6 +286,7 @@ extension UIViewController
     
     func clearStoredData()
     {
+        KeychainManager.shared.delete(key: "accessToken")
         UserDefaults.standard.removeObject(forKey: "Authorization")
         UserDefaults.standard.removeObject(forKey: "PateintId")
         UserDefaults.standard.removeObject(forKey: "Username")

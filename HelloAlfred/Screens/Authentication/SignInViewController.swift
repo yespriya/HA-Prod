@@ -110,8 +110,8 @@ class SignInViewController: BaseViewController {
             session_id: "",
             subdomain: Constants.subdomain
         )
-        viewModel.signinUser(model: signInData, completion: { accessToken in
-            if let token = accessToken?.token {
+        viewModel.signinUser(model: signInData) {
+            if let token = self.viewModel.signInToken?.token {
                 let userdetails = self.decodeJWT(part: token)
                 print(userdetails)
                 
@@ -151,7 +151,7 @@ class SignInViewController: BaseViewController {
             } else {
                 self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
-        })
+        }
     }
     
     func generateOTPApiCall() {
@@ -186,23 +186,21 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    func googleAccountCheckApiCall(name:String,email:String, onboard:String)
+    func socialSignIn(name:String,email:String, onboard: SocialAuthType)
     {
         let params = [
          "username": name,
          "email": email,
          "session_id": "",
-         "onboarding" : onboard
+         "onboarding" : onboard.rawValue
         ] as [String : Any]
         
+        let signInData = SignInRequestModel(username: name, email: email, session_id: "", onboarding: onboard.rawValue)
         
         print("params \(params)")
         
-        viewModel.googleAuth(params: params)
-        viewModel.signInSuccess =
-        {
-            
-            if let token = self.viewModel.signInData?.data?.token {
+        viewModel.socialSignIn(model: signInData) {
+            if let token = self.viewModel.signInToken?.token {
                 let userDetails = self.decodeJWT(part: token)
                 UserDefaults.standard.set("Bearer \(self.viewModel.signInData?.data?.token ?? "")", forKey: "Authorization")
                 UserDefaults.standard.set(userDetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
@@ -265,20 +263,10 @@ class SignInViewController: BaseViewController {
 
             } else
             {
-                self.showAlert(self.viewModel.signInData?.message ?? "Invalid Token")
+                self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
         }
-        
-        
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
-            }
-        }
+
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "")
         }
@@ -328,10 +316,13 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Phone Number
-            if let userName = appleIDCredential.fullName {
-                print("User Phone Number: \(userName)")
-                if let email = appleIDCredential.email {
-                    print("User Email: \(email)")
+            if let email = appleIDCredential.email {
+                print("User Email: \(email)")
+                if let userName = appleIDCredential.fullName {
+                    print("User Phone Number: \(userName)")
+                    self.socialSignIn(name: userName.givenName ?? "", email: email, onboard: .apple)
+                } else {
+                    self.socialSignIn(name: "", email: email, onboard: .apple)
                 }
             }
         }

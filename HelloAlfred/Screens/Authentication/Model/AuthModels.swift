@@ -31,6 +31,10 @@ struct SigninResModel : Codable
 
 }
 
+enum SocialAuthType: String {
+    case google, apple
+}
+
 struct SignupRequestModel: Codable {
     var email: String
     var dob: String
@@ -47,7 +51,9 @@ struct SignupRequestModel: Codable {
 
 struct SignInRequestModel: Codable {
     var username: String
-    var password: String
+    var email: String? = nil
+    var password: String? = nil
     var session_id: String
-    var subdomain: String
+    var subdomain: String? = nil
+    var onboarding: String? = nil
 }
