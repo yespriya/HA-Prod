@@ -14,6 +14,7 @@ struct DataService
 }
 
 public struct Constants {
+    static let subdomain: String = "helloalfred.ai/be"
     static let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
     static let helpPhoneNumber = ""
     

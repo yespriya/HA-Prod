@@ -4,7 +4,7 @@ struct CommonResModel : Codable {
 	let message : String?
 	let statuscode : Int?
 	let status : Bool?
-    let data : DataToken?
+    let data : AccessToken?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -19,24 +19,14 @@ struct CommonResModel : Codable {
 		message = try values.decodeIfPresent(String.self, forKey: .message)
 		statuscode = try values.decodeIfPresent(Int.self, forKey: .statuscode)
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
-		data = try values.decodeIfPresent(DataToken.self, forKey: .data)
+		data = try values.decodeIfPresent(AccessToken.self, forKey: .data)
 	}
 
 }
-struct DataToken : Codable {
+struct AccessToken : Codable {
     let token : String?
-
-    enum CodingKeys: String, CodingKey {
-
-        case token = "token"
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        token = try values.decodeIfPresent(String.self, forKey: .token)
-    }
-
 }
+
 //
 //
 //import Foundation

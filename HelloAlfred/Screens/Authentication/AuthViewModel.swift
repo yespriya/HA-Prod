@@ -1,9 +1,13 @@
 import Foundation
 import UIKit
 import Alamofire
+import RxSwift
 
 class AuthViewModel {
     // Properties
+    private let userRepository = UserRepository()
+    private let disposeBag = DisposeBag()
+    
     var signupRes: CommonResModel?
     var generateOTPRes: CommonResModel?
     var verifyOTPRes: CommonResModel?
@@ -14,8 +18,10 @@ class AuthViewModel {
     var termsAndConditionsRes: TermsAndConditionsModel?
 
     var signInData: SigninResModel?
+    var signInToken: AccessToken?
     var error: Error?
     var errorMessage: String?
+    var isError = false
     
     var isLoading: Bool = false {
         didSet {
@@ -73,6 +79,26 @@ class AuthViewModel {
     }
 
     // Signin User
+    func signinUser(model: SignInRequestModel, completion: @escaping((AccessToken?) -> Void)) {
+        userRepository.signIn(with: model, isShowLoader: true)
+            .subscribe(onSuccess: { [weak self] response in
+                self?.signInToken = response.data
+                if response.status ?? false == false {
+                    self?.errorMessage = response.message
+                    self?.isError = true
+                    completion(nil)
+                } else {
+                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
+                    completion(response.data ?? nil)
+                }
+            }, onFailure: { [weak self] error in
+                self?.errorMessage = error.localizedDescription
+                self?.isError = true
+                completion(nil)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func signinUser(params: [String: Any]) {
         isLoading = true
         APIClient.signInUser(params: params) { result in

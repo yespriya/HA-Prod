@@ -11,7 +11,7 @@ struct SigninResModel : Codable
     let statuscode : Int?
     let status : Bool?
     let message : String?
-    let data : UserData?
+    let data : AccessToken?
 
     enum CodingKeys: String, CodingKey {
 
@@ -26,21 +26,28 @@ struct SigninResModel : Codable
         statuscode = try values.decodeIfPresent(Int.self, forKey: .statuscode)
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
         message = try values.decodeIfPresent(String.self, forKey: .message)
-        data = try values.decodeIfPresent(UserData.self, forKey: .data)
+        data = try values.decodeIfPresent(AccessToken.self, forKey: .data)
     }
 
 }
-struct UserData : Codable {
-    let token : String?
 
-    enum CodingKeys: String, CodingKey {
+struct SignupRequestModel: Codable {
+    var email: String
+    var dob: String
+    var gender: String
+    var mobile: String
+    var rtype: String
+    var education: String
+    var ssn: String
+    var insuranceurl: String
+    var password: String
+    var username: String
+    var nationality: String
+}
 
-        case token = "token"
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        token = try values.decodeIfPresent(String.self, forKey: .token)
-    }
-
+struct SignInRequestModel: Codable {
+    var username: String
+    var password: String
+    var session_id: String
+    var subdomain: String
 }

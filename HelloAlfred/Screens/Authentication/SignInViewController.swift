@@ -80,7 +80,7 @@ class SignInViewController: BaseViewController {
         }
         else
         {
-            signinApiCall()
+            signIn()
         }
     }
     
@@ -99,29 +99,23 @@ class SignInViewController: BaseViewController {
             UIApplication.shared.open(url)
         }
     }
-
-    func signinApiCall()
-    {
+    
+    func signIn() {
         isFromSignIn = true
         self.view.endEditing(true)
-        let params = [
-         "username": userNameTextFeild.text ?? "",
-         "password": passwordTextFeild.text ?? "",
-         "session_id": "",
-         "subdomain": "helloalfred.ai/be"
-        ] as [String : Any]
         
-        
-        print("params \(params)")
-        
-        viewModel.signinUser(params: params)
-        viewModel.signInSuccess =
-        {
-            if let token = self.viewModel.signInData?.data?.token {
+        let signInData = SignInRequestModel(
+            username: userNameTextFeild.text ?? "",
+            password: passwordTextFeild.text ?? "",
+            session_id: "",
+            subdomain: Constants.subdomain
+        )
+        viewModel.signinUser(model: signInData, completion: { accessToken in
+            if let token = accessToken?.token {
                 let userdetails = self.decodeJWT(part: token)
                 print(userdetails)
                 
-                UserDefaults.standard.set("Bearer \(self.viewModel.signInData?.data?.token ?? "")", forKey: "Authorization")
+                UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
                 UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
                 UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
                 UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
@@ -155,24 +149,11 @@ class SignInViewController: BaseViewController {
                 UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
                 self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
             } else {
-                self.showAlert(self.viewModel.signInData?.message ?? "Invalid Token")
+                self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
-        }
-        
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                if self.isFromSignIn {
-                    self.activityIndicator(self.view, startAnimate: true)
-                }
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-            }
-        }
-        viewModel.errorMessageAlert = {
-            self.showAlert(self.viewModel.errorMessage ?? "")
-        }
+        })
     }
+    
     func generateOTPApiCall() {
         let params = [
             "email": UserDefaults.standard.string(forKey: "Email") ?? "",

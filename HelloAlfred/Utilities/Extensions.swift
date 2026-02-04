@@ -615,3 +615,26 @@ extension NSLayoutConstraint {
         return newConstraint
     }
 }
+
+extension Dictionary {
+    func toJSONString() -> String {
+        do {
+            return String(data: try JSONSerialization.data(withJSONObject: self), encoding: .utf8) ?? ""
+        } catch {
+            print(error)
+            return ""
+        }
+    }
+}
+
+extension Data {
+    func convertToDictionary() -> [String: Any] {
+        do {
+            let json = try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
+            return json ?? [:]
+        } catch {
+            print(error)
+        }
+        return [:]
+    }
+}
