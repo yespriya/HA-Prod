@@ -154,51 +154,42 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    func generateOTPApiCall() {
-        let params = [
-            "email": UserDefaults.standard.string(forKey: "Email") ?? "",
-            "username": UserDefaults.standard.string(forKey: "Username") ?? "",
-            "mobile": "",
-            "sms_type": "sms"
-        ] as [String : Any]
-         
-        print("params \(params)")
+    func generateOTP() {
+        let email = UserDefaults.standard.string(forKey: "Email") ?? ""
+        let username = UserDefaults.standard.string(forKey: "Username") ?? ""
+
+        let otpDataModel = OTPRequestModel(
+            email: email,
+            username: username,
+            mobile: "",
+            sms_type: "sms"
+        )
+
         isFromSignIn = false
-        viewModel.generateOTP(params: params)
-        viewModel.generateOTPSuccess = { [self] in
-            let storyboard = UIStoryboard(name: "Main", bundle: .main)
-            let popup = storyboard.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-            if viewModel.generateOTPRes?.statuscode == 200 {
-                popup.otpSentLabelText = self.viewModel.generateOTPRes?.message ?? ""
-                popup.isFromSignIN = true
+        viewModel.generateOTP(model: otpDataModel) { [self] success in
+            if success {
+                let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
+                if viewModel.generateOTPRes?.statuscode == 200 {
+                    popup.otpSentLabelText = self.viewModel.generateOTPRes?.message ?? ""
+                    popup.isFromSignIN = true
+                } else {
+                    self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP not sent.")
+                }
+                popup.modalPresentationStyle = .overCurrentContext
+                present(popup, animated: true, completion: nil)
             } else {
-                self.showAlert(self.viewModel.generateOTPRes?.message ?? "")
+                self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP not sent.")
             }
-            popup.modalPresentationStyle = .overCurrentContext
-            present(popup, animated: true, completion: nil)
         }
         viewModel.errorMessageAlert = {
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                
-            }
+            self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP sent failed.")
         }
     }
     
-    func socialSignIn(name:String,email:String, onboard: SocialAuthType)
-    {
-        let params = [
-         "username": name,
-         "email": email,
-         "session_id": "",
-         "onboarding" : onboard.rawValue
-        ] as [String : Any]
-        
+    func socialSignIn(name:String,email:String, onboard: SocialAuthType) {
+
         let signInData = SignInRequestModel(username: name, email: email, session_id: "", onboarding: onboard.rawValue)
-        
-        print("params \(params)")
-        
+                
         viewModel.socialSignIn(model: signInData) {
             if let token = self.viewModel.signInToken?.token {
                 let userDetails = self.decodeJWT(part: token)
@@ -228,7 +219,7 @@ class SignInViewController: BaseViewController {
                     }
                     if let otpFlow = userDetails?["otp_flow"] as? Bool {
                         if otpFlow == true {
-                            self.generateOTPApiCall()
+                            self.generateOTP()
                             return
                         }
                     }

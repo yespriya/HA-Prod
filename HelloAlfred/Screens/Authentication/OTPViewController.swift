@@ -194,48 +194,24 @@ class OTPViewController: BaseViewController
     {
         timerLabel.text = "Sending OTP"
         self.view.endEditing(true)
-        var params: [String: Any]
-        if(userData?.firstName == nil)
-        {
-             params = [
-                "email": userData?.email ?? "",
-                "username":  "\(userData?.firstName ?? "") \(userData?.lastName ?? "")",
-                "mobile": userData?.mobile ?? "",
-                "sms_type" : smsType
-            ] as [String : Any]
-        }
-        else
-        {
-            params = [
-                "email": userData?.email ?? "",
-                "username": "\(userData?.firstName ?? "") \(userData?.lastName ?? "")",
-                "mobile": userData?.mobile ?? "",
-                "sms_type" : smsType
-            ] as [String : Any]
-        }
-        print("params \(params)")
-        viewModel.generateOTP(params: params)
-        viewModel.generateOTPSuccess = {
-            self.timerLabel.text = "OTP sent successfully."
-            self.resetTimer()
+        
+        let email = userData?.email ?? ""
+        let username = "\(userData?.firstName ?? "") \(userData?.lastName ?? "")"
+        let mobile = userData?.mobile ?? ""
+        
+        let otpDataModel = OTPRequestModel(email: email, username: username, mobile: mobile, sms_type: smsType)
 
+        viewModel.generateOTP(model: otpDataModel) { [weak self] success in
+            if success {
+                self?.timerLabel.text = "OTP sent successfully."
+                self?.resetTimer()
+            } else {
+                self?.showAlert(self?.viewModel.errorMessage ?? "OTP send error. Please try again.")
+            }
         }
         viewModel.errorMessageAlert = {
             self.resetTimer()
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                    // Handle OK button click action here
-//                   self.redirectToSignup()
-//                let storyboard = UIStoryboard(name: "Main", bundle: .main)
-//                let popup = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-//                popup.userData = self.userData
-//                popup.modalPresentationStyle = .overCurrentContext
-//                self.present(popup, animated: true, completion: nil)
-
-               
-                
-            }
+            self.showAlert(self.viewModel.errorMessage ?? "OTP send error. Please try again.")
         }
     }
        

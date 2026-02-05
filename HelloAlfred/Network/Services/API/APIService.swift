@@ -42,8 +42,10 @@ class APIService {
         return Single<T>.create { singleEvent in
             let request: DataRequest
             switch router {
+                /*
             case .fetchAddress:
                 request = self.session.upload(multipartFormData: router.multipartFormData(), with: router)
+                 */
             default:
                 request = self.session.request(router)
             }
@@ -78,8 +80,10 @@ class APIService {
         return Single<T>.create { singleEvent in
             let request: DataRequest
             switch router {
+                /*
             case .fetchAddress:
                 request = self.session.upload(multipartFormData: router.multipartFormData(), with: router)
+                 */
             default:
                 request = self.session.request(router)
             }

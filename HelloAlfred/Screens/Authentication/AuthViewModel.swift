@@ -9,7 +9,7 @@ class AuthViewModel {
     private let disposeBag = DisposeBag()
     
     var signupRes: CommonResModel?
-    var generateOTPRes: CommonResModel?
+    var generateOTPRes: BaseResponse<AccessToken>?
     var verifyOTPRes: CommonResModel?
     var updatePasswordRes: CommonResModel?
     var changePasswordRes: CommonResModel?
@@ -123,6 +123,30 @@ class AuthViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+    // Signin User
+    func generateOTP(model: OTPRequestModel, completion: ((Bool) -> Void)? = nil) {
+        userRepository.generateOTP(with: model, isShowLoader: true)
+            .subscribe(onSuccess: { [weak self] response in
+                self?.generateOTPRes = response
+                if response.status ?? false == false {
+                    self?.errorMessage = response.message
+                    self?.isError = true
+                    self?.errorMessageAlert?()
+                    completion?(false)
+                } else {
+                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
+                    completion?(true)
+                }
+            }, onFailure: { [weak self] error in
+                self?.errorMessage = error.localizedDescription
+                self?.isError = true
+                self?.errorMessageAlert?()
+                completion?(false)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     /*
     func signinUser(params: [String: Any]) {
         isLoading = true
@@ -155,7 +179,6 @@ class AuthViewModel {
             }
         }
     }
-*/
     // Generate OTP
     func generateOTP(params: [String: Any]) {
         isLoading = true
@@ -192,6 +215,7 @@ class AuthViewModel {
             }
         }
     }
+    */
 
     // Verify OTP
     func verifyOTP(params: [String: Any]) {

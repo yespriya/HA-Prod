@@ -57,3 +57,10 @@ struct SignInRequestModel: Codable {
     var subdomain: String? = nil
     var onboarding: String? = nil
 }
+
+struct OTPRequestModel: Codable {
+    var email: String
+    var username: String? = nil
+    var mobile: String? = nil
+    var sms_type: String
+}

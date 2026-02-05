@@ -149,64 +149,43 @@ class SignUpViewController: BaseViewController,UIDocumentPickerDelegate
 //            residenceDropDownTextField.text = userData?.rtype
         }
     }
-    func generateOTPApiCall()
-    {
+    func generateOTPApiCall() {
         let countryCode = mobileTextFeild.selectedCountry?.phoneCode ?? ""
         let mobileNumber = mobileTextFeild.text?.replacingOccurrences(of: " ", with: "") ?? ""
         let fullMobile = "\(countryCode)\(mobileNumber)"
      
         self.view.endEditing(true)
-        let params = [
-            "email": emailTextFeild.text ?? "",
-            "username": firstNameTextFeild.text ?? "",
-            "mobile": fullMobile,
-            "sms_type": "sms"
-        ] as [String : Any]
-        
-        print("params \(params)")
-        
-        viewModel.generateOTP(params: params)
-        viewModel.generateOTPSuccess = { [self] in
-            let userData = SignupUserData(firstName: firstNameTextFeild.text ?? "",lastName: lastNameTextFeild.text ?? "", email: emailTextFeild.text ?? "", dob: self.dobTextfeild.text ?? "", gender: genderDropDownTextFeild.text ?? "", mobile: mobileTextFeild.text ?? "",
-            rtype: nil,
-            education: nil, ssn: nil, insuranceurl: nil, password: nil)
-            
-         
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: .main)
-            let popup = storyboard.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-            if viewModel.generateOTPRes?.statuscode == 200 {
-                popup.otpSentLabelText = self.viewModel.generateOTPRes?.message ?? ""
-            } else {
-                self.showAlert(self.viewModel.generateOTPRes?.message ?? "")
-            }
-            popup.userData = userData
-            popup.modalPresentationStyle = .overCurrentContext
-            present(popup, animated: true, completion: nil)
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-            }
-        }
-        viewModel.errorMessageAlert = {
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                    // Handle OK button click action here
-//                   self.redirectToSignup()
-//                let storyboard = UIStoryboard(name: "Main", bundle: .main)
-//                let popup = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-//                popup.userData = self.userData
-//                popup.modalPresentationStyle = .overCurrentContext
-//                self.present(popup, animated: true, completion: nil)
 
-               
+        let email = emailTextFeild.text ?? ""
+        let username = firstNameTextFeild.text ?? ""
+
+        let otpDataModel = OTPRequestModel(
+            email: email,
+            username: username,
+            mobile: fullMobile,
+            sms_type: "sms"
+        )
+       
+        viewModel.generateOTP(model: otpDataModel) { [self] success in
+            if success {
+                let userData = SignupUserData(firstName: firstNameTextFeild.text ?? "",lastName: lastNameTextFeild.text ?? "", email: emailTextFeild.text ?? "", dob: self.dobTextfeild.text ?? "", gender: genderDropDownTextFeild.text ?? "", mobile: mobileTextFeild.text ?? "",
+                rtype: nil,
+                education: nil, ssn: nil, insuranceurl: nil, password: nil)
                 
+                let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
+                if viewModel.generateOTPRes?.statuscode == 200 {
+                    popup.otpSentLabelText = self.viewModel.generateOTPRes?.message ?? ""
+                } else {
+                    self.showAlert(self.viewModel.errorMessage ?? "OTP sent failed. Please try again.")
+                }
+                popup.userData = userData
+                popup.modalPresentationStyle = .overCurrentContext
+                present(popup, animated: true, completion: nil)
             }
+        }
+        
+        viewModel.errorMessageAlert = {
+            self.showAlert(self.viewModel.errorMessage ?? "OTP sent failed. Please try again.")
         }
     }
     

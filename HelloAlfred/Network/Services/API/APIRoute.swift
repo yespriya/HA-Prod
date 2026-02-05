@@ -9,15 +9,16 @@ import Foundation
 import Alamofire
 
 enum APIRoute {
-    /// cars
-    case fetchAddress(input: String)
+    
+    // users
     case signup(model: SignupRequestModel)
     case signIn(model: SignInRequestModel)
     case socialAuth(model: SignInRequestModel)
+    case generateOtp(model: OTPRequestModel)
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth:
+        case .signup, .signIn, .socialAuth, .generateOtp:
             return .post
         default:
             return .get
@@ -39,8 +40,8 @@ enum APIRoute {
             return "common/login_account"
         case .socialAuth:
             return "common/socialauth"
-        case .fetchAddress:
-            return "address/search"
+        case .generateOtp:
+            return "common/generate_otp"
         }
     }
     
@@ -48,15 +49,33 @@ enum APIRoute {
         switch self {
         case .signup(let model):
             return parseModel(data: model)
+            
         case .signIn(let model):
             return parseModel(data: model)
+            
         case .socialAuth(let model):
             return parseModel(data: model)
-        case .fetchAddress(let input):
-            let params: [String: Any] = ["input": input]
-            return params
+            
+        case .generateOtp(let model):
+            return parseModel(data: model)
         default:
             return nil
+        }
+    }
+    
+    var encoding: ParameterEncoding {
+        switch self {
+        case .signIn, .signup, .socialAuth, .generateOtp:
+            return JSONEncoding.default
+        default:
+            return URLEncoding.queryString
+        }
+    }
+    
+    var needAuthorization: Bool {
+        switch self {
+        default:
+            return false
         }
     }
     
@@ -89,23 +108,6 @@ enum APIRoute {
         return header
     }
     
-    var encoding: ParameterEncoding {
-        switch self {
-        case .signIn:
-            return JSONEncoding.default
-        default:
-            return URLEncoding.queryString
-        }
-    }
-    
-    var needAuthorization: Bool {
-        switch self {
-        case .fetchAddress:
-            return true
-        default:
-            return false
-        }
-    }
 }
 
 extension APIRoute: URLRequestConvertible {

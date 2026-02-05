@@ -25,5 +25,9 @@ struct UserRepository {
     func socialAuth(with model: SignInRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
         return api.request(router: .socialAuth(model: model), checking: isShowLoader ? .checked : .unchecked)
     }
-
+     
+    // generate OTP
+    func generateOTP(with model: OTPRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+        return api.request(router: .generateOtp(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
 }
