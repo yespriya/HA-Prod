@@ -72,7 +72,7 @@ class PasswordViewController: BaseViewController {
             }
             else
             {
-                signUpApiCall()
+                signUp()
             }
             
         }
@@ -83,65 +83,42 @@ class PasswordViewController: BaseViewController {
     }
     
     
-    func signUpApiCall()
-    {
+    func signUp() {
         self.view.endEditing(true)
-        self.activityIndicator(self.view, startAnimate: true)
-        let params = [
-            
-            "email": userData?.email ?? "",
-            "dob": userData?.dob ?? "",
-            "gender": userData?.gender ?? "",
-            "mobile":  (userData?.mobile ?? "").removingSpecialCharacters(),
-            "rtype": userData?.rtype ?? "",
-            "education": userData?.education ?? "",
-            "ssn": userData?.ssn ?? "",
-            "insuranceurl": "",
-            "password": passwordTextFeild.text ?? "",
-            "username": "\(userData?.firstName ?? "")  \(userData?.lastName ?? "")",
-            "nationality": userData?.nationality ?? ""
-        ] as [String : Any]
+
+        let signupRequestModel = SignupRequestModel(
+            email: userData?.email ?? "",
+            dob: userData?.dob ?? "",
+            gender: userData?.gender ?? "",
+            mobile: (userData?.mobile ?? "").removingSpecialCharacters(),
+            rtype: userData?.rtype ?? "",
+            education: userData?.education ?? "",
+            ssn: userData?.ssn ?? "",
+            insuranceurl: "",
+            password: passwordTextFeild.text ?? "",
+            username: "\(userData?.firstName ?? "")  \(userData?.lastName ?? "")",
+            nationality: userData?.nationality ?? ""
+        )
         
-        
-        print("params \(params)")
-        
-        viewModel.signupUser(params: params)
-        viewModel.registerSuccess = {
-            self.showAlertWithHandler(message: self.viewModel.signupRes?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                
-                self.navigateTo(viewController: SubscriptionViewController.self, withIdentifier: "SubscriptionViewController")
-                
-                
+        viewModel.signUp(model: signupRequestModel) { [weak self] success in
+            if success  {
+                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
+                    self?.navigateTo(viewController: SubscriptionViewController.self, withIdentifier: "SubscriptionViewController")
+                }
             }
         }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
-            }
-        }
+        
         viewModel.errorMessageAlert = {
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                // Handle OK button click action here
-                //                   self.redirectToSignup()
+            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false) { _ in
                 let storyboard = UIStoryboard(name: "Main", bundle: .main)
                 let popup = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
                 popup.userData = self.userData
                 popup.modalPresentationStyle = .overCurrentContext
                 self.present(popup, animated: true, completion: nil)
-                
-                
-                
             }
         }
     }
+    
     func updatePasswordApiCall()
     {
         self.view.endEditing(true)
@@ -150,41 +127,23 @@ class PasswordViewController: BaseViewController {
             "email": userData?.email ?? UserDefaults.standard.string(forKey: "Email") ?? "",
             "password": passwordTextFeild.text ?? ""
         ] as [String : Any]
-        
-        
+    
+        let email = userData?.email ?? UserDefaults.standard.string(forKey: "Email") ?? ""
+        let password = passwordTextFeild.text ?? ""
+    
+        let updatePasswordModel = SignInRequestModel(email: email, password: password)
         print("params \(params)")
         
-        viewModel.updatePassword(params: params)
-        viewModel.updatePasswordSuccess = {
-            self.showAlertWithHandler(message: self.viewModel.updatePasswordRes?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                
-                self.navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
-                
-                
-            }
-            
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
+        viewModel.updatePassword(model: updatePasswordModel) { [weak self] success in
+            if success {
+                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
+                    self?.navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
+                }
             }
         }
+        
         viewModel.errorMessageAlert = {
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                // Handle OK button click action here
-                //                   self.redirectToSignup()
-                
-                
-                
-            }
+            self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
     }
     

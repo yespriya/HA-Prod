@@ -148,48 +148,33 @@ class OTPViewController: BaseViewController
     func verifyOTPApiCall(otp:String)
     {
         self.view.endEditing(true)
-        let params = [
-            "email": userData?.email ?? UserDefaults.standard.string(forKey: "Email") ?? "",
-            "otp": otp
-        ] as [String : Any]
         
-        
-        print("params \(params)")
-        
-        viewModel.verifyOTP(params: params)
-        viewModel.verifyOTPSuccess = 
-        {
-            if !self.isFromSignIN {
-                print("success")
-                let storyboard = UIStoryboard(name: "Main", bundle: .main)
-                let popup = storyboard.instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                popup.userData = self.userData
-                popup.modalPresentationStyle = .overCurrentContext
-                self.present(popup, animated: true, completion: nil)
-            } else {
-                UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
-                self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-            }
+        let email = userData?.email ?? UserDefaults.standard.string(forKey: "Email") ?? ""
             
-            self.navigateTo(viewController: OpticalRiskManagementViewController.self, withIdentifier: "OpticalRiskManagementViewController")
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else 
-            {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
+        viewModel.verifyOTP(email: email, otp: otp) { [weak self] success in
+            if success {
+                if !(self?.isFromSignIN ?? false) {
+                    print("success")
+                    let storyboard = UIStoryboard(name: "Main", bundle: .main)
+                    let popup = storyboard.instantiateViewController(withIdentifier: "PasswordViewController") as? PasswordViewController ?? PasswordViewController()
+                    
+                    popup.userData = self?.userData
+                    popup.modalPresentationStyle = .overCurrentContext
+                    self?.present(popup, animated: true, completion: nil)
+                } else {
+                    UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
+                    self?.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
+                }
+                
+                self?.navigateTo(viewController: OpticalRiskManagementViewController.self, withIdentifier: "OpticalRiskManagementViewController")
             }
         }
+
         viewModel.errorMessageAlert = {
-            self.showAlertWithHandler(message: self.viewModel.errorMessage ?? "Error",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-            }
+            self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
     }
+    
     func generateOTPApiCall(smsType: String)
     {
         timerLabel.text = "Sending OTP"

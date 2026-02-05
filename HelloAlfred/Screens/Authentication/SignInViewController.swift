@@ -11,7 +11,7 @@ import GoogleSignIn
 
 class SignInViewController: BaseViewController {
     let viewModel=AuthViewModel()
-
+    
     @IBOutlet var helloImage: UIImageView!
     @IBOutlet var passwordTextFeild: UnderlinedTextField!
     @IBOutlet var userNameTextFeild: UnderlinedTextField!
@@ -21,7 +21,7 @@ class SignInViewController: BaseViewController {
         super.viewDidLoad()
         UserDefaults.standard.set(true, forKey: "IS_APP_OPENED")
         setupPasswordToggle()
-//        setupDelegates()
+        //        setupDelegates()
         helloImage.loadGif(asset:"sigin-hello")
     }
     
@@ -29,23 +29,23 @@ class SignInViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     /*
-    func setupDelegates()
+     func setupDelegates()
      {
-         
-         passwordTextFeild.delegate = self
-         userNameTextFeild.delegate = self
+     
+     passwordTextFeild.delegate = self
+     userNameTextFeild.delegate = self
      }
      */
     func setupPasswordToggle() {
-         toggleButton.setImage(UIImage(named: "hidepassword"), for: .normal)
-         toggleButton.setImage(UIImage(named: "showpassword"), for: .selected)
-         toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-     }
-     
-     @objc func togglePasswordVisibility() {
-         passwordTextFeild.isSecureTextEntry.toggle()
-         toggleButton.isSelected = !passwordTextFeild.isSecureTextEntry
-     }
+        toggleButton.setImage(UIImage(named: "hidepassword"), for: .normal)
+        toggleButton.setImage(UIImage(named: "showpassword"), for: .selected)
+        toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+    }
+    
+    @objc func togglePasswordVisibility() {
+        passwordTextFeild.isSecureTextEntry.toggle()
+        toggleButton.isSelected = !passwordTextFeild.isSecureTextEntry
+    }
     @IBAction func forgotClicked(_ sender: Any) {
         navigateTo(viewController: ForgotPasswordViewController.self, withIdentifier: "ForgotPasswordViewController")
     }
@@ -58,13 +58,13 @@ class SignInViewController: BaseViewController {
     @IBAction func appleLoginClicked(_ sender: Any)
     {
         let provider = ASAuthorizationAppleIDProvider()
-           let request = provider.createRequest()
-           request.requestedScopes = [.fullName, .email]
-
-           let controller = ASAuthorizationController(authorizationRequests: [request])
-           controller.delegate = self
-           controller.presentationContextProvider = self
-           controller.performRequests()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
     }
     
     @IBAction func signInClicked(_ sender: Any) {
@@ -72,7 +72,7 @@ class SignInViewController: BaseViewController {
         if !isValidEmailOrPhone(userNameTextFeild.text ?? "")
         {
             showAlert("Please enter valid email or phone number")
-
+            
         }
         else if(passwordTextFeild.text == "" || passwordTextFeild.text == nil)
         {
@@ -88,7 +88,7 @@ class SignInViewController: BaseViewController {
     {
         googleSignInAction()
     }
-
+    
     
     @IBAction func helpPhoneClicked(_ sender: Any) {
         self.makePhoneCall(phoneNumber: "+19713352875")
@@ -110,46 +110,49 @@ class SignInViewController: BaseViewController {
             session_id: "",
             subdomain: Constants.subdomain
         )
-        viewModel.signinUser(model: signInData) {
-            if let token = self.viewModel.signInToken?.token {
-                let userdetails = self.decodeJWT(part: token)
-                print(userdetails)
-                
-                UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
-                UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
-                UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
-                UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
-                UserDefaults.standard.set(userdetails?["email"] ?? "Invalid email", forKey: "Email")
-                if let accessArray = userdetails?["has_access"] as? [Int] {
-                    if !accessArray.contains(3) {
-                        UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
-                        if let role = userdetails?["role"] as? Int {
-                            self.displayLoginPopUpAdmin(role: role)
+        viewModel.signIn(model: signInData) { success in
+            if success {
+                if let token = self.viewModel.commonTokenResponse?.data?.token {
+                    let userdetails = self.decodeJWT(part: token)
+                    print(userdetails)
+                    
+                    UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
+                    UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
+                    UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
+                    UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
+                    UserDefaults.standard.set(userdetails?["email"] ?? "Invalid email", forKey: "Email")
+                    if let accessArray = userdetails?["has_access"] as? [Int] {
+                        if !accessArray.contains(3) {
+                            UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
+                            if let role = userdetails?["role"] as? Int {
+                                self.displayLoginPopUpAdmin(role: role)
+                            }
+                            return
                         }
-                        return
                     }
-                }
-                if let changePassword = userdetails?["change_pwd"] as? Bool {
-                    if changePassword == true {
-                        self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
-                        return
+                    if let changePassword = userdetails?["change_pwd"] as? Bool {
+                        if changePassword == true {
+                            self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
+                            return
+                        }
                     }
+                    
+                    // otp while login (client requuirement)
+                    /*
+                     if let otpFlow = userdetails?["otp_flow"] as? Bool {
+                     if otpFlow == true {
+                     self.generateOTPApiCall()
+                     return
+                     }
+                     }
+                     */
+                    
+                    UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
+                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
+                } else {
+                    self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
                 }
                 
-                // otp while login (client requuirement)
-                /*
-                if let otpFlow = userdetails?["otp_flow"] as? Bool {
-                    if otpFlow == true {
-                        self.generateOTPApiCall()
-                        return
-                    }
-                }
-                */
-                
-                UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
-                self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-            } else {
-                self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
         }
     }
@@ -169,20 +172,20 @@ class SignInViewController: BaseViewController {
         viewModel.generateOTP(model: otpDataModel) { [self] success in
             if success {
                 let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
-                if viewModel.generateOTPRes?.statuscode == 200 {
-                    popup.otpSentLabelText = self.viewModel.generateOTPRes?.message ?? ""
+                if viewModel.commonTokenResponse?.statuscode == 200 {
+                    popup.otpSentLabelText = self.viewModel.commonTokenResponse?.message ?? ""
                     popup.isFromSignIN = true
                 } else {
-                    self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP not sent.")
+                    self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP not sent.")
                 }
                 popup.modalPresentationStyle = .overCurrentContext
                 present(popup, animated: true, completion: nil)
             } else {
-                self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP not sent.")
+                self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP not sent.")
             }
         }
         viewModel.errorMessageAlert = {
-            self.showAlert(self.viewModel.generateOTPRes?.message ?? "OTP sent failed.")
+            self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP sent failed.")
         }
     }
     
@@ -190,71 +193,72 @@ class SignInViewController: BaseViewController {
 
         let signInData = SignInRequestModel(username: name, email: email, session_id: "", onboarding: onboard.rawValue)
                 
-        viewModel.socialSignIn(model: signInData) {
-            if let token = self.viewModel.signInToken?.token {
-                let userDetails = self.decodeJWT(part: token)
-                UserDefaults.standard.set("Bearer \(self.viewModel.signInData?.data?.token ?? "")", forKey: "Authorization")
-                UserDefaults.standard.set(userDetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
-                UserDefaults.standard.set(userDetails?["username"] ?? "Invalid name", forKey: "Username")
-                UserDefaults.standard.set(userDetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
-                UserDefaults.standard.set(userDetails?["email"] ?? "Invalid email", forKey: "Email")
-                if(self.viewModel.signInData?.statuscode == 200)
-                {
-                    // already have the account
-//                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-                    if let accessArray = userDetails?["has_access"] as? [Int] {
-                        if !accessArray.contains(3) {
-                            UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
-                            if let role = userDetails?["role"] as? Int {
-                                self.displayLoginPopUpAdmin(role: role)
+        viewModel.socialSignIn(model: signInData) { success in
+            if success {
+                if let token = self.viewModel.commonTokenResponse?.data?.token {
+                    let userDetails = self.decodeJWT(part: token)
+                    UserDefaults.standard.set("Bearer \(self.viewModel.signInData?.data?.token ?? "")", forKey: "Authorization")
+                    UserDefaults.standard.set(userDetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
+                    UserDefaults.standard.set(userDetails?["username"] ?? "Invalid name", forKey: "Username")
+                    UserDefaults.standard.set(userDetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
+                    UserDefaults.standard.set(userDetails?["email"] ?? "Invalid email", forKey: "Email")
+                    if(self.viewModel.signInData?.statuscode == 200)
+                    {
+                        // already have the account
+                        //                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
+                        if let accessArray = userDetails?["has_access"] as? [Int] {
+                            if !accessArray.contains(3) {
+                                UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
+                                if let role = userDetails?["role"] as? Int {
+                                    self.displayLoginPopUpAdmin(role: role)
+                                }
+                                return
                             }
-                            return
                         }
+                        if let changePassword = userDetails?["change_pwd"] as? Bool {
+                            if changePassword == true {
+                                self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
+                                return
+                            }
+                        }
+                        if let otpFlow = userDetails?["otp_flow"] as? Bool {
+                            if otpFlow == true {
+                                self.generateOTP()
+                                return
+                            }
+                        }
+                        
+                        UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
+                        self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
                     }
-                    if let changePassword = userDetails?["change_pwd"] as? Bool {
-                        if changePassword == true {
-                            self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
-                            return
+                    else
+                    {
+                        //new account created
+                        let jsonData: [String: Any] = [
+                            "username": name,
+                            "email": email,
+                        ]
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: jsonData, options: [])
+                            
+                            // Deserialize JSON data into ProfileData model using JSONDecoder
+                            let decoder = JSONDecoder()
+                            let profile = try decoder.decode(ProfileData.self, from: jsonData)
+                            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+                            let popup = storyboard.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
+                            popup.userData = UserProfileData(data: profile)
+                            popup.modalPresentationStyle = .overCurrentContext
+                            self.present(popup, animated: true, completion: nil)
+                            
+                        } catch {
+                            print("Error: \(error.localizedDescription)")
                         }
-                    }
-                    if let otpFlow = userDetails?["otp_flow"] as? Bool {
-                        if otpFlow == true {
-                            self.generateOTP()
-                            return
-                        }
+                        
                     }
                     
-                    UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
-                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
+                } else {
+                    self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
                 }
-                else
-                {
-                    //new account created
-                    let jsonData: [String: Any] = [
-                        "username": name,
-                        "email": email,
-                    ]
-                    do {
-                        let jsonData = try JSONSerialization.data(withJSONObject: jsonData, options: [])
-                        
-                        // Deserialize JSON data into ProfileData model using JSONDecoder
-                        let decoder = JSONDecoder()
-                        let profile = try decoder.decode(ProfileData.self, from: jsonData)
-                        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-                        let popup = storyboard.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
-                        popup.userData = UserProfileData(data: profile)
-                        popup.modalPresentationStyle = .overCurrentContext
-                        self.present(popup, animated: true, completion: nil)
-                        
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                    
-                }
-
-            } else
-            {
-                self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
         }
 

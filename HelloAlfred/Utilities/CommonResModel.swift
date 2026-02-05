@@ -1,62 +1,17 @@
 
 import Foundation
+
 struct CommonResModel : Codable {
 	let message : String?
 	let statuscode : Int?
 	let status : Bool?
     let data : AccessToken?
-
-	enum CodingKeys: String, CodingKey {
-
-		case message = "message"
-		case statuscode = "statuscode"
-		case status = "status"
-        case data = "data"
-	}
-
-	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		message = try values.decodeIfPresent(String.self, forKey: .message)
-		statuscode = try values.decodeIfPresent(Int.self, forKey: .statuscode)
-        status = try values.decodeIfPresent(Bool.self, forKey: .status)
-		data = try values.decodeIfPresent(AccessToken.self, forKey: .data)
-	}
-
 }
+
 struct AccessToken : Codable {
     let token : String?
 }
 
-//
-//
-//import Foundation
-//struct HealthHubStatusResponse : Codable {
-//    let message : String?
-//    let statuscode : Int?
-//    let status : Bool?
-//    let data : Bool?
-//
-//    enum CodingKeys: String, CodingKey {
-//
-//        case message = "message"
-//        case statuscode = "statuscode"
-//        case status = "status"
-//        case data = "data"
-//    }
-//
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        message = try values.decodeIfPresent(String.self, forKey: .message)
-//        statuscode = try values.decodeIfPresent(Int.self, forKey: .statuscode)
-//        status = try values.decodeIfPresent(Bool.self, forKey: .status)
-//        data = try values.decodeIfPresent(Bool.self, forKey: .data)
-//    }
-//
-//}
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
 

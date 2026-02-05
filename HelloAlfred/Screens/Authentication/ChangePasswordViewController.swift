@@ -79,45 +79,23 @@ class ChangePasswordViewController: BaseViewController {
    
     
     
-    func changePasswordApiCall()
-    {
+    func changePasswordApiCall() {
         self.view.endEditing(true)
-        let params = [
-            "old_password": oldPasswordTextFeild.text ?? "",
-            "new_password": confirmPasswordTextFeild.text ?? "",
-
-        ] as [String : Any]
         
+        let oldPwd = oldPasswordTextFeild.text ?? ""
+        let newPwd = confirmPasswordTextFeild.text ?? ""
         
-        print("params \(params)")
-        
-        viewModel.changePassword(params: params)
-        viewModel.changePasswordSuccess = {
-            print("success")
-            self.showAlertWithHandler(message: self.viewModel.changePasswordRes?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false)
-            {
-                _ in
-                // Handle OK button click action here
-                self.dismiss(animated: true)
-                
+        viewModel.changePassword(old: oldPwd, new: newPwd) { [weak self] success in
+            if success {
+                print("success")
+                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) {  _ in
+                    self?.dismiss(animated: true)
+                }
             }
         }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-            }
-        }
+    
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "")
         }
-    
-    
     }
-
-
 }
-
-

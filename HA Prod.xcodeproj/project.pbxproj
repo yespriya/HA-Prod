@@ -772,6 +772,7 @@
 		84BA187E2BB3FE5F000131E9 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				9D173D682F34F3120068F949 /* View Model */,
 				9DD8ADF42F33AC6A00B51475 /* Model */,
 				8476FB982F2D1C89007EFCB3 /* PrivacyPolicyView.swift */,
 				8454BC1F2CA597D500C1E533 /* TermsAndConditionsModel.swift */,
@@ -783,7 +784,6 @@
 				84635F432B988F3A0042B619 /* PasswordViewController.swift */,
 				84E8E97A2B8C66660092F746 /* AppIntroViewController.swift */,
 				842079FE2B9F63DD0057DB6B /* PasswordSuccessViewController.swift */,
-				84BA18842BB44A94000131E9 /* AuthViewModel.swift */,
 				846CFE0C2BFDEAED003349DE /* ForgotPasswordViewController.swift */,
 				84657B932C22BE3D00D68113 /* ChangePasswordViewController.swift */,
 				8457B5A02C2E9E6E00F9B15E /* UserApprovalWaitingViewController.swift */,
@@ -937,6 +937,14 @@
 				9BF941E45586FCA1B04E698D /* Pods-HelloAlfred.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9D173D682F34F3120068F949 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				84BA18842BB44A94000131E9 /* AuthViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		9DD8ADE12F33990000B51475 /* Services */ = {

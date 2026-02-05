@@ -80,25 +80,13 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     func sendTNCApiCall()
     {
         self.view.endEditing(true)
-        let params = [
-            "email": email
-        ] as [String : Any]
-        print("params \(params)")
-        
-        viewModel.sendTNC(params: params)
-        viewModel.sendTNCSuccess =
-        {
-            self.showAlert(self.viewModel.sendTNCRes?.message ?? "Success")
-        }
-        
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+    
+        viewModel.sendTNC(email: email) { [weak self] success in
+            if success {
+                self?.showAlert(self?.viewModel.commonTokenResponse?.message ?? "Success")
             }
         }
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "")
         }

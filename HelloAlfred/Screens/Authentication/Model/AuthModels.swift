@@ -50,10 +50,10 @@ struct SignupRequestModel: Codable {
 }
 
 struct SignInRequestModel: Codable {
-    var username: String
+    var username: String? = nil
     var email: String? = nil
     var password: String? = nil
-    var session_id: String
+    var session_id: String? = nil
     var subdomain: String? = nil
     var onboarding: String? = nil
 }

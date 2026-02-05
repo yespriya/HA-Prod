@@ -14,12 +14,18 @@ enum APIRoute {
     case signup(model: SignupRequestModel)
     case signIn(model: SignInRequestModel)
     case socialAuth(model: SignInRequestModel)
+    case updatePassword(model: SignInRequestModel)
     case generateOtp(model: OTPRequestModel)
+    case verifyOTP(email: String, otp: String)
+    case changePassword(old: String, new: String)
+    case sendTNC(email: String)
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC:
             return .post
+        case .updatePassword, .changePassword:
+            return .put
         default:
             return .get
         }
@@ -42,6 +48,14 @@ enum APIRoute {
             return "common/socialauth"
         case .generateOtp:
             return "common/generate_otp"
+        case .updatePassword:
+            return "common/update_password"
+        case .changePassword:
+            return "change-password"
+        case .verifyOTP:
+            return "common/verify_otp"
+        case .sendTNC:
+            return "common/send_tnc"
         }
     }
     
@@ -58,6 +72,19 @@ enum APIRoute {
             
         case .generateOtp(let model):
             return parseModel(data: model)
+        
+        case .updatePassword(let model):
+            return parseModel(data: model)
+        
+        case .verifyOTP(let email, let otp):
+            return ["email": email, "otp": otp]
+        
+        case .changePassword(let old, let new):
+            return ["old_password": old, "new_password": new]
+        
+        case .sendTNC(let email):
+            return ["email": email]
+            
         default:
             return nil
         }
@@ -65,7 +92,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -74,6 +101,8 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword:
+            return true
         default:
             return false
         }
