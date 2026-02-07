@@ -25,7 +25,6 @@ enum APIRouter : URLRequestConvertible {
     case fetchHealthHubOverviewData(params:[String:Any])
     case fetchQuizData(params:[String:Any])
     case evaluateQuizAnswer(params:[String:Any])
-    case profileDetails
     case chatQuestions
     case historyChatQuestions
     case lastUpdateHealthDetails
@@ -51,8 +50,6 @@ enum APIRouter : URLRequestConvertible {
             return .post
         case .updateUser:
             return .put
-        case .profileDetails:
-            return .get
         case .addSymptoms:
             return .post
         case .chatQuestions:
@@ -121,8 +118,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/categorizeresponse"
         case .updateUser:
             return "patient/update_userdetails"
-        case .profileDetails:
-            return "patient/userdetails"
         case .addSymptoms:
             return "patient/add_symptoms"
         case .chatQuestions:
@@ -213,8 +208,6 @@ enum APIRouter : URLRequestConvertible {
             return nil
         case .fetchInitialHistoryQuestion:
             return nil
-        case .profileDetails:
-            return nil
         case .chatQuestions:
             return nil
         case .getUserStatus:
@@ -236,7 +229,7 @@ enum APIRouter : URLRequestConvertible {
         case .getLastExpertMonitoringDetails:
             return nil
         case .fetchTermsAndConditions:
-            return nil            
+            return nil
         case .getVideoContent:
             return nil
         case .fetchHealthHubDropDownData(let params):

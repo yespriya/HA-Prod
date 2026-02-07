@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController {
     
     @IBAction func editProfileTapped(_ sender: Any)
     {
-        let userData = UserProfileData(data: (viewModel.profileDetailsRes?.data))
+        let userData = UserProfileData(data: (viewModel.profileDetailsRes))
         
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         let popup = storyboard.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController {
     }
     func setUpUI()
     {
-        var userData = viewModel.profileDetailsRes?.data
+        var userData = viewModel.profileDetailsRes
         insuranceLabel.text = userData?.insurance_policy_no
         nationalityLabel.text = userData?.nationality
         mobileLabel.text = userData?.mobile
@@ -128,7 +128,7 @@ class ProfileViewController: UIViewController {
               }
         }
         else {
-            if(viewModel.profileDetailsRes?.data?.gender == "Male")
+            if(viewModel.profileDetailsRes?.gender == "Male")
             {
                 self.userProfileImg.image = UIImage(named: "user-male")
             }
@@ -208,32 +208,21 @@ class ProfileViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
         }
-    func getUserProfileApiCall()
-    {
-      
-        viewModel.fetchUserDetails()
-        viewModel.profileFetchSuccess = {
-           print("success")
-            self.setUpUI()
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
+    
+    func getUserProfileApiCall() {
+        viewModel.fetchUserDetails() { [weak self] success in
+            if success {
+                self?.setUpUI()
             }
         }
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
-           
+            
         }
     }
-
-   
-
 }
+
 struct UserProfileData{
    var data: ProfileData?
 }

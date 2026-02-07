@@ -1,14 +1,17 @@
 import Foundation
 import UIKit
 import Alamofire
+import RxSwift
 
 class ProfileViewModel {
     // Properties
+    /*
     var profileDetailsRes: ProfileDetailsModel? {
         didSet {
             self.profileFetchSuccess?()
         }
     }
+    */
 
     var profileCompletionRes: ProfileCompletionModel? {
         didSet {
@@ -41,7 +44,10 @@ class ProfileViewModel {
             }
         }
     }
-
+    
+    private let userRepository = UserRepository()
+    private let disposeBag = DisposeBag()
+    var profileDetailsRes: ProfileData?
 
     // Closures for callback
     var profileFetchSuccess: (() -> Void)?
@@ -53,6 +59,27 @@ class ProfileViewModel {
     var errorMessageAlert: (() -> Void)?
 
     // Fetch User Details
+    
+    func fetchUserDetails(completion: ((Bool) -> Void)? = nil) {
+        userRepository.userDetails(isShowLoader: true)
+            .subscribe(onSuccess: { [weak self] response in
+                if response.status ?? false == false {
+                    self?.errorMessage = response.message
+                    self?.errorMessageAlert?()
+                    completion?(false)
+                } else {
+                    self?.profileDetailsRes = response.data
+                    completion?(true)
+                }
+            }, onFailure: { [weak self] error in
+                self?.errorMessage = error.localizedDescription
+                self?.errorMessageAlert?()
+                completion?(false)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /*
     func fetchUserDetails() {
         isLoading = true
 
@@ -88,7 +115,7 @@ class ProfileViewModel {
             }
         }
     }
-
+*/
     // Fetch Profile Completion Status
     func fetchProfileCompletionStatus(params: [String: Any]) {
         isLoading = true

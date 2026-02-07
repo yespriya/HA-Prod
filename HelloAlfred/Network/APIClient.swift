@@ -67,23 +67,13 @@ class APIClient {
     static func updateAnswers(params:[String:Any],completion:@escaping(AFResult<QuestionUpdateResModel>) -> Void) {
         performRequest(route: APIRouter.updateAnswers(params: params),completion: completion)
     }
-    static func signupUser(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.signup(params: params),completion: completion)
-    }
+    
     static func updateUser(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
         performRequest(route: APIRouter.updateUser(params: params),completion: completion)
     }
-    static func signInUser(params:[String:Any],completion:@escaping(AFResult<SigninResModel>)->Void){
-        performRequest(route: APIRouter.signin(params: params),completion: completion)
-    }
+    
     static func addSymptoms(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
         performRequest(route: APIRouter.addSymptoms(params: params),completion: completion)
-    }
-    static func googleAuth(params:[String:Any],completion:@escaping(AFResult<SigninResModel>)->Void){
-        performRequest(route: APIRouter.googleAuth(params: params),completion: completion)
-    }
-    static func fetchUserDetails(completion:@escaping(AFResult<ProfileDetailsModel>)->Void){
-        performRequest(route: APIRouter.profileDetails,completion: completion)
     }
     
     static func fetchChatQuestions(completion:@escaping(AFResult<QuestionsResModel>)->Void){
@@ -107,15 +97,7 @@ class APIClient {
     static func updateHealthDetails(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
         performRequest(route: APIRouter.updateHealthDetails(params: params),completion: completion)
     }
-    static func generateOTP(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.generateOTP(params: params),completion: completion)
-    }
-    static func verifyOTP(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.verifyOTP(params: params),completion: completion)
-    }
-    static func updatePassword(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.updatePassword(params: params),completion: completion)
-    }
+    
     static func lastUpdateHealthDetails(completion:@escaping(AFResult<LastUpdateHealthDetailsModel>)->Void){
         performRequest(route: APIRouter.lastUpdateHealthDetails,completion: completion)
     }
@@ -131,9 +113,7 @@ class APIClient {
     static func fetchHistoryTranscript(completion:@escaping(AFResult<HistoryTranscriptModel>)->Void){
         performRequest(route: APIRouter.fetchInitialHistoryTranscript,completion: completion)
     }
-    static func changePassword(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.changePassword(params: params),completion: completion)
-    }
+    
     static func fetchLinearChartData(params:[String:Any],completion:@escaping(AFResult<LinearChartDataModel>)->Void){
         performRequest(route: APIRouter.fetchLinearChartData(params: params),completion: completion)
     }
@@ -171,9 +151,6 @@ class APIClient {
     }
     static func fetchTermsAndConditions(completion:@escaping(AFResult<TermsAndConditionsModel>)->Void){
         performRequest(route: APIRouter.fetchTermsAndConditions,completion: completion)
-    }
-    static func sendTNC(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.sendTNC(params: params),completion: completion)
     }
     
     static func fetchVideoContent(completion:@escaping(AFResult<VideoListContentModel>)->Void) {

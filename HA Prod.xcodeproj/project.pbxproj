@@ -638,6 +638,7 @@
 		8483F47A2B8CA68C00E8BE1F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				9DF933542F379C8300F9E747 /* Managers */,
 				84BA18822BB44A0C000131E9 /* CommonResModel.swift */,
 				848A93A32B959A900048EE10 /* DatePickerViewController.swift */,
 				84635F462B989B180042B619 /* HeaderMenu.swift */,
@@ -960,8 +961,6 @@
 		9DD8ADEF2F33AA8D00B51475 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				9DD8ADED2F33A83000B51475 /* LoaderManager.swift */,
-				9DD8ADEB2F339D7E00B51475 /* KeychainManager.swift */,
 				9DD8ADE92F339AAB00B51475 /* APIRoute.swift */,
 				9DD8ADE72F3399ED00B51475 /* APIService.swift */,
 				9DD8ADDF2F3398F900B51475 /* APIError.swift */,
@@ -992,6 +991,15 @@
 				9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9DF933542F379C8300F9E747 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9DD8ADED2F33A83000B51475 /* LoaderManager.swift */,
+				9DD8ADEB2F339D7E00B51475 /* KeychainManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		F7D9630DAE915E65D7076763 /* Frameworks */ = {

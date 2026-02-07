@@ -50,4 +50,10 @@ struct UserRepository {
     func sendTNC(with email: String, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
         return api.request(router: .sendTNC(email: email), checking: isShowLoader ? .checked : .unchecked)
     }
+    
+    // get user details
+    func userDetails(isShowLoader: Bool) -> Single<BaseResponse<ProfileData>> {
+        return api.request(router: .profileDetails, checking: isShowLoader ? .checked : .unchecked)
+    }
+
 }

@@ -19,6 +19,7 @@ enum APIRoute {
     case verifyOTP(email: String, otp: String)
     case changePassword(old: String, new: String)
     case sendTNC(email: String)
+    case profileDetails
     
     var method: HTTPMethod {
         switch self {
@@ -56,6 +57,8 @@ enum APIRoute {
             return "common/verify_otp"
         case .sendTNC:
             return "common/send_tnc"
+        case .profileDetails:
+            return "patient/userdetails"
         }
     }
     
@@ -101,7 +104,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails:
             return true
         default:
             return false
