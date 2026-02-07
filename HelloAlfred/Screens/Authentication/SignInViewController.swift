@@ -114,7 +114,6 @@ class SignInViewController: BaseViewController {
             if success {
                 if let token = self.viewModel.commonTokenResponse?.data?.token {
                     let userdetails = self.decodeJWT(part: token)
-                    print(userdetails)
                     
                     UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
                     UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")

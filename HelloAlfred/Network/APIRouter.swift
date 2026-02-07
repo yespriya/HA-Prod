@@ -6,23 +6,15 @@ enum APIRouter : URLRequestConvertible {
     case updateMessagesToAI(params:[String:Any])
     case updateAnswers(params:[String:Any])
     case updateHistoryChatQuestions(params:[String:Any])
-    case signup(params:[String:Any])
-    case signin(params:[String:Any])
     case addSymptoms(params:[String:Any])
     case updateUser(params:[String:Any])
-    case googleAuth(params:[String:Any])
     case setUserStatus(params:[String:Any])
     case updateHistoryFormAnswers(params:[String:Any])
     case updateHealthDetails(params:[String:Any])
-    case generateOTP(params:[String:Any])
-    case verifyOTP(params:[String:Any])
-    case updatePassword(params:[String:Any])
     case profileCompletion(params:[String:Any])
-    case changePassword(params:[String:Any])
     case updateHealthHubStatus(params:[String:Any])
     case fetchLinearChartData(params:[String:Any])
     case getWeeklyContent(params: String)
-    case sendTNC(params:[String:Any])
     
     case fetchInitialHistoryQuestion
     case deleteProfileImage
@@ -57,17 +49,11 @@ enum APIRouter : URLRequestConvertible {
             return .post
         case .updateAnswers:
             return .post
-        case .signup:
-            return .post
-        case .signin:
-            return .post
         case .updateUser:
             return .put
         case .profileDetails:
             return .get
         case .addSymptoms:
-            return .post
-        case .googleAuth:
             return .post
         case .chatQuestions:
             return .get
@@ -97,18 +83,10 @@ enum APIRouter : URLRequestConvertible {
             return .post
         case .updateHealthDetails:
                 return .post
-        case .generateOTP:
-                return .post
-        case .verifyOTP:
-                return .post
-        case .updatePassword:
-                return .put
         case .fetchInitialHistoryQuestion:
                 return .get
         case .fetchInitialHistoryTranscript:
             return .get
-        case .changePassword:
-            return .put
         case .fetchLinearChartData:
             return .post
         case .lastUpdateListofSymptoms:
@@ -123,8 +101,6 @@ enum APIRouter : URLRequestConvertible {
             return .get
         case .fetchTermsAndConditions:
             return .get
-        case .sendTNC:
-            return .post
         case .getVideoContent:
             return .get
         case .sendChatToEmail:
@@ -143,18 +119,12 @@ enum APIRouter : URLRequestConvertible {
             return "ask_gpt"
         case .updateAnswers:
             return "patient/categorizeresponse"
-        case .signup:
-            return "common/create_account"
-        case .signin:
-            return "common/login_account"
         case .updateUser:
             return "patient/update_userdetails"
         case .profileDetails:
             return "patient/userdetails"
         case .addSymptoms:
             return "patient/add_symptoms"
-        case .googleAuth:
-            return "common/socialauth"
         case .chatQuestions:
             return "patient/chatbot_questions"
         case .getUserStatus:
@@ -169,12 +139,6 @@ enum APIRouter : URLRequestConvertible {
             return "historybotcat"
         case .updateHealthDetails:
             return "patient/add_health_details"
-        case .generateOTP:
-            return "common/generate_otp"
-        case .verifyOTP:
-            return "common/verify_otp"
-        case .updatePassword:
-            return "common/update_password"
         case .lastUpdateHealthDetails:
             return "patient/healthdetails_lastupdate"
         case .profileCompletion:
@@ -183,8 +147,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/initial_question"
         case .fetchInitialHistoryTranscript:
             return "patient/history_transcript"
-        case .changePassword:
-            return "change-password"
         case .fetchLinearChartData:
             return "patient/health_details_graph"
         case .lastUpdateListofSymptoms:
@@ -203,8 +165,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/get_latest_expertmonitoring"
         case .fetchTermsAndConditions:
             return "common/termsandconditions"
-        case .sendTNC:
-            return "common/send_tnc"
         case .getVideoContent:
             return "patient/get_healthhub_video_link"
         case .fetchHealthHubDropDownData:
@@ -233,29 +193,15 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .updateHistoryChatQuestions(let params):
             return params
-        case .signup(let params):
-            return params
-        case .signin(let params):
-            return params
         case .updateUser(let params):
             return params
         case .addSymptoms(let params):
-            return params
-        case .googleAuth(let params):
             return params
         case .setUserStatus(let params):
             return params
         case .updateHistoryFormAnswers(let params):
             return params
         case .updateHealthDetails(let params):
-            return params
-        case .generateOTP(let params):
-            return params
-        case .verifyOTP(let params):
-            return params
-        case .updatePassword(let params):
-            return params
-        case .changePassword(let params):
             return params
         case .fetchLinearChartData(let params):
             return params
@@ -290,10 +236,7 @@ enum APIRouter : URLRequestConvertible {
         case .getLastExpertMonitoringDetails:
             return nil
         case .fetchTermsAndConditions:
-            return nil
-        case .sendTNC(let params):
-            return params
-            
+            return nil            
         case .getVideoContent:
             return nil
         case .fetchHealthHubDropDownData(let params):
