@@ -77,8 +77,7 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     }
     */
     
-    func sendTNCApiCall()
-    {
+    func sendTNCApiCall() {
         self.view.endEditing(true)
     
         viewModel.sendTNC(email: email) { [weak self] success in

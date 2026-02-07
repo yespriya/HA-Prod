@@ -197,13 +197,13 @@ class SignInViewController: BaseViewController {
             if success {
                 if let token = self.viewModel.commonTokenResponse?.data?.token {
                     let userDetails = self.decodeJWT(part: token)
-                    UserDefaults.standard.set("Bearer \(self.viewModel.signInData?.data?.token ?? "")", forKey: "Authorization")
+                    UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
                     UserDefaults.standard.set(userDetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
                     UserDefaults.standard.set(userDetails?["username"] ?? "Invalid name", forKey: "Username")
                     UserDefaults.standard.set(userDetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
                     UserDefaults.standard.set(userDetails?["email"] ?? "Invalid email", forKey: "Email")
-                    if(self.viewModel.signInData?.statuscode == 200)
-                    {
+                    
+                    if(self.viewModel.commonTokenResponse?.statuscode == 200) {
                         // already have the account
                         //                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
                         if let accessArray = userDetails?["has_access"] as? [Int] {
