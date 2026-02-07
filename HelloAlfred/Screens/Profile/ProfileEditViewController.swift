@@ -374,41 +374,47 @@ class ProfileEditViewController: BaseViewController
         let phoneCode = mobileTextFeild.selectedCountry?.phoneCode ?? ""
         let mobileNumber = mobileTextFeild.text ?? ""
         let formattedMobileNumber = phoneCode + mobileNumber
-        let params: [String: Any] = [
-            "username": fullNameTextFeild.text ?? "",
-            "dob": dobTextFeild.text ?? "",
-            "gender": genderTextFeild.text ?? "",
-            "mobile": formattedMobileNumber,
-            "rtype": residentTypeTextFeild.text ?? "",
-            "education": educationTextFeild.text ?? "",
-            "ssn": ssnTextFeild.text ?? "",
-            "feet": (feetTextFeild.text  == "NA" || feetTextFeild.text == "") ? nil : feetTextFeild.text,
-            "inch": (inchTextFeild.text  == "0" || inchTextFeild.text == "") ? nil : inchTextFeild.text,
-            "weight": (weightTextFeild.text == "NA" || weightTextFeild.text == "") ? nil : weightTextFeild.text,
-            "bloodtype": bloodGroupTextFeild.text ?? "",
-//            "age": ageTextFeild.text ?? ""
-        ]
+        
+        let username = fullNameTextFeild.text ?? ""
+        let dob = dobTextFeild.text ?? ""
+        let gender = genderTextFeild.text ?? ""
+        let mobile = formattedMobileNumber
+        let rtype = residentTypeTextFeild.text ?? ""
+        let education = educationTextFeild.text ?? ""
+        let ssn = ssnTextFeild.text ?? ""
+        let bloodType = bloodGroupTextFeild.text ?? ""
+        let feetText = feetTextFeild.text
+        let feet: String? = (feetText == "NA" || feetText?.isEmpty == true) ? nil : feetText
 
-        
-        
-        print("params \(params)")
-        
-        viewModel.updateUserDetails(params: params)
-        viewModel.profileUpdateSuccess = {
-            self.showAlertWithHandler(message: self.viewModel.userUpdateRes?.message ?? "Error", okActionTitle: "Okay", enableCancel: false, okActionHandler:{_ in
-                self.navigateTo(viewController: ProfileViewController.self, withIdentifier: "ProfileViewController")
-            })
+        let inchText = inchTextFeild.text
+        let inch: String? = (inchText == "0" || inchText?.isEmpty == true) ? nil : inchText
 
-        }
-        viewModel.loadingStatus =
-        {
-            print("llooadd \(self.viewModel.isLoading)")
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+        let weightText = weightTextFeild.text
+        let weight: String? = (weightText == "NA" || weightText?.isEmpty == true) ? nil : weightText
+
+
+        let userProfileRequest = UserProfileRequest(
+            username: username,
+            dob: dob,
+            gender: gender,
+            mobile: mobile,
+            rtype: rtype,
+            education: education,
+            ssn: ssn,
+            feet: feet,
+            inch: inch,
+            weight: weight,
+            bloodtype: bloodType
+        )
+        
+        viewModel.updateUserDetails(model: userProfileRequest) { [weak self] success in
+            if success {
+                self?.showAlertWithHandler(message: self?.viewModel.userUpdateRes?.message ?? "Error", okActionTitle: "Okay", enableCancel: false, okActionHandler:{_ in
+                    self?.navigateTo(viewController: ProfileViewController.self, withIdentifier: "ProfileViewController")
+                })
             }
         }
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
@@ -416,87 +422,18 @@ class ProfileEditViewController: BaseViewController
 
     func deleteUserImage()
     {
-        viewModel.deleteProfileImage()
-        viewModel.profileImageDeleteSuccess = {
-            self.navigateTo(viewController: ProfileViewController.self, withIdentifier: "ProfileViewController")
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
+        viewModel.deleteProfileImage() { [weak self] success in
+            if success {
+                self?.navigateTo(viewController: ProfileViewController.self, withIdentifier: "ProfileViewController")
             }
         }
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
-           
         }
     }
-
-    
-    // Function to upload the image as form data using Alamofire
-        func uploadImageAsFile(url: String, image: UIImage, token: String, completion: @escaping (Result<Data, Error>) -> Void) {
-            // Convert image to Data
-            guard let imageData = image.jpegData(compressionQuality: 1.0) else {
-                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Image conversion to Data failed."])))
-                return
-            }
-            
-            // Create headers including the authorization token
-            let headers: HTTPHeaders = [
-                "Authorization": token,
-                "Content-Type": "multipart/form-data"
-            ]
-            
-            // Create the multipart form data request with Alamofire
-            AF.upload(multipartFormData: { multipartFormData in
-                // Append image data
-                multipartFormData.append(imageData, withName: "file_", fileName: "image.jpg", mimeType: "image/jpeg")
-            }, to: url, headers: headers)
-            .uploadProgress { progress in
-                // Calculate the upload percentage
-                let uploadProgress = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
-                
-            }
-            .response { response in
-                // Print the entire response
-                debugPrint(response)
-                
-                switch response.result {
-                case .success(let data):
-                    if let data = data {
-                                // Try to parse the response data to a dictionary
-                                do {
-                                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                                       let message = json["message"] as? String,
-                                       let imgData = json["data"] as? [String: Any],
-                                       let profileImg = imgData["profile_img"] as? String {
-                                        print("Message: \(message)")
-                                        print("Profile Image URL: \(profileImg)")
-                                        if let imageUrl = URL(string: profileImg) {
-                                            self.profileImageView.sd_setImage(with: imageUrl, completed: nil)
-                                                }
-                                        completion(.success(data))
-                                    } else {
-                                        completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse message or profile image from response."])))
-                                    }
-                                } catch {
-                                    completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "JSON parsing error: \(error.localizedDescription)"])))
-                                }
-                            } else {
-                                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received."])))
-                            }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        }
-
 }
-extension ProfileEditViewController:UIPickerViewDelegate, UIPickerViewDataSource
-{
+
+extension ProfileEditViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -635,24 +572,18 @@ extension ProfileEditViewController:UIImagePickerControllerDelegate, UINavigatio
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             guard let selectedImage = info[.originalImage] as? UIImage else {
                        return
-                   }
-            self.activityIndicator(self.view, startAnimate: true)
-
-            let url = DataService.developmentBaseURL + "common" + "/upload_profile_image"
-
-                   // Now you have the selected image, you can upload it
-                   let token = UserDefaults.standard.string(forKey: "Authorization")
-                   uploadImageAsFile(url: url, image: selectedImage, token: token!) { result in
-                       self.activityIndicator(self.view, startAnimate: false)
-
-                                  
-                       switch result {
-                       case .success(let data):
-                           print("Upload successful, received data: \(data)")
-                       case .failure(let error):
-                           print("Upload failed with error: \(error)")
-                       }
-                   }
+            }
+            
+            viewModel.uploadProfileImage(image: selectedImage) { [weak self] success in
+                if success {
+                    if let profileImageUrl = self?.viewModel.uploadProfileResponse?.data?.profile_img {
+                        self?.profileImageView.sd_setImage(with: URL(string: profileImageUrl), completed: nil)
+                    }
+                } else {
+                    self?.showAlert(self?.viewModel.errorMessage ?? "")
+                }
+            }
+        
             dismiss(animated: true, completion: nil)
         }
 

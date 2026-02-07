@@ -68,10 +68,6 @@ class APIClient {
         performRequest(route: APIRouter.updateAnswers(params: params),completion: completion)
     }
     
-    static func updateUser(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.updateUser(params: params),completion: completion)
-    }
-    
     static func addSymptoms(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
         performRequest(route: APIRouter.addSymptoms(params: params),completion: completion)
     }
@@ -140,9 +136,7 @@ class APIClient {
     static func updateHealthHubStatus(params:[String:Any],completion:@escaping(AFResult<HealthHubStatusResponse>)->Void){
         performRequest(route: APIRouter.updateHealthHubStatus(params: params),completion: completion)
     }
-    static func deleteProfileImage(completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.deleteProfileImage,completion: completion)
-    }
+
     static func lastUpdatedSymptomsDetails(completion:@escaping(AFResult<LastestSymptomsDetailsModel>)->Void){
         performRequest(route: APIRouter.getLatestSymptoms,completion: completion)
     }

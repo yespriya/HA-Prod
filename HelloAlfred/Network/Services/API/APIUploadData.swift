@@ -32,7 +32,7 @@ extension MultipartFormData {
         }
 
         if let image = uploadData.image {
-            append(image, withName: "images", fileName: uploadData.fileName, mimeType: uploadData.mimeType)
+            append(image, withName: "file_", fileName: uploadData.fileName, mimeType: uploadData.mimeType)
         } else if let pdf = uploadData.pdf {
             append(pdf, withName: "file", fileName: uploadData.fileName, mimeType: uploadData.mimeType)
         }

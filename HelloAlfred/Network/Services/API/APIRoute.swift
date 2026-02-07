@@ -10,23 +10,39 @@ import Alamofire
 
 enum APIRoute {
     
-    // users
+    // MARK: Users
+    
+    // GET:
+    case profileDetails
+    
+    // POST:
     case signup(model: SignupRequestModel)
     case signIn(model: SignInRequestModel)
     case socialAuth(model: SignInRequestModel)
-    case updatePassword(model: SignInRequestModel)
     case generateOtp(model: OTPRequestModel)
     case verifyOTP(email: String, otp: String)
-    case changePassword(old: String, new: String)
     case sendTNC(email: String)
-    case profileDetails
+    case uploadProfileImage(data: APIUploadData)
+    
+    // PUT:
+    case updatePassword(model: SignInRequestModel)
+    case changePassword(old: String, new: String)
+    case updateUserDetails(model: UserProfileRequest)
+    
+    // DELETE:
+    case deleteProfileImage
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage:
             return .post
-        case .updatePassword, .changePassword:
+            
+        case .updatePassword, .changePassword, .updateUserDetails:
             return .put
+            
+        case .deleteProfileImage:
+            return .delete
+            
         default:
             return .get
         }
@@ -59,6 +75,12 @@ enum APIRoute {
             return "common/send_tnc"
         case .profileDetails:
             return "patient/userdetails"
+        case .updateUserDetails:
+            return "patient/update_userdetails"
+        case .deleteProfileImage:
+            return "common/delete_profile_image"
+        case .uploadProfileImage:
+            return "common/upload_profile_image"
         }
     }
     
@@ -87,6 +109,9 @@ enum APIRoute {
         
         case .sendTNC(let email):
             return ["email": email]
+        
+        case .updateUserDetails(let model):
+            return parseModel(data: model)
             
         default:
             return nil
@@ -95,7 +120,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -104,7 +129,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage:
             return true
         default:
             return false
@@ -157,6 +182,8 @@ extension APIRoute: URLRequestConvertible {
     func multipartFormData() -> MultipartFormData {
         let multipartFormData = MultipartFormData()
         switch self {
+        case let .uploadProfileImage(uploadedData):
+            multipartFormData.appendUploadData(uploadedData)
             /*
         case let .uploadSecretImage(uploadData):
             multipartFormData.appendUploadData(uploadData)

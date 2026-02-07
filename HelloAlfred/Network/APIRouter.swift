@@ -7,7 +7,6 @@ enum APIRouter : URLRequestConvertible {
     case updateAnswers(params:[String:Any])
     case updateHistoryChatQuestions(params:[String:Any])
     case addSymptoms(params:[String:Any])
-    case updateUser(params:[String:Any])
     case setUserStatus(params:[String:Any])
     case updateHistoryFormAnswers(params:[String:Any])
     case updateHealthDetails(params:[String:Any])
@@ -17,7 +16,6 @@ enum APIRouter : URLRequestConvertible {
     case getWeeklyContent(params: String)
     
     case fetchInitialHistoryQuestion
-    case deleteProfileImage
 
     case fetchInitialHistoryTranscript
     case fetchWeekStatus
@@ -48,8 +46,6 @@ enum APIRouter : URLRequestConvertible {
             return .post
         case .updateAnswers:
             return .post
-        case .updateUser:
-            return .put
         case .addSymptoms:
             return .post
         case .chatQuestions:
@@ -90,8 +86,6 @@ enum APIRouter : URLRequestConvertible {
             return .get
         case .getWeeklyContent:
             return .get
-        case .deleteProfileImage:
-            return .delete
         case .getLatestSymptoms:
             return .get
         case .getLastExpertMonitoringDetails:
@@ -116,8 +110,6 @@ enum APIRouter : URLRequestConvertible {
             return "ask_gpt"
         case .updateAnswers:
             return "patient/categorizeresponse"
-        case .updateUser:
-            return "patient/update_userdetails"
         case .addSymptoms:
             return "patient/add_symptoms"
         case .chatQuestions:
@@ -152,8 +144,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/weekly_unlock_content"
         case .updateHealthHubStatus:
             return "patient/update_health_hub_status"
-        case .deleteProfileImage:
-            return "common/delete_profile_image"
         case .getLatestSymptoms:
             return "patient/get_latest_symptoms"
         case .getLastExpertMonitoringDetails:
@@ -188,8 +178,6 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .updateHistoryChatQuestions(let params):
             return params
-        case .updateUser(let params):
-            return params
         case .addSymptoms(let params):
             return params
         case .setUserStatus(let params):
@@ -204,8 +192,6 @@ enum APIRouter : URLRequestConvertible {
             return nil
         case .updateHealthHubStatus(let params):
             return params
-        case .deleteProfileImage:
-            return nil
         case .fetchInitialHistoryQuestion:
             return nil
         case .chatQuestions:

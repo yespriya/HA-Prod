@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import Alamofire
 
 struct UserRepository {
     let api: APIService = .shared
@@ -56,4 +57,18 @@ struct UserRepository {
         return api.request(router: .profileDetails, checking: isShowLoader ? .checked : .unchecked)
     }
 
+    // update user details
+    func updateUserDetails(with model: UserProfileRequest, isShowLoader: Bool) -> Single<BaseResponse<Empty>> {
+        return api.request(router: .updateUserDetails(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // delete profile image
+    func deleteProfileImage(isShowLoader: Bool) -> Single<BaseResponse<Empty>> {
+        return api.request(router: .deleteProfileImage, checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // upload profile image
+    func uploadProfileImage(data: APIUploadData, isShowLoader: Bool) -> Single<BaseResponse<UserProfileImage>> {
+        return api.request(router: .uploadProfileImage(data: data), checking: isShowLoader ? .checked : .unchecked)
+    }
 }

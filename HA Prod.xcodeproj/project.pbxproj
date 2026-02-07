@@ -221,6 +221,7 @@
 		9DD8ADEE2F33A83000B51475 /* LoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADED2F33A83000B51475 /* LoaderManager.swift */; };
 		9DD8ADF32F33AAD600B51475 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADF22F33AACD00B51475 /* UserRepository.swift */; };
 		9DD8ADF72F33AD7400B51475 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */; };
+		9DF933582F37AC9C00F9E747 /* ProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF933572F37AC9500F9E747 /* ProfileModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -443,6 +444,7 @@
 		9DD8ADED2F33A83000B51475 /* LoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderManager.swift; sourceTree = "<group>"; };
 		9DD8ADF22F33AACD00B51475 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		9DF933572F37AC9500F9E747 /* ProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,11 +548,12 @@
 		843CD1B12BC7BB510016B167 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9DF933562F37AC8A00F9E747 /* Model */,
+				9DF933552F37AC7C00F9E747 /* ViewModel */,
 				846B9D052BC542950049C404 /* ProfileViewController.swift */,
 				843CD1AF2BC77B3C0016B167 /* ProfileEditViewController.swift */,
 				8458024D2C0719FA00B3717F /* ProfileCompletionModel.swift */,
 				843CD1B22BC7BBA80016B167 /* ProfileDetailsModel.swift */,
-				843CD1B42BC7BCD30016B167 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1002,6 +1005,22 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		9DF933552F37AC7C00F9E747 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				843CD1B42BC7BCD30016B167 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9DF933562F37AC8A00F9E747 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DF933572F37AC9500F9E747 /* ProfileModels.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F7D9630DAE915E65D7076763 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1292,6 +1311,7 @@
 				8493CCB22C3FDE5D007FA827 /* LifeStyleCategoriesCollectionViewCell.swift in Sources */,
 				84635F592B99E5260042B619 /* DashboardViewController.swift in Sources */,
 				8409D4362BE3B04300CB1533 /* HistoryChatModel.swift in Sources */,
+				9DF933582F37AC9C00F9E747 /* ProfileModels.swift in Sources */,
 				503282502E9FD0AD00013160 /* EducationViewModel.swift in Sources */,
 				848A939E2B90B4840048EE10 /* UnderlinedTextfeild.swift in Sources */,
 				8474E36E2BBA89B800E579BB /* HealthAppCollectionViewCell.swift in Sources */,
