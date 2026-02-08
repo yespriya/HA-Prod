@@ -21,6 +21,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -44,6 +49,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -67,6 +77,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -90,6 +105,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -113,6 +133,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -136,6 +161,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -159,6 +189,11 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()
@@ -181,6 +216,12 @@ class AuthViewModel {
             .subscribe(onSuccess: { [weak self] response in
                 self?.commonTokenResponse = response
                 if response.status ?? false == false {
+                    if response.statuscode == 401 {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.redirectToLogin(errorMsg: response.message)
+                        }
+                    }
+                    
                     self?.errorMessage = response.message
                     self?.isError = true
                     self?.errorMessageAlert?()

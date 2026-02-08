@@ -13,3 +13,9 @@ struct BaseResponse<T: Codable>: Codable {
     let message: String?
     let data: T?
 }
+
+struct SimpleResponse: Codable {
+    let status: Bool?
+    let statuscode : Int?
+    let message: String?
+}

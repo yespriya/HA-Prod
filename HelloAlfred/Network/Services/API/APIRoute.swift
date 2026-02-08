@@ -34,9 +34,17 @@ enum APIRoute {
     // DELETE:
     case deleteProfileImage
     
+    // MARK: Chat
+    
+    // POST:
+    case saveChat(model: ChatSaveModel)
+    case preferenceChat(model: PrefereceChatModel)
+    case getBotStaticMessage
+    
+    
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -52,6 +60,8 @@ enum APIRoute {
     
     var url: String {
         switch self {
+        case .saveChat:
+            return DataService.educationChatDevelopmentBaseURL
         default:
             return DataService.developmentBaseURL
         }
@@ -87,6 +97,12 @@ enum APIRoute {
             return "patient/setstatus"
         case .getUserStatus:
             return "patient/getstatus"
+        case .saveChat:
+            return "stream_api/educational-bot-answer-dump"
+        case .preferenceChat:
+            return "patient/preference_chat"
+        case .getBotStaticMessage:
+            return "common/get_bot_static_message"
         }
     }
     
@@ -121,6 +137,12 @@ enum APIRoute {
             
         case .setUserStatus(let model):
             return parseModel(data: model)
+        
+        case .saveChat(let model):
+            return parseModel(data: model)
+        
+        case .preferenceChat(let model):
+            return parseModel(data: model)
             
         default:
             return nil
@@ -129,7 +151,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -138,7 +160,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus:
+        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage:
             return true
         default:
             return false

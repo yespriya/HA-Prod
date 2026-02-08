@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5032824E2E9FCEB100013160 /* ChatStaticMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5032824D2E9FCE9C00013160 /* ChatStaticMessageModel.swift */; };
 		503282502E9FD0AD00013160 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5032824F2E9FD0A600013160 /* EducationViewModel.swift */; };
-		5047BAF42E6B6AAC0011F2D7 /* ShareChatEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5047BAF32E6B6AA00011F2D7 /* ShareChatEmailModel.swift */; };
+		5047BAF42E6B6AAC0011F2D7 /* EducationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5047BAF32E6B6AA00011F2D7 /* EducationModels.swift */; };
 		5051CC2F2E23898400E1F6AA /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC2E2E23897C00E1F6AA /* TokenManager.swift */; };
 		5051CC322E2399BF00E1F6AA /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC312E2399BC00E1F6AA /* CommonView.swift */; };
 		5051CC342E25532D00E1F6AA /* HealthHubDropDownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC332E25531300E1F6AA /* HealthHubDropDownModel.swift */; };
@@ -211,6 +210,7 @@
 		84F786E02C18679A002437A2 /* ChatKeyboardHandlings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */; };
 		9BD6E8E857C03C4052F6D144 /* Pods_HelloAlfred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734B3A9ABA9A7B5053B9B045 /* Pods_HelloAlfred.framework */; };
 		9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016ED2F3859BE00B02923 /* DashboardModels.swift */; };
+		9DB016F42F3871C900B02923 /* EducationChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */; };
 		9DD8ADDE2F3398DA00B51475 /* APIUploadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */; };
 		9DD8ADE02F3398F900B51475 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDF2F3398F900B51475 /* APIError.swift */; };
 		9DD8ADE42F3399C600B51475 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9DD8ADE32F3399C600B51475 /* RxRelay */; };
@@ -240,9 +240,8 @@
 
 /* Begin PBXFileReference section */
 		0619A2DC0400F1B1F0E749D6 /* Pods-HelloAlfred.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloAlfred.debug.xcconfig"; path = "Target Support Files/Pods-HelloAlfred/Pods-HelloAlfred.debug.xcconfig"; sourceTree = "<group>"; };
-		5032824D2E9FCE9C00013160 /* ChatStaticMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStaticMessageModel.swift; sourceTree = "<group>"; };
 		5032824F2E9FD0A600013160 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
-		5047BAF32E6B6AA00011F2D7 /* ShareChatEmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChatEmailModel.swift; sourceTree = "<group>"; };
+		5047BAF32E6B6AA00011F2D7 /* EducationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationModels.swift; sourceTree = "<group>"; };
 		5051CC2E2E23897C00E1F6AA /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		5051CC312E2399BC00E1F6AA /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
 		5051CC332E25531300E1F6AA /* HealthHubDropDownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHubDropDownModel.swift; sourceTree = "<group>"; };
@@ -436,6 +435,7 @@
 		84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatKeyboardHandlings.swift; sourceTree = "<group>"; };
 		9BF941E45586FCA1B04E698D /* Pods-HelloAlfred.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloAlfred.release.xcconfig"; path = "Target Support Files/Pods-HelloAlfred/Pods-HelloAlfred.release.xcconfig"; sourceTree = "<group>"; };
 		9DB016ED2F3859BE00B02923 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
+		9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationChatRepository.swift; sourceTree = "<group>"; };
 		9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUploadData.swift; sourceTree = "<group>"; };
 		9DD8ADDF2F3398F900B51475 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9DD8ADE72F3399ED00B51475 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -538,8 +538,8 @@
 		8404A61D2CCB876C00937E1C /* Educational Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5032824F2E9FD0A600013160 /* EducationViewModel.swift */,
-				5047BAF32E6B6AA00011F2D7 /* ShareChatEmailModel.swift */,
+				9DB016F22F38715D00B02923 /* ViewModel */,
+				9DB016F12F38709B00B02923 /* Model */,
 				844855002C355C3600544FAE /* EducationalChatViewController.swift */,
 			);
 			path = "Educational Chat";
@@ -757,7 +757,6 @@
 		84BA187D2BB3FDFC000131E9 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5032824D2E9FCE9C00013160 /* ChatStaticMessageModel.swift */,
 				84F786DC2C18629B002437A2 /* Behavioural lChat */,
 				8404A61D2CCB876C00937E1C /* Educational Chat */,
 				84BF75BE2BE4C8B400937ECD /* History Chat */,
@@ -967,6 +966,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9DB016F12F38709B00B02923 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5047BAF32E6B6AA00011F2D7 /* EducationModels.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9DB016F22F38715D00B02923 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5032824F2E9FD0A600013160 /* EducationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9DD8ADE12F33990000B51475 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1006,7 @@
 		9DD8ADF02F33AA9D00B51475 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */,
 				9DD8ADF22F33AACD00B51475 /* UserRepository.swift */,
 			);
 			path = Repository;
@@ -1331,6 +1347,7 @@
 				503282502E9FD0AD00013160 /* EducationViewModel.swift in Sources */,
 				848A939E2B90B4840048EE10 /* UnderlinedTextfeild.swift in Sources */,
 				8474E36E2BBA89B800E579BB /* HealthAppCollectionViewCell.swift in Sources */,
+				9DB016F42F3871C900B02923 /* EducationChatRepository.swift in Sources */,
 				84657B942C22BE3D00D68113 /* ChangePasswordViewController.swift in Sources */,
 				9DD8ADE82F3399F900B51475 /* APIService.swift in Sources */,
 				9DD8ADF72F33AD7400B51475 /* BaseResponse.swift in Sources */,
@@ -1376,7 +1393,7 @@
 				507E12ED2E450FBE00B930C9 /* QuizModel.swift in Sources */,
 				846CFE0D2BFDEAED003349DE /* ForgotPasswordViewController.swift in Sources */,
 				842A9A382BA948C500456694 /* DashboardCategoriesTableViewCell.swift in Sources */,
-				5047BAF42E6B6AAC0011F2D7 /* ShareChatEmailModel.swift in Sources */,
+				5047BAF42E6B6AAC0011F2D7 /* EducationModels.swift in Sources */,
 				84405D012C69CBA300FE3F83 /* WeeklyHealthDetailsTableViewCell.swift in Sources */,
 				847396462BBE7DBF00C8D3AF /* SideMenuViewController.swift in Sources */,
 				84D391A82BCA5C1700D6617D /* SymptomsViewModel.swift in Sources */,
@@ -1396,7 +1413,6 @@
 				843D32092BB2DE6200ACB91B /* HealthDetailsViewController.swift in Sources */,
 				8457B5A12C2E9E6E00F9B15E /* UserApprovalWaitingViewController.swift in Sources */,
 				847396442BBE7DBF00C8D3AF /* SideMenuViewCell.swift in Sources */,
-				5032824E2E9FCEB100013160 /* ChatStaticMessageModel.swift in Sources */,
 				846B9D042BC506F30049C404 /* LifeStyleGoalDetailsViewController.swift in Sources */,
 				84B34E4F2BD66045002F2F49 /* QuestionsModel.swift in Sources */,
 				84D70F842C91A73300E3ACF0 /* LastestExpertMonitoringModel.swift in Sources */,

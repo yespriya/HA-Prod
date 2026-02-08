@@ -114,13 +114,6 @@ class APIClient {
     static func fetchWeekStatus(completion:@escaping(AFResult<WeekStatusModel>)->Void) {
         performRequest(route: APIRouter.fetchWeekStatus,completion: completion)
     }
-    static func fetchBotStaticMessage(completion:@escaping(AFResult<ChatStaticMessageModel>)->Void) {
-        performRequest(route: APIRouter.getBotStaticMessage,completion: completion)
-    }
-    
-    static func preferenceChat(params:[String:Any], completion:@escaping(AFResult<ChatPreferenceModel>)->Void) {
-        performRequest(route: APIRouter.preferenceChat(params: params),completion: completion)
-    }
     
     static func fetchHealthHubDropDownData(params:[String:Any], completion:@escaping(AFResult<HealthHubDropDownModel>)->Void) {
         performRequest(route: APIRouter.fetchHealthHubDropDownData(params: params), completion: completion)

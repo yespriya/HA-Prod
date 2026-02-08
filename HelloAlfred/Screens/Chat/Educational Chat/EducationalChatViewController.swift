@@ -91,17 +91,17 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
     }
     
     private func fetchInitialData() {
-         self.activityIndicator(self.view, startAnimate: true)
-        guard !eduChatViewModel.isLoading else { return }
         fetchStaticMessage()
     }
     private func fetchStaticMessage() {
-        eduChatViewModel.fetchStaticMessage()
-        eduChatViewModel.getStaticMessageResSuccess = { [weak self] in
-            guard let self = self else { return }
-            self.activityIndicator(view.self, startAnimate: false)
-            initializeChat(welcomeMessage: eduChatViewModel.staticMessageRes?.data?.welcome_message ?? "Hello, I am Alfred! How can i Assist you today?")
+        eduChatViewModel.fetchStaticMessage() { [weak self] success in
+            if success {
+                guard let self = self else { return }
+                self.activityIndicator(view.self, startAnimate: false)
+                initializeChat(welcomeMessage: eduChatViewModel.staticMessageRes?.data?.welcome_message ?? "Hello, I am Alfred! How can i Assist you today?")
+            }
         }
+        
         eduChatViewModel.errorMessageAlert = {
             self.showAlert(self.eduChatViewModel.errorMessage ?? "Error")
         }
@@ -161,12 +161,13 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
             }
             
             if isFinished {
-                self.eduChatViewModel.saveChat(params: [
-                    "session_id": self.sessionID ?? "",
-                    "alfred": self.messages[self.messages.count - 1].text,
-                    "user": text.trimmingCharacters(in: .whitespaces),
-                    "refference": [:]
-                ])
+                let saveChatRequest = ChatSaveModel(
+                    session_id: self.sessionID ?? "",
+                    alfred: self.messages[self.messages.count - 1].text,
+                    user: text.trimmingCharacters(in: .whitespaces),
+                    refference: [:]
+                )
+                self.eduChatViewModel.saveChat(model: saveChatRequest)
             }
         }
         inputMessageTextView.text = ""
@@ -513,14 +514,17 @@ extension EducationalChatViewController: UITableViewDelegate, UITableViewDataSou
             self.messages[indexPath.row].isDisLiked = true
             self.messages[indexPath.row].isDislikePopupOpened = true
             self.tableView.reloadRows(at: [indexPath], with: .none)
-            let params = [
-                "question": self.messages[indexPath.row - 1].text,
-                "message": self.messages[indexPath.row].text,
-                "preference": false,
-                "comment": "",
-            ]
-            self.eduChatViewModel.preferenceChat(params: params)
+
+            let preferenceRequest = PrefereceChatModel(
+                question: self.messages[indexPath.row - 1].text,
+                message: self.messages[indexPath.row].text,
+                preference: false,
+                comment: ""
+            )
+            
+            self.eduChatViewModel.preferenceChat(model: preferenceRequest, isShowLoader: false)
         }
+        
         cell.likeButtonTappedHandler = {
             self.messages[indexPath.row].isLiked = true
             self.messages[indexPath.row].isDisLiked = false
@@ -530,18 +534,19 @@ extension EducationalChatViewController: UITableViewDelegate, UITableViewDataSou
         }
         cell.dislikeMoreButtonTappedHandler = { chipName in
             // Handle the dislike button action here
-            if(chipName == "more")
-            {
+            if(chipName == "more") {
                 if let currentViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "ChatFeedbackViewController") as? ChatFeedbackViewController {
 
                     currentViewController.remarkText = { remark in
-                        let params = [
-                            "question": self.messages[indexPath.row - 1].text,
-                            "message": self.messages[indexPath.row].text,
-                            "preference": false,
-                            "comment": remark ?? "",
-                        ]
-                        self.eduChatViewModel.preferenceChat(params: params)
+                        let preferenceRequest = PrefereceChatModel(
+                            question: self.messages[indexPath.row - 1].text,
+                            message: self.messages[indexPath.row].text,
+                            preference: false,
+                            comment: remark ?? ""
+                        )
+                        
+                        self.eduChatViewModel.preferenceChat(model: preferenceRequest, isShowLoader: true)
+                        
                         self.showPillToast(message: "😊 Thanks for your feedback.")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                             cell.feedbackView.isHidden = true

@@ -30,9 +30,7 @@ enum APIRouter : URLRequestConvertible {
     case getLastExpertMonitoringDetails
     case fetchTermsAndConditions
     case sendChatToEmail(params: [String: Any])
-    case getBotStaticMessage
     case getVideoContent
-    case preferenceChat(params: [String: Any])
 
 
     // MARK: - HTTPMethod
@@ -90,10 +88,6 @@ enum APIRouter : URLRequestConvertible {
             return .get
         case .sendChatToEmail:
                 return .post
-        case .getBotStaticMessage:
-            return .get
-        case .preferenceChat:
-            return .post
         }
     }
     
@@ -152,10 +146,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/healthub_quiz_evaluate"
         case .sendChatToEmail:
             return "common/send_chat_to_email"
-        case .getBotStaticMessage:
-            return "common/get_bot_static_message"
-        case .preferenceChat:
-            return "patient/preference_chat"
         }
     }
     
@@ -214,10 +204,6 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .sendChatToEmail(let params):
                return params
-        case .getBotStaticMessage:
-            return nil
-        case .preferenceChat(let params):
-            return params
         }
     }
     
