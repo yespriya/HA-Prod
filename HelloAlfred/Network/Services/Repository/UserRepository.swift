@@ -71,4 +71,14 @@ struct UserRepository {
     func uploadProfileImage(data: APIUploadData, isShowLoader: Bool) -> Single<BaseResponse<UserProfileImage>> {
         return api.request(router: .uploadProfileImage(data: data), checking: isShowLoader ? .checked : .unchecked)
     }
+    
+    // update user status
+    func setUserStatus(with model: UserStatusModel, isShowLoader: Bool) -> Single<BaseResponse<Empty>> {
+        return api.request(router: .setUserStatus(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // get user status
+    func getUserStatus(isShowLoader: Bool) -> Single<BaseResponse<UserStatusModel>> {
+        return api.request(router: .getUserStatus, checking: isShowLoader ? .checked : .unchecked)
+    }
 }

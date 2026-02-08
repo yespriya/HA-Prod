@@ -471,30 +471,17 @@ class HealthDetailsViewController: BaseViewController {
     }
 
     
-    func updateUserStatusApiCall()
-    {
-        let params: [String: Any] = [
-            "expert_monitoring": 1,
-        ]
-        dashboardViewModel.updateUserDetails(params: params)
-        dashboardViewModel.statusUpdateSuccess = {
-           
-            
-            self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-            
-        }
-        dashboardViewModel.loadingStatus =
-        {
-            if self.dashboardViewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+    func updateUserStatusApiCall() {
+        dashboardViewModel.setUserStatus(model: UserStatusModel(expert_monitoring: 1)) { [weak self] success in
+            if success {
+                self?.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
             }
         }
         dashboardViewModel.errorMessageAlert = {
             self.showAlert(self.dashboardViewModel.errorMessage ?? "Error")
         }
     }
+    
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true)
     }

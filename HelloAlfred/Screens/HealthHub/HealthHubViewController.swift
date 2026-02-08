@@ -322,24 +322,14 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
     }
     
     private func updateUserStatusApiCall() {
-        let params: [String: Any] = ["health_hub": 1]
-        viewModel.updateUserDetails(params: params)
-        viewModel.statusUpdateSuccess = {
-            self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-        }
-        healthViewModel.loadingStatus = {
-            if self.healthViewModel.isLoading {
-//                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                DispatchQueue.main.async {
-                    self.activityIndicator(self.view, startAnimate: false)
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                }
+        viewModel.setUserStatus(model: UserStatusModel(health_hub: 1)) { [weak self] success in
+            if success {
+                self?.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
             }
         }
-        healthViewModel.errorMessageAlert = {
+        
+        viewModel.errorMessageAlert = {
             self.showAlert(self.healthViewModel.errorMessage ?? "Error")
-            
         }
     }
     

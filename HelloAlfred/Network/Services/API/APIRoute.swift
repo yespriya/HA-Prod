@@ -14,6 +14,7 @@ enum APIRoute {
     
     // GET:
     case profileDetails
+    case getUserStatus
     
     // POST:
     case signup(model: SignupRequestModel)
@@ -23,6 +24,7 @@ enum APIRoute {
     case verifyOTP(email: String, otp: String)
     case sendTNC(email: String)
     case uploadProfileImage(data: APIUploadData)
+    case setUserStatus(model: UserStatusModel)
     
     // PUT:
     case updatePassword(model: SignInRequestModel)
@@ -34,7 +36,7 @@ enum APIRoute {
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -81,6 +83,10 @@ enum APIRoute {
             return "common/delete_profile_image"
         case .uploadProfileImage:
             return "common/upload_profile_image"
+        case .setUserStatus:
+            return "patient/setstatus"
+        case .getUserStatus:
+            return "patient/getstatus"
         }
     }
     
@@ -113,6 +119,9 @@ enum APIRoute {
         case .updateUserDetails(let model):
             return parseModel(data: model)
             
+        case .setUserStatus(let model):
+            return parseModel(data: model)
+            
         default:
             return nil
         }
@@ -120,7 +129,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -129,7 +138,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus:
             return true
         default:
             return false

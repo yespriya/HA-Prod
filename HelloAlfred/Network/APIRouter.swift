@@ -7,7 +7,6 @@ enum APIRouter : URLRequestConvertible {
     case updateAnswers(params:[String:Any])
     case updateHistoryChatQuestions(params:[String:Any])
     case addSymptoms(params:[String:Any])
-    case setUserStatus(params:[String:Any])
     case updateHistoryFormAnswers(params:[String:Any])
     case updateHealthDetails(params:[String:Any])
     case profileCompletion(params:[String:Any])
@@ -27,7 +26,6 @@ enum APIRouter : URLRequestConvertible {
     case historyChatQuestions
     case lastUpdateHealthDetails
     case lastUpdateListofSymptoms
-    case getUserStatus
     case getLatestSymptoms
     case getLastExpertMonitoringDetails
     case fetchTermsAndConditions
@@ -50,8 +48,6 @@ enum APIRouter : URLRequestConvertible {
             return .post
         case .chatQuestions:
             return .get
-        case .getUserStatus:
-            return .get
         case .historyChatQuestions:
             return .get
         case .lastUpdateHealthDetails:
@@ -69,8 +65,6 @@ enum APIRouter : URLRequestConvertible {
         case .profileCompletion:
             return .post
         case .updateHistoryChatQuestions:
-            return .post
-        case .setUserStatus:
             return .post
         case .updateHistoryFormAnswers:
             return .post
@@ -114,10 +108,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/add_symptoms"
         case .chatQuestions:
             return "patient/chatbot_questions"
-        case .getUserStatus:
-            return "patient/getstatus"
-        case .setUserStatus:
-            return "patient/setstatus"
         case .historyChatQuestions:
             return "patient/get_chat_history"
         case .updateHistoryChatQuestions:
@@ -180,8 +170,6 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .addSymptoms(let params):
             return params
-        case .setUserStatus(let params):
-            return params
         case .updateHistoryFormAnswers(let params):
             return params
         case .updateHealthDetails(let params):
@@ -195,8 +183,6 @@ enum APIRouter : URLRequestConvertible {
         case .fetchInitialHistoryQuestion:
             return nil
         case .chatQuestions:
-            return nil
-        case .getUserStatus:
             return nil
         case .historyChatQuestions:
             return nil

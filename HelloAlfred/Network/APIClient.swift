@@ -75,12 +75,7 @@ class APIClient {
     static func fetchChatQuestions(completion:@escaping(AFResult<QuestionsResModel>)->Void){
         performRequest(route: APIRouter.chatQuestions,completion: completion)
     }
-    static func fetchUserStatus(completion:@escaping(AFResult<UserStatusModel>)->Void){
-        performRequest(route: APIRouter.getUserStatus,completion: completion)
-    }
-    static func updateUserStatus(params:[String:Any],completion:@escaping(AFResult<CommonResModel>)->Void){
-        performRequest(route: APIRouter.setUserStatus(params: params),completion: completion)
-    }
+
     static func updateHistoryChatQuestions(params:[String:Any],completion:@escaping(AFResult<HistoryChatQuestionModel>)->Void){
         performRequest(route: APIRouter.updateHistoryChatQuestions(params: params),completion: completion)
     }

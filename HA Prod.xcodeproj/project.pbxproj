@@ -59,7 +59,6 @@
 		84405D032C6C876F00FE3F83 /* WeekStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84405D022C6C876F00FE3F83 /* WeekStatusModel.swift */; };
 		8443404C2C7DAAF400097B26 /* UIImage+gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443404B2C7DAAF400097B26 /* UIImage+gif.swift */; };
 		844855012C355C3600544FAE /* EducationalChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844855002C355C3600544FAE /* EducationalChatViewController.swift */; };
-		844E0DCF2BDFBC4800935EF0 /* UserStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E0DCE2BDFBC4800935EF0 /* UserStatusModel.swift */; };
 		844E0DD12BDFC15B00935EF0 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */; };
 		8451A3F12EFD8B2800633970 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451A3F02EFD8B2800633970 /* HTMLParser.swift */; };
 		8451A3F42EFD8B6100633970 /* Label+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451A3F32EFD8B5B00633970 /* Label+.swift */; };
@@ -211,6 +210,7 @@
 		84F786DE2C1862F8002437A2 /* BehaviouralChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F786DD2C1862F8002437A2 /* BehaviouralChatViewController.swift */; };
 		84F786E02C18679A002437A2 /* ChatKeyboardHandlings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */; };
 		9BD6E8E857C03C4052F6D144 /* Pods_HelloAlfred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734B3A9ABA9A7B5053B9B045 /* Pods_HelloAlfred.framework */; };
+		9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016ED2F3859BE00B02923 /* DashboardModels.swift */; };
 		9DD8ADDE2F3398DA00B51475 /* APIUploadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */; };
 		9DD8ADE02F3398F900B51475 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDF2F3398F900B51475 /* APIError.swift */; };
 		9DD8ADE42F3399C600B51475 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9DD8ADE32F3399C600B51475 /* RxRelay */; };
@@ -292,7 +292,6 @@
 		84405D022C6C876F00FE3F83 /* WeekStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStatusModel.swift; sourceTree = "<group>"; };
 		8443404B2C7DAAF400097B26 /* UIImage+gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+gif.swift"; sourceTree = "<group>"; };
 		844855002C355C3600544FAE /* EducationalChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationalChatViewController.swift; sourceTree = "<group>"; };
-		844E0DCE2BDFBC4800935EF0 /* UserStatusModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatusModel.swift; sourceTree = "<group>"; };
 		844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		8451A3F02EFD8B2800633970 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		8451A3F32EFD8B5B00633970 /* Label+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+.swift"; sourceTree = "<group>"; };
@@ -436,6 +435,7 @@
 		84F786DD2C1862F8002437A2 /* BehaviouralChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviouralChatViewController.swift; sourceTree = "<group>"; };
 		84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatKeyboardHandlings.swift; sourceTree = "<group>"; };
 		9BF941E45586FCA1B04E698D /* Pods-HelloAlfred.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloAlfred.release.xcconfig"; path = "Target Support Files/Pods-HelloAlfred/Pods-HelloAlfred.release.xcconfig"; sourceTree = "<group>"; };
+		9DB016ED2F3859BE00B02923 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUploadData.swift; sourceTree = "<group>"; };
 		9DD8ADDF2F3398F900B51475 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		9DD8ADE72F3399ED00B51475 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -739,12 +739,12 @@
 		84BA187C2BB3FDB1000131E9 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				844E0DCE2BDFBC4800935EF0 /* UserStatusModel.swift */,
+				9DB016EA2F38598B00B02923 /* Model */,
+				9DB016E92F38595D00B02923 /* ViewModel */,
 				842A9A362BA948C500456694 /* DashboardCategoriesTableViewCell.swift */,
 				842A9A372BA948C500456694 /* DashboardCategoriesTableViewCell.xib */,
 				84635F582B99E5260042B619 /* DashboardViewController.swift */,
 				8490275F2D005867002C201E /* VideoListViewController.swift */,
-				844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */,
 				84CAAF6C2BF72F5A009A1961 /* DashboardColouredTableViewCell.swift */,
 				84CAAF6D2BF72F5A009A1961 /* DashboardColouredTableViewCell.xib */,
 				84E309262D02DE1700F53AEF /* VideoListTableViewCell.swift */,
@@ -949,6 +949,22 @@
 				84BA18842BB44A94000131E9 /* AuthViewModel.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		9DB016E92F38595D00B02923 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9DB016EA2F38598B00B02923 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DB016ED2F3859BE00B02923 /* DashboardModels.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9DD8ADE12F33990000B51475 /* Services */ = {
@@ -1326,8 +1342,8 @@
 				9DD8ADE02F3398F900B51475 /* APIError.swift in Sources */,
 				84364D412C47F64400D6E9D4 /* CircularProgressWithGradient.swift in Sources */,
 				84AC23922BADA84600F1DA20 /* ExpertMonitoringViewController.swift in Sources */,
+				9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */,
 				843918372D4BA28B00FDAF4C /* CustomPopupView.swift in Sources */,
-				844E0DCF2BDFBC4800935EF0 /* UserStatusModel.swift in Sources */,
 				84635F422B970F590042B619 /* OTPViewController.swift in Sources */,
 				849027602D005867002C201E /* VideoListViewController.swift in Sources */,
 				847396312BBBE01D00C8D3AF /* Constants.swift in Sources */,

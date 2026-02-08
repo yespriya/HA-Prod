@@ -155,25 +155,13 @@ class ListOfSymptomsViewController: UIViewController {
         }
     }
     
-    func updateUserStatusApiCall()
-    {
-        let params: [String: Any] = [
-            "list_your_symptoms": 1,
-        ]
-        dashboardViewModel.updateUserDetails(params: params)
-        dashboardViewModel.statusUpdateSuccess = {
-            self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-        }
-        dashboardViewModel.loadingStatus =
-        {
-            if self.dashboardViewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+    func updateUserStatusApiCall() {
+        dashboardViewModel.setUserStatus(model: UserStatusModel(list_your_symptoms: 1)) { [weak self] success in
+            if success {
+                self?.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
             }
         }
         dashboardViewModel.errorMessageAlert = {
-//            print(self.dashboardViewModel.errorMessage ?? "Error")
             self.showAlert(self.dashboardViewModel.errorMessage ?? "Error")
         }
     }

@@ -45,28 +45,20 @@ class DashboardViewController: UIViewController
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    func getUserStatusApiCall()
-    {
-        viewModel.fetchUserStatusDetails()
-        viewModel.userStatusFetchSuccess = {
-            print("success")
-            self.dashboardCategoriesTableview.reloadData()
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+    
+    func getUserStatusApiCall() {
+        viewModel.fetchUserStatusDetails() { [weak self] success in
+            if success {
+                self?.dashboardCategoriesTableview.reloadData()
             }
         }
         
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
-            
         }
     }
 }
+
 extension DashboardViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         categories.count
@@ -99,7 +91,7 @@ extension DashboardViewController:UITableViewDelegate,UITableViewDataSource{
             
         }
         
-        let statusDetails = viewModel.userStatusRes?.data
+        let statusDetails = viewModel.userStatusRes
         switch indexPath.row {
         case 0:
             cell.bgViewTrailingConstraint.isActive = false

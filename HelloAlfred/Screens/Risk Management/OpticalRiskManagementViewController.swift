@@ -10,7 +10,7 @@ import UIKit
 class OpticalRiskManagementViewController: UIViewController {
     @IBOutlet var riskDetailsTableView: UITableView!
     let viewModel = DashboardViewModel()
-
+    
     @IBOutlet var titleLabel: UILabel!
     var riskImages = ["risk-management-image1","risk-management-image2","risk-management-image3"]
     override func viewDidLoad() {
@@ -18,7 +18,7 @@ class OpticalRiskManagementViewController: UIViewController {
         riskDetailsTableView.delegate = self
         riskDetailsTableView.dataSource = self
         riskDetailsTableView.register(UINib(nibName: "RiskManagementParentTableViewCell", bundle: .main), forCellReuseIdentifier: "RiskManagementParentTableViewCell")
-       titleLabel.attributedText = customizeInitialLetter(categoryText: titleLabel.text!)
+        titleLabel.attributedText = customizeInitialLetter(categoryText: titleLabel.text!)
     }
     
     @IBAction func doneClicked(_ sender: Any) {
@@ -33,38 +33,27 @@ class OpticalRiskManagementViewController: UIViewController {
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true)
     }
-    func updateUserStatusApiCall()
-    {
-        let params: [String: Any] = [
-            "optimal_risk_managemment": 1,
-        ]
-        viewModel.updateUserDetails(params: params)
-        viewModel.statusUpdateSuccess = {
-            
-            
-            self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-        }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
+    
+    func updateUserStatusApiCall() {
+        viewModel.setUserStatus(model: UserStatusModel(optimal_risk_managemment: 1)) { [weak self] success in
+            if success {
+                self?.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
             }
         }
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
     }
-
 }
+
 extension OpticalRiskManagementViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return riskImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RiskManagementParentTableViewCell") as! RiskManagementParentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RiskManagementParentTableViewCell") as? RiskManagementParentTableViewCell ?? RiskManagementParentTableViewCell()
         cell.sectionNumber = indexPath.row
         return cell
     }
