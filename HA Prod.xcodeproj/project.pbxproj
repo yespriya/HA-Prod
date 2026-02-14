@@ -209,6 +209,12 @@
 		84F786DE2C1862F8002437A2 /* BehaviouralChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F786DD2C1862F8002437A2 /* BehaviouralChatViewController.swift */; };
 		84F786E02C18679A002437A2 /* ChatKeyboardHandlings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */; };
 		9BD6E8E857C03C4052F6D144 /* Pods_HelloAlfred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734B3A9ABA9A7B5053B9B045 /* Pods_HelloAlfred.framework */; };
+		9D7D8B122F3E314F00242C32 /* LearningProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B112F3E314700242C32 /* LearningProgressView.swift */; };
+		9D7D8B162F3E35E100242C32 /* LearningProgressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B152F3E35DB00242C32 /* LearningProgressVC.swift */; };
+		9D7D8B1A2F3E3A3E00242C32 /* LearningProgessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B192F3E3A3300242C32 /* LearningProgessViewModel.swift */; };
+		9D7D8B1D2F3E3AD000242C32 /* LearningProgressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B1C2F3E3AC800242C32 /* LearningProgressModel.swift */; };
+		9D7D8B1F2F3E48B500242C32 /* ModulePerformanceBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B1E2F3E48B500242C32 /* ModulePerformanceBarChart.swift */; };
+		9D7D8B212F3E48E100242C32 /* BarAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B202F3E48E100242C32 /* BarAnnotationView.swift */; };
 		9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016ED2F3859BE00B02923 /* DashboardModels.swift */; };
 		9DB016F42F3871C900B02923 /* EducationChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */; };
 		9DD8ADDE2F3398DA00B51475 /* APIUploadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */; };
@@ -221,6 +227,11 @@
 		9DD8ADEE2F33A83000B51475 /* LoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADED2F33A83000B51475 /* LoaderManager.swift */; };
 		9DD8ADF32F33AAD600B51475 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADF22F33AACD00B51475 /* UserRepository.swift */; };
 		9DD8ADF72F33AD7400B51475 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */; };
+		9DF4D9D52F408926002A573E /* ModulePerformanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9D42F408926002A573E /* ModulePerformanceDetailsView.swift */; };
+		9DF4D9DE2F408F4E002A573E /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9DD2F408F4B002A573E /* String+.swift */; };
+		9DF4D9E12F4092BB002A573E /* LearningProgressLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9E02F4092B3002A573E /* LearningProgressLabels.swift */; };
+		9DF4D9E52F409897002A573E /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9E42F409895002A573E /* Color+.swift */; };
+		9DF4D9E72F409E40002A573E /* QuizSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9E62F409E40002A573E /* QuizSummaryView.swift */; };
 		9DF933582F37AC9C00F9E747 /* ProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF933572F37AC9500F9E747 /* ProfileModels.swift */; };
 /* End PBXBuildFile section */
 
@@ -434,6 +445,12 @@
 		84F786DD2C1862F8002437A2 /* BehaviouralChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviouralChatViewController.swift; sourceTree = "<group>"; };
 		84F786DF2C18679A002437A2 /* ChatKeyboardHandlings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatKeyboardHandlings.swift; sourceTree = "<group>"; };
 		9BF941E45586FCA1B04E698D /* Pods-HelloAlfred.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloAlfred.release.xcconfig"; path = "Target Support Files/Pods-HelloAlfred/Pods-HelloAlfred.release.xcconfig"; sourceTree = "<group>"; };
+		9D7D8B112F3E314700242C32 /* LearningProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressView.swift; sourceTree = "<group>"; };
+		9D7D8B152F3E35DB00242C32 /* LearningProgressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressVC.swift; sourceTree = "<group>"; };
+		9D7D8B192F3E3A3300242C32 /* LearningProgessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgessViewModel.swift; sourceTree = "<group>"; };
+		9D7D8B1C2F3E3AC800242C32 /* LearningProgressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressModel.swift; sourceTree = "<group>"; };
+		9D7D8B1E2F3E48B500242C32 /* ModulePerformanceBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePerformanceBarChart.swift; sourceTree = "<group>"; };
+		9D7D8B202F3E48E100242C32 /* BarAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarAnnotationView.swift; sourceTree = "<group>"; };
 		9DB016ED2F3859BE00B02923 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationChatRepository.swift; sourceTree = "<group>"; };
 		9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUploadData.swift; sourceTree = "<group>"; };
@@ -444,6 +461,11 @@
 		9DD8ADED2F33A83000B51475 /* LoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderManager.swift; sourceTree = "<group>"; };
 		9DD8ADF22F33AACD00B51475 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		9DF4D9D42F408926002A573E /* ModulePerformanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePerformanceDetailsView.swift; sourceTree = "<group>"; };
+		9DF4D9DD2F408F4B002A573E /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		9DF4D9E02F4092B3002A573E /* LearningProgressLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressLabels.swift; sourceTree = "<group>"; };
+		9DF4D9E42F409895002A573E /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		9DF4D9E62F409E40002A573E /* QuizSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSummaryView.swift; sourceTree = "<group>"; };
 		9DF933572F37AC9500F9E747 /* ProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -517,6 +539,7 @@
 		8404A61C2CCB3B6C00937E1C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9D7D8B0A2F3E2E2500242C32 /* Learning Progress */,
 				84BA18802BB3FF31000131E9 /* Payment */,
 				84BA18812BB3FF63000131E9 /* HealthHub */,
 				84BA187F2BB3FEBD000131E9 /* Subscription */,
@@ -903,6 +926,7 @@
 		84E8E9752B8C66660092F746 /* HelloAlfred */ = {
 			isa = PBXGroup;
 			children = (
+				9DF4D9D92F408E5E002A573E /* Extensions */,
 				84A14DB42EE0982500C45F7D /* Third Party */,
 				5051CC302E2399B200E1F6AA /* Designable Class */,
 				84E8E9762B8C66660092F746 /* AppDelegate.swift */,
@@ -948,6 +972,46 @@
 				84BA18842BB44A94000131E9 /* AuthViewModel.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		9D7D8B0A2F3E2E2500242C32 /* Learning Progress */ = {
+			isa = PBXGroup;
+			children = (
+				9D7D8B1B2F3E3AC100242C32 /* Model */,
+				9D7D8B182F3E3A2800242C32 /* ViewModel */,
+				9DF4D9DF2F4092A8002A573E /* Labels */,
+				9D7D8B172F3E39C900242C32 /* Views */,
+			);
+			path = "Learning Progress";
+			sourceTree = "<group>";
+		};
+		9D7D8B172F3E39C900242C32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9DF4D9E62F409E40002A573E /* QuizSummaryView.swift */,
+				9D7D8B152F3E35DB00242C32 /* LearningProgressVC.swift */,
+				9DF4D9D42F408926002A573E /* ModulePerformanceDetailsView.swift */,
+				9D7D8B1E2F3E48B500242C32 /* ModulePerformanceBarChart.swift */,
+				9D7D8B112F3E314700242C32 /* LearningProgressView.swift */,
+				9D7D8B202F3E48E100242C32 /* BarAnnotationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9D7D8B182F3E3A2800242C32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9D7D8B192F3E3A3300242C32 /* LearningProgessViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9D7D8B1B2F3E3AC100242C32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D7D8B1C2F3E3AC800242C32 /* LearningProgressModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9DB016E92F38595D00B02923 /* ViewModel */ = {
@@ -1026,6 +1090,23 @@
 				9DD8ADF62F33AD7400B51475 /* BaseResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9DF4D9D92F408E5E002A573E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9DF4D9E42F409895002A573E /* Color+.swift */,
+				9DF4D9DD2F408F4B002A573E /* String+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9DF4D9DF2F4092A8002A573E /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				9DF4D9E02F4092B3002A573E /* LearningProgressLabels.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 		9DF933542F379C8300F9E747 /* Managers */ = {
@@ -1271,9 +1352,11 @@
 				8494F1812BC01756007E7F06 /* GoalConfirmationViewController.swift in Sources */,
 				84EA68B72C4E25DE00FA9286 /* CalendarCell.swift in Sources */,
 				8457B59F2C2E747E00F9B15E /* LineChartDataModel.swift in Sources */,
+				9D7D8B162F3E35E100242C32 /* LearningProgressVC.swift in Sources */,
 				84A174152BA302710048D679 /* SignInViewController.swift in Sources */,
 				9DD8ADEE2F33A83000B51475 /* LoaderManager.swift in Sources */,
 				84A84EC72C0B2E7B00F10F5A /* HistoryTranscriptModel.swift in Sources */,
+				9DF4D9DE2F408F4E002A573E /* String+.swift in Sources */,
 				507E12E32E44EC5C00B930C9 /* QuizViewController.swift in Sources */,
 				84D4E82C2CABBF0100D68DD9 /* InputTextView.swift in Sources */,
 				84F786DE2C1862F8002437A2 /* BehaviouralChatViewController.swift in Sources */,
@@ -1304,6 +1387,7 @@
 				84635F4E2B99E2490042B619 /* ChatModel.swift in Sources */,
 				84A61FE82CB56F3E003CA35E /* ChatFeedbackViewController.swift in Sources */,
 				848A93A42B959A910048EE10 /* DatePickerViewController.swift in Sources */,
+				9DF4D9E72F409E40002A573E /* QuizSummaryView.swift in Sources */,
 				84BF75C62BE8844400937ECD /* HistoryChatViewController.swift in Sources */,
 				84DB709F2BF4D5A90085A8C4 /* HealthDetailsViewModel.swift in Sources */,
 				84405D032C6C876F00FE3F83 /* WeekStatusModel.swift in Sources */,
@@ -1323,6 +1407,7 @@
 				848A93A22B91A0CD0048EE10 /* SignUpViewController.swift in Sources */,
 				9DD8ADDE2F3398DA00B51475 /* APIUploadData.swift in Sources */,
 				842A9A3D2BAAC2B700456694 /* HealthHubViewController.swift in Sources */,
+				9D7D8B122F3E314F00242C32 /* LearningProgressView.swift in Sources */,
 				846B9D062BC542950049C404 /* ProfileViewController.swift in Sources */,
 				84635F512B99E2490042B619 /* ChatViewModel.swift in Sources */,
 				84635F442B988F3A0042B619 /* PasswordViewController.swift in Sources */,
@@ -1335,6 +1420,7 @@
 				8454BC202CA597D500C1E533 /* TermsAndConditionsModel.swift in Sources */,
 				84BA18832BB44A0C000131E9 /* CommonResModel.swift in Sources */,
 				9DD8ADF32F33AAD600B51475 /* UserRepository.swift in Sources */,
+				9DF4D9E52F409897002A573E /* Color+.swift in Sources */,
 				842079FC2B9B38C50057DB6B /* FeatureListTableViewCell.swift in Sources */,
 				50784D7E2E4660E8000A2E17 /* ScaleOptionView.swift in Sources */,
 				84E309292D02E2CD00F53AEF /* VideoListViewModel.swift in Sources */,
@@ -1344,6 +1430,7 @@
 				84635F592B99E5260042B619 /* DashboardViewController.swift in Sources */,
 				8409D4362BE3B04300CB1533 /* HistoryChatModel.swift in Sources */,
 				9DF933582F37AC9C00F9E747 /* ProfileModels.swift in Sources */,
+				9D7D8B1D2F3E3AD000242C32 /* LearningProgressModel.swift in Sources */,
 				503282502E9FD0AD00013160 /* EducationViewModel.swift in Sources */,
 				848A939E2B90B4840048EE10 /* UnderlinedTextfeild.swift in Sources */,
 				8474E36E2BBA89B800E579BB /* HealthAppCollectionViewCell.swift in Sources */,
@@ -1358,6 +1445,7 @@
 				84706AA42C5758C0001FF016 /* DoctorSignUpViewController.swift in Sources */,
 				9DD8ADE02F3398F900B51475 /* APIError.swift in Sources */,
 				84364D412C47F64400D6E9D4 /* CircularProgressWithGradient.swift in Sources */,
+				9D7D8B212F3E48E100242C32 /* BarAnnotationView.swift in Sources */,
 				84AC23922BADA84600F1DA20 /* ExpertMonitoringViewController.swift in Sources */,
 				9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */,
 				843918372D4BA28B00FDAF4C /* CustomPopupView.swift in Sources */,
@@ -1373,6 +1461,7 @@
 				5051CC342E25532D00E1F6AA /* HealthHubDropDownModel.swift in Sources */,
 				842079FF2B9F63DE0057DB6B /* PasswordSuccessViewController.swift in Sources */,
 				84207A072BA0879A0057DB6B /* SubscriptionSuccessViewController.swift in Sources */,
+				9DF4D9D52F408926002A573E /* ModulePerformanceDetailsView.swift in Sources */,
 				84C9E2062BD20F96002B59DC /* BaseViewController.swift in Sources */,
 				842079F92B9B23730057DB6B /* SubscriptionViewController.swift in Sources */,
 				843CD1B32BC7BBA80016B167 /* ProfileDetailsModel.swift in Sources */,
@@ -1381,10 +1470,12 @@
 				845802502C083FFF00B3717F /* HistoryChatQuestionModel.swift in Sources */,
 				84E7CD022CA4144100F2012B /* TermsAndConditionsViewController.swift in Sources */,
 				840C42842B99F49B0093179E /* Extensions+Chat.swift in Sources */,
+				9D7D8B1F2F3E48B500242C32 /* ModulePerformanceBarChart.swift in Sources */,
 				84A146012D4CD8580059F96F /* CustomEmailPopupView.swift in Sources */,
 				507E12EB2E450E8A00B930C9 /* QuizViewModel.swift in Sources */,
 				8493CCB02C3FD8C6007FA827 /* DashboardLifeStyleViewController.swift in Sources */,
 				84A74EB12C625C360048F0C5 /* HealthHubViewModel.swift in Sources */,
+				9DF4D9E12F4092BB002A573E /* LearningProgressLabels.swift in Sources */,
 				847396332BBC101A00C8D3AF /* AuthModels.swift in Sources */,
 				846743BD2BA4296F009147CA /* GoogleSignin+Extension.swift in Sources */,
 				84E8E9772B8C66660092F746 /* AppDelegate.swift in Sources */,
@@ -1417,6 +1508,7 @@
 				84B34E4F2BD66045002F2F49 /* QuestionsModel.swift in Sources */,
 				84D70F842C91A73300E3ACF0 /* LastestExpertMonitoringModel.swift in Sources */,
 				8483F47C2B8CA6B000E8BE1F /* Extensions.swift in Sources */,
+				9D7D8B1A2F3E3A3E00242C32 /* LearningProgessViewModel.swift in Sources */,
 				847396372BBC36DF00C8D3AF /* ActiveDeviceViewController.swift in Sources */,
 				50784D7A2E4654C8000A2E17 /* InputOptionView.swift in Sources */,
 				84DEC8EA2BCD6B1100B13F91 /* GoalCreationSuccessViewController.swift in Sources */,
@@ -1582,9 +1674,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1624,9 +1717,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

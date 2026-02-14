@@ -8579,10 +8579,10 @@ successfully</string>
                                                                         <rect key="frame" x="24" y="12" width="345" height="209.33333333333334"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bloodpressure" translatesAutoresizingMaskIntoConstraints="NO" id="ow5-zb-sDw">
-                                                                                <rect key="frame" x="53" y="23.999999999999993" width="32" height="93.333333333333314"/>
+                                                                                <rect key="frame" x="53" y="24" width="32" height="34"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Blood Pressure" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkL-ob-B0l">
-                                                                                <rect key="frame" x="44" y="129.33333333333326" width="66" height="39.333333333333343"/>
+                                                                                <rect key="frame" x="44" y="70" width="66" height="39.333333333333343"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="66" id="W13-hC-kfv"/>
                                                                                 </constraints>
@@ -8591,7 +8591,7 @@ successfully</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg.12" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rve-D5-Hd6">
-                                                                                <rect key="frame" x="122" y="117.33333333333326" width="86.333333333333314" height="44"/>
+                                                                                <rect key="frame" x="122" y="58" width="86.333333333333314" height="44"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="44" id="Vhu-il-92b"/>
                                                                                 </constraints>
@@ -8612,7 +8612,7 @@ successfully</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg.80" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qfl-C2-zqV">
-                                                                                <rect key="frame" x="234.66666666666671" y="117.33333333333326" width="86.333333333333343" height="44"/>
+                                                                                <rect key="frame" x="234.66666666666671" y="58" width="86.333333333333343" height="44"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="44" id="XFW-tp-YmU"/>
                                                                                 </constraints>
@@ -8624,19 +8624,19 @@ successfully</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0u-aB-UDO">
-                                                                                <rect key="frame" x="216.33333333333334" y="129" width="10.333333333333343" height="20.333333333333343"/>
+                                                                                <rect key="frame" x="216.33333333333334" y="69.666666666666629" width="10.333333333333343" height="20.333333333333329"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mff-i0-7tE">
-                                                                                <rect key="frame" x="122" y="165.33333333333326" width="86.333333333333314" height="0.0"/>
+                                                                                <rect key="frame" x="122" y="105.99999999999999" width="86.333333333333314" height="59.333333333333329"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDa-N0-hMk">
-                                                                                <rect key="frame" x="234.66666666666671" y="165.33333333333326" width="86.333333333333343" height="0.0"/>
+                                                                                <rect key="frame" x="234.66666666666671" y="106" width="86.333333333333343" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -13719,6 +13719,24 @@ successfully</string>
             </objects>
             <point key="canvasLocation" x="35108" y="-39"/>
         </scene>
+        <!--Learning ProgressVC-->
+        <scene sceneID="JKN-C7-N1W">
+            <objects>
+                <viewController storyboardIdentifier="LearningProgressVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wNM-UY-pZF" customClass="LearningProgressVC" customModule="HA_Prod" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z3r-0K-Psf"/>
+                        <viewControllerLayoutGuide type="bottom" id="KRJ-4E-Lu9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vYr-FL-VSe">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4u0-cB-0ze" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="35985.496183206109" y="-27.464788732394368"/>
+        </scene>
         <!--ChatFeedbackViewController-->
         <scene sceneID="f6F-08-sdN">
             <objects>
@@ -14649,6 +14667,20 @@ successfully</string>
             </objects>
             <point key="canvasLocation" x="31792" y="632"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="FpD-DH-zOn">
+            <objects>
+                <viewController id="2BQ-t2-df6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uPT-8w-Jyv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ssg-5h-Kwp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="35621" y="835"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ACH" width="20.666666030883789" height="21"/>
@@ -14667,8 +14699,8 @@ successfully</string>
         <image name="bankcard" width="22" height="18"/>
         <image name="bloodpressure" width="32" height="34"/>
         <image name="blue-info" width="18.666666030883789" height="18.666666030883789"/>
-        <image name="calendar" width="16" height="17.333333969116211"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="calendar" width="16" height="17.333333969116211"/>
         <image name="calender-back" width="21.333333969116211" height="39.333332061767578"/>
         <image name="calender-next" width="21.333333969116211" height="39.333332061767578"/>
         <image name="calenderNext" width="21.333333969116211" height="39.333332061767578"/>
@@ -14866,34 +14898,34 @@ successfully</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="underPageBackgroundColor">
             <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

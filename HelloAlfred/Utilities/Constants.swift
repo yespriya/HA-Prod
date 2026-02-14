@@ -12,6 +12,7 @@ struct DataService
     
     static let developmentBaseURL = "https://prod.helloalfred.ai/be/"
     static let educationChatDevelopmentBaseURL = "https://prod.helloalfred.ai/"
+    static let superAdminDevelopmentBaseURL = "https://helloalfred.ai/be/"
 }
 
 public struct Constants {

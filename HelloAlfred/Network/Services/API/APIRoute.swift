@@ -41,10 +41,15 @@ enum APIRoute {
     case preferenceChat(model: PrefereceChatModel)
     case getBotStaticMessage
     
+    // MARK: Learning Progress
+    
+    // POST:
+    case learningProgress(model: LearningAnalyticsRequestModel)
+    case weekWiseQuizAnalytics(model: WeekWiseQuizAnalyticsRequestModel)
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .learningProgress, .weekWiseQuizAnalytics:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -62,6 +67,8 @@ enum APIRoute {
         switch self {
         case .saveChat:
             return DataService.educationChatDevelopmentBaseURL
+        case .learningProgress, .weekWiseQuizAnalytics:
+            return DataService.superAdminDevelopmentBaseURL
         default:
             return DataService.developmentBaseURL
         }
@@ -103,6 +110,10 @@ enum APIRoute {
             return "patient/preference_chat"
         case .getBotStaticMessage:
             return "common/get_bot_static_message"
+        case .learningProgress:
+            return "superadmin/patient_wise_module_analytics"
+        case .weekWiseQuizAnalytics:
+            return "superadmin/week_wise_quiz_analytics"
         }
     }
     
@@ -143,6 +154,12 @@ enum APIRoute {
         
         case .preferenceChat(let model):
             return parseModel(data: model)
+        
+        case .learningProgress(let model):
+            return parseModel(data: model)
+            
+        case .weekWiseQuizAnalytics(let model):
+            return parseModel(data: model)
             
         default:
             return nil
@@ -151,7 +168,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .learningProgress, .weekWiseQuizAnalytics:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -160,7 +177,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage:
+        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .learningProgress, .weekWiseQuizAnalytics:
             return true
         default:
             return false

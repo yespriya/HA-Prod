@@ -81,4 +81,14 @@ struct UserRepository {
     func getUserStatus(isShowLoader: Bool) -> Single<BaseResponse<UserStatusModel>> {
         return api.request(router: .getUserStatus, checking: isShowLoader ? .checked : .unchecked)
     }
+    
+    // learning process
+    func getLearningProgress(with model: LearningAnalyticsRequestModel, isShowLoader: Bool) -> Single<BaseResponse<[PatientAnalyticsData]>> {
+        return api.request(router: .learningProgress(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // week wise quiz analytics
+    func getWeekWiseQuizAnalytics(with model: WeekWiseQuizAnalyticsRequestModel, isShowLoader: Bool) -> Single<BaseResponse<[QuizAnalyticsData]>> {
+        return api.request(router: .weekWiseQuizAnalytics(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
 }

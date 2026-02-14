@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import UIKit
 import SideMenu
 
@@ -11,6 +12,8 @@ extension UIViewController: SideMenuDelegate,BottomMenuViewDelegate {
             navigateTo(viewController: ProfileViewController.self, withIdentifier: "ProfileViewController")
         case .chatWithUs, .goals, .doctors, .schedules, .bookAppointments, .integrations:
             showAlert("These features are coming soon")
+        case .progress:
+            navigateTo(viewController: LearningProgressVC.self, withIdentifier: "LearningProgressVC")
         case .historyTranscript:
             getProfileCompletionStatusApiCall(isChat: false) { [weak self] result in
                 guard let self = self else { return }
