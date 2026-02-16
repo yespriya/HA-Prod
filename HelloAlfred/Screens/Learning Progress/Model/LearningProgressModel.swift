@@ -17,9 +17,9 @@ struct LearningAnalyticsRequestModel: Codable {
 struct PatientAnalyticsData: Codable {
     let lastLogin: String?
     let patientId: String?
-    let overallScore: Int?
-    let modulesCompleted: Int?
-    let totalModulesCount: Int?
+    let overallScore: Double?
+    let modulesCompleted: Double?
+    let totalModulesCount: Double?
     let completionRate: Double?
     let modulePerformance: [ModulePerformance]?
 
@@ -43,7 +43,7 @@ struct ModulePerformance: Codable {
     let moduleCompletionDate: String?
     let totalDuration: String?
     let status: String?
-    let noOfAttempts: Int?
+    let noOfAttempts: Double?
 
     enum CodingKeys: String, CodingKey {
         case moduleName = "module_name"

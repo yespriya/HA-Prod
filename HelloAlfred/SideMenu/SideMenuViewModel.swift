@@ -29,5 +29,5 @@ enum SideMenuItem:String {
 class SideMenuViewModel: NSObject {
     var sideMenuItems:[SideMenuItem] = [.myProfile, .progress, .chatWithUs, .goals , .doctors, .knowledgeBank, .schedules, .bookAppointments, .integrations, .historyTranscript, .behavioralChat, .historyChat, .termsAndConditions, .help]
     
-    var sideMenuIcons:[String] = ["myaccount","chatwithus", "chatwithus" ,"goals","doctors","knowledgebank","schedules","bookappointments","integrations", "beta-feature","beta-feature","beta-feature", "schedules", "help"]
+    var sideMenuIcons:[String] = ["myaccount","ic_chart", "chatwithus" ,"goals","doctors","knowledgebank","schedules","bookappointments","integrations", "beta-feature","beta-feature","beta-feature", "schedules", "help"]
 }
