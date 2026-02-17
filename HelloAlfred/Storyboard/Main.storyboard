@@ -930,7 +930,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8oc-Xj-vxg">
-                                        <rect key="frame" x="0.0" y="99" width="393" height="515.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="99" width="393" height="515.33333333333348"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzA-MN-woK">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="515.33333333333337"/>
@@ -1785,7 +1785,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1v-g1-TX0">
-                                        <rect key="frame" x="24" y="99" width="345" height="515.33333333333337"/>
+                                        <rect key="frame" x="24" y="99" width="345" height="515.33333333333348"/>
                                         <subviews>
                                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WDE-Le-e8W">
                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="515.33333333333337"/>
@@ -2656,7 +2656,7 @@ successfully</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTm-F1-LP7">
-                                        <rect key="frame" x="0.0" y="117" width="393" height="595.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="117" width="393" height="595.33333333333348"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ll-WZ-hbM">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="595.33333333333337"/>
@@ -9244,7 +9244,7 @@ successfully</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailPhoneTextFeild" destination="tfS-0X-1Oh" id="g4s-A1-7Am"/>
+                        <outlet property="emailPhoneTextField" destination="tfS-0X-1Oh" id="BQN-La-gG9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hah-rq-tbg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -12200,7 +12200,7 @@ successfully</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dGW-Ql-y5F">
-                                        <rect key="frame" x="24" y="128" width="345" height="614.66666666666663"/>
+                                        <rect key="frame" x="24" y="128" width="345" height="614.66666666666652"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -14671,6 +14671,10 @@ successfully</string>
         <scene sceneID="FpD-DH-zOn">
             <objects>
                 <viewController id="2BQ-t2-df6" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UFM-oh-U4b"/>
+                        <viewControllerLayoutGuide type="bottom" id="vrf-ww-SBM"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uPT-8w-Jyv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -9,24 +9,27 @@ import UIKit
 
 class ForgotPasswordViewController: BaseViewController {
 
-    @IBOutlet var emailPhoneTextFeild: UnderlinedTextField!
+    @IBOutlet var emailPhoneTextField: UnderlinedTextField!
     
     let viewModel=AuthViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailPhoneTextFeild.delegate = self
+        emailPhoneTextField.delegate = self
         // Do any additional setup after loading the view.
     }
     
     @IBAction func continueClicked(_ sender: Any) {
-        if(isValidEmailOrPhone(emailPhoneTextFeild.text ?? ""))
-        {
-            generateOTPApiCall()
+        
+        guard let input = emailPhoneTextField.text, !input.isEmpty else {
+            self.showAlert("Please enter email or mobile number.")
+            return
         }
-        else
-        {
-            showAlert("Please enter valid email.")
+        
+        if isValidEmailOrPhone(input) {
+            generateOTPApiCall(input: input)
+        } else {
+            self.showAlert("Please enter email or mobile number.")
         }
     }
     
@@ -34,14 +37,24 @@ class ForgotPasswordViewController: BaseViewController {
         navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
     }
     
-    func generateOTPApiCall() {
+    func generateOTPApiCall(input: String) {
+        var otpDataModel: OTPRequestModel
         
-        let email = emailPhoneTextFeild.text ?? ""
-        let otpDataModel = OTPRequestModel(email: email, sms_type: "sms")
+        if isValidMobile(input){
+            otpDataModel = OTPRequestModel(mobile: input, sms_type: "sms")
+        } else {
+            otpDataModel = OTPRequestModel(email: input, sms_type: "sms")
+        }
         
         viewModel.generateOTP(model: otpDataModel) { [weak self] success in
             if success {
-                let userData = SignupUserData(firstName: nil,lastName: nil, email: email, dob: nil, gender: nil, mobile: nil, rtype: nil, education: nil, ssn: nil, insuranceurl: nil, password: nil)
+                var userData: SignupUserData
+                
+                if self?.isValidMobile(input) ?? false {
+                    userData = SignupUserData(mobile: input)
+                } else {
+                    userData = SignupUserData(email: input)
+                }
                 
                 let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
                 
@@ -51,7 +64,6 @@ class ForgotPasswordViewController: BaseViewController {
                     popup.otpSentLabelText = ""
                 }
                 popup.userData = userData
-                popup.isFromForgotPassword = true
                 popup.modalPresentationStyle = .overCurrentContext
                 self?.present(popup, animated: true, completion: nil)
             } else {

@@ -35,6 +35,10 @@ enum SocialAuthType: String {
     case google, apple
 }
 
+enum SMSType : String {
+    case sms, voice
+}
+
 struct SignupRequestModel: Codable {
     var email: String
     var dob: String
@@ -59,7 +63,7 @@ struct SignInRequestModel: Codable {
 }
 
 struct OTPRequestModel: Codable {
-    var email: String
+    var email: String? = nil
     var username: String? = nil
     var mobile: String? = nil
     var sms_type: String

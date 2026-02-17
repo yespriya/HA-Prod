@@ -17,7 +17,7 @@ class OTPViewController: BaseViewController
     @IBOutlet weak var txtOTP3: UITextField!
     @IBOutlet weak var txtOTP2: UITextField!
     @IBOutlet weak var txtOTP1: UITextField!
-       
+    
     @IBOutlet var otpView2: Myview!
     @IBOutlet var otpView1: Myview!
     @IBOutlet var otpView3: Myview!
@@ -25,45 +25,44 @@ class OTPViewController: BaseViewController
     @IBOutlet var otpView4: Myview!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var resendButton: UIButton!
-    var isFromForgotPassword:Bool = false
-      var otpSentLabelText = ""
-      var timer: Timer?
-      var remainingTime = 30
+    var otpSentLabelText = ""
+    var timer: Timer?
+    var remainingTime = 30
     var isFromSignIN:Bool = false
     var userData:SignupUserData?
     let viewModel=AuthViewModel()
-
+    
     override func viewDidLoad() {
-           
-           super.viewDidLoad()
-           // Do any additional setup after loading the view, typically from a nib.
-           
-           txtOTP1.backgroundColor = UIColor.clear
-           txtOTP2.backgroundColor = UIColor.clear
-           txtOTP3.backgroundColor = UIColor.clear
-           txtOTP4.backgroundColor = UIColor.clear
-           
-           addDoneButtonToNumberPad(textField: txtOTP1)
-           addDoneButtonToNumberPad(textField: txtOTP2)
-           addDoneButtonToNumberPad(textField: txtOTP3)
-           addDoneButtonToNumberPad(textField: txtOTP4)
-
-           txtOTP1.delegate = self
-           txtOTP2.delegate = self
-           txtOTP3.delegate = self
-           txtOTP4.delegate = self
-           
-           txtOTP1.becomeFirstResponder()
+        
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        txtOTP1.backgroundColor = UIColor.clear
+        txtOTP2.backgroundColor = UIColor.clear
+        txtOTP3.backgroundColor = UIColor.clear
+        txtOTP4.backgroundColor = UIColor.clear
+        
+        addDoneButtonToNumberPad(textField: txtOTP1)
+        addDoneButtonToNumberPad(textField: txtOTP2)
+        addDoneButtonToNumberPad(textField: txtOTP3)
+        addDoneButtonToNumberPad(textField: txtOTP4)
+        
+        txtOTP1.delegate = self
+        txtOTP2.delegate = self
+        txtOTP3.delegate = self
+        txtOTP4.delegate = self
+        
+        txtOTP1.becomeFirstResponder()
         highLightFocusedView(focusedView: otpView1)
         otpSentLabel?.text = otpSentLabelText
         setupResendButton()
         startTimer()
     }
-       
+    
     @IBAction func verifyClicked(_ sender: Any) {
-        var otp = getOTPString()
-        if isValidOTP(otp)
-        {
+        let otp = getOTPString()
+        
+        if isValidOTP(otp) {
             verifyOTPApiCall(otp: otp)
         }
         else
@@ -80,66 +79,60 @@ class OTPViewController: BaseViewController
     @IBAction func resendButtonTapped(_ sender: UIButton) {
         // Implement OTP resend logic here
         print("Resend OTP")
-            generateOTPApiCall(smsType: "sms")
+        
+        generateOTPApiCall(smsType: .sms)
     }
     
     
     @IBAction func resendCallButtonTapped(_ sender: UIButton) {
-//        if let mobile = userData?.mobile, !mobile.isEmpty {
-            generateOTPApiCall(smsType: "voice")
-//        } else {
-//            self.showAlert("Mobile number not found.")
-//        }
+        generateOTPApiCall(smsType: .voice)
     }
     
-       func setupResendButton() {
-           if isFromForgotPassword == false {
-               resendVoiceButton.isHidden = true
-           }
-           resendVoiceButton.isEnabled = false
-           resendButton.isEnabled = false
-           resendButton.alpha = 0.5
-           resendVoiceButton.alpha = 0.5
-       }
-       
-       func startTimer() {
-           remainingTime = 30
-           timerLabel.text = ""
-           resendButton.setTitle("Resend passcode over text(\(remainingTime))", for: .normal)
-           resendVoiceButton.setTitle("Resend passcode over call(\(remainingTime))", for: .normal)
-           timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-       }
-       
-       func resetTimer() {
-           timer?.invalidate()
-           startTimer()
-           setupResendButton()
-       }
-       
-       @objc func updateTimer() {
-           if remainingTime > 0 {
-               remainingTime -= 1
-               timerLabel.text = ""
-               resendButton.setTitle("Resend passcode over text(\(remainingTime))", for: .normal)
-               resendVoiceButton.setTitle("Resend passcode over call(\(remainingTime))", for: .normal)
-           } else {
-               timer?.invalidate()
-               timerLabel.text = ""
-               resendButton.setTitle("Resend passcode over text", for: .normal)
-               resendVoiceButton.setTitle("Resend passcode over call", for: .normal)
-               resendVoiceButton.isEnabled = true
-               resendButton.isEnabled = true
-               resendButton.alpha = 1.0
-               resendVoiceButton.alpha = 1.0
-           }
-       }
-    func getOTPString() -> String {
-            let otp1 = txtOTP1.text ?? ""
-            let otp2 = txtOTP2.text ?? ""
-            let otp3 = txtOTP3.text ?? ""
-            let otp4 = txtOTP4.text ?? ""
-            return otp1 + otp2 + otp3 + otp4
+    func setupResendButton() {
+        resendVoiceButton.isEnabled = false
+        resendButton.isEnabled = false
+        resendButton.alpha = 0.5
+        resendVoiceButton.alpha = 0.5
+    }
+    
+    func startTimer() {
+        remainingTime = 30
+        timerLabel.text = ""
+        resendButton.setTitle("Resend passcode over text(\(remainingTime))", for: .normal)
+        resendVoiceButton.setTitle("Resend passcode over call(\(remainingTime))", for: .normal)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    func resetTimer() {
+        timer?.invalidate()
+        startTimer()
+        setupResendButton()
+    }
+    
+    @objc func updateTimer() {
+        if remainingTime > 0 {
+            remainingTime -= 1
+            timerLabel.text = ""
+            resendButton.setTitle("Resend passcode over text(\(remainingTime))", for: .normal)
+            resendVoiceButton.setTitle("Resend passcode over call(\(remainingTime))", for: .normal)
+        } else {
+            timer?.invalidate()
+            timerLabel.text = ""
+            resendButton.setTitle("Resend passcode over text", for: .normal)
+            resendVoiceButton.setTitle("Resend passcode over call", for: .normal)
+            resendVoiceButton.isEnabled = true
+            resendButton.isEnabled = true
+            resendButton.alpha = 1.0
+            resendVoiceButton.alpha = 1.0
         }
+    }
+    func getOTPString() -> String {
+        let otp1 = txtOTP1.text ?? ""
+        let otp2 = txtOTP2.text ?? ""
+        let otp3 = txtOTP3.text ?? ""
+        let otp4 = txtOTP4.text ?? ""
+        return otp1 + otp2 + otp3 + otp4
+    }
     func isValidOTP(_ otp: String) -> Bool {
         return otp.count == 4 && otp.allSatisfy { $0.isNumber }
     }
@@ -150,7 +143,7 @@ class OTPViewController: BaseViewController
         self.view.endEditing(true)
         
         let email = userData?.email ?? UserDefaults.standard.string(forKey: "Email") ?? ""
-            
+        
         viewModel.verifyOTP(email: email, otp: otp) { [weak self] success in
             if success {
                 if !(self?.isFromSignIN ?? false) {
@@ -169,23 +162,32 @@ class OTPViewController: BaseViewController
                 self?.navigateTo(viewController: OpticalRiskManagementViewController.self, withIdentifier: "OpticalRiskManagementViewController")
             }
         }
-
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
     }
     
-    func generateOTPApiCall(smsType: String)
+    func generateOTPApiCall(smsType: SMSType)
     {
         timerLabel.text = "Sending OTP"
         self.view.endEditing(true)
         
-        let email = userData?.email ?? ""
-        let username = "\(userData?.firstName ?? "") \(userData?.lastName ?? "")"
-        let mobile = userData?.mobile ?? ""
-        
-        let otpDataModel = OTPRequestModel(email: email, username: username, mobile: mobile, sms_type: smsType)
+        let email = userData?.email?.isEmpty == false ? userData?.email : nil
 
+        let usernameString = "\(userData?.firstName ?? "") \(userData?.lastName ?? "")"
+        let username = usernameString.trimmingCharacters(in: .whitespaces).isEmpty ? nil : usernameString
+
+        let mobile = userData?.mobile?.isEmpty == false ? userData?.mobile : nil
+
+        let otpDataModel = OTPRequestModel(
+            email: email,
+            username: username,
+            mobile: mobile,
+            sms_type: smsType.rawValue
+        )
+
+        
         viewModel.generateOTP(model: otpDataModel) { [weak self] success in
             if success {
                 self?.timerLabel.text = "OTP sent successfully."
@@ -199,62 +201,62 @@ class OTPViewController: BaseViewController
             self.showAlert(self.viewModel.errorMessage ?? "OTP send error. Please try again.")
         }
     }
-       
+    
     override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-           if ((textField.text?.count)! < 1 ) && (string.count > 0) {
-               if textField == txtOTP1 {
-                 highLightFocusedView(focusedView: otpView2)
-                   
-                   
-                   txtOTP2.becomeFirstResponder()
-               }
-               
-               if textField == txtOTP2 {
-                   highLightFocusedView(focusedView: otpView3)
-
-                   txtOTP3.becomeFirstResponder()
-               }
-               
-               if textField == txtOTP3 {
-                   highLightFocusedView(focusedView: otpView4)
-                   txtOTP4.becomeFirstResponder()
-               }
-             
-               
-               textField.text = string
-               return false
-           } else if ((textField.text?.count)! >= 1) && (string.count == 0) {
-               if textField == txtOTP2 {
-                   highLightFocusedView(focusedView: otpView1)
-
-                   txtOTP1.becomeFirstResponder()
-               }
-               if textField == txtOTP3 {
-                   highLightFocusedView(focusedView: otpView2)
-
-                   txtOTP2.becomeFirstResponder()
-               }
-               if textField == txtOTP4 {
-                   highLightFocusedView(focusedView: otpView3)
-
-                   txtOTP3.becomeFirstResponder()
-               }
-              
-               
-               textField.text = ""
-               return false
-           } else if (textField.text?.count)! >= 1 {
-               print("laasstt");
-               textField.text = string
-               return false
-           }
-           
-           return true
-       }
-       override func didReceiveMemoryWarning() {
-           super.didReceiveMemoryWarning()
-           // Dispose of any resources that can be recreated.
-       }
+        if ((textField.text?.count)! < 1 ) && (string.count > 0) {
+            if textField == txtOTP1 {
+                highLightFocusedView(focusedView: otpView2)
+                
+                
+                txtOTP2.becomeFirstResponder()
+            }
+            
+            if textField == txtOTP2 {
+                highLightFocusedView(focusedView: otpView3)
+                
+                txtOTP3.becomeFirstResponder()
+            }
+            
+            if textField == txtOTP3 {
+                highLightFocusedView(focusedView: otpView4)
+                txtOTP4.becomeFirstResponder()
+            }
+            
+            
+            textField.text = string
+            return false
+        } else if ((textField.text?.count)! >= 1) && (string.count == 0) {
+            if textField == txtOTP2 {
+                highLightFocusedView(focusedView: otpView1)
+                
+                txtOTP1.becomeFirstResponder()
+            }
+            if textField == txtOTP3 {
+                highLightFocusedView(focusedView: otpView2)
+                
+                txtOTP2.becomeFirstResponder()
+            }
+            if textField == txtOTP4 {
+                highLightFocusedView(focusedView: otpView3)
+                
+                txtOTP3.becomeFirstResponder()
+            }
+            
+            
+            textField.text = ""
+            return false
+        } else if (textField.text?.count)! >= 1 {
+            print("laasstt");
+            textField.text = string
+            return false
+        }
+        
+        return true
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     func highLightFocusedView(focusedView:UIView)
     {
@@ -271,11 +273,11 @@ class OTPViewController: BaseViewController
             otpView2.layer.shadowOpacity = 0.0
             otpView3.layer.borderColor = UIColor(red: 185/255, green: 196/255, blue: 210/255, alpha: 1).cgColor
             otpView3.layer.shadowOpacity = 0.0
-
+            
             otpView4.layer.borderColor = UIColor(red: 185/255, green: 196/255, blue: 210/255, alpha: 1).cgColor
             otpView4.layer.shadowOpacity = 0.0
-
-
+            
+            
         }
         else if(focusedView == otpView2)
         {
@@ -292,8 +294,8 @@ class OTPViewController: BaseViewController
             otpView4.layer.shadowOpacity = 0.0
             otpView3.layer.shadowOpacity = 0.0
             otpView1.layer.shadowOpacity = 0.0
-
-
+            
+            
         }
         else if(focusedView == otpView3)
         {
@@ -310,7 +312,7 @@ class OTPViewController: BaseViewController
             otpView4.layer.shadowOpacity = 0.0
             otpView2.layer.shadowOpacity = 0.0
             otpView1.layer.shadowOpacity = 0.0
-
+            
         }else if(focusedView == otpView4)
         {
             otpView4.layer.masksToBounds = false

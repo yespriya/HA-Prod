@@ -115,8 +115,14 @@ class AuthViewModel {
                     self?.errorMessageAlert?()
                     completion?(false)
                 } else {
-                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
-                    completion?(true)
+                    if response.statuscode == 400 {
+                        self?.errorMessage = response.message ?? ""
+                        self?.isError = true
+                        self?.errorMessageAlert?()
+                        completion?(false)
+                    } else {
+                        completion?(true)
+                    }
                 }
             }, onFailure: { [weak self] error in
                 self?.errorMessage = error.localizedDescription
@@ -143,7 +149,6 @@ class AuthViewModel {
                     self?.errorMessageAlert?()
                     completion?(false)
                 } else {
-                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
                     completion?(true)
                 }
             }, onFailure: { [weak self] error in
@@ -171,7 +176,6 @@ class AuthViewModel {
                     self?.errorMessageAlert?()
                     completion?(false)
                 } else {
-                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
                     completion?(true)
                 }
             }, onFailure: { [weak self] error in
@@ -199,7 +203,6 @@ class AuthViewModel {
                     self?.errorMessageAlert?()
                     completion?(false)
                 } else {
-                    KeychainManager.shared.save(key: "accessToken", value: response.data?.token ?? "")
                     completion?(true)
                 }
             }, onFailure: { [weak self] error in

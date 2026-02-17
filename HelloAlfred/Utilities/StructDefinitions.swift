@@ -41,18 +41,18 @@ struct CardDetailsView
     let bankLogo:String
 }
 struct SignupUserData{
-    var firstName: String?
-    var lastName: String?
-    var email: String?
-    var dob: String?
-    var gender: String?
-    var mobile: String?
-    var rtype: String?
-    var education: String?
-    var ssn: String?
-    var insuranceurl: String?
-    var password: String?
-    var nationality: String?
+    var firstName: String?  = nil
+    var lastName: String? = nil
+    var email: String? = nil
+    var dob: String? = nil
+    var gender: String? = nil
+    var mobile: String? = nil
+    var rtype: String? = nil
+    var education: String? = nil
+    var ssn: String? = nil
+    var insuranceurl: String? = nil
+    var password: String? = nil
+    var nationality: String? = nil
 
 
        
