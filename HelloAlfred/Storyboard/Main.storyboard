@@ -930,7 +930,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8oc-Xj-vxg">
-                                        <rect key="frame" x="0.0" y="99" width="393" height="515.33333333333348"/>
+                                        <rect key="frame" x="0.0" y="99" width="393" height="515.33333333333337"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzA-MN-woK">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="515.33333333333337"/>
@@ -1785,7 +1785,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1v-g1-TX0">
-                                        <rect key="frame" x="24" y="99" width="345" height="515.33333333333348"/>
+                                        <rect key="frame" x="24" y="99" width="345" height="515.33333333333337"/>
                                         <subviews>
                                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WDE-Le-e8W">
                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="515.33333333333337"/>
@@ -2656,7 +2656,7 @@ successfully</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTm-F1-LP7">
-                                        <rect key="frame" x="0.0" y="117" width="393" height="595.33333333333348"/>
+                                        <rect key="frame" x="0.0" y="117" width="393" height="595.33333333333337"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ll-WZ-hbM">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="595.33333333333337"/>
@@ -12200,7 +12200,7 @@ successfully</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dGW-Ql-y5F">
-                                        <rect key="frame" x="24" y="128" width="345" height="614.66666666666652"/>
+                                        <rect key="frame" x="24" y="128" width="345" height="614.66666666666663"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -13287,6 +13287,7 @@ successfully</string>
                     <connections>
                         <outlet property="acceptButton" destination="OCX-N9-Nmb" id="SSF-oP-lek"/>
                         <outlet property="bottomViewHeight" destination="Bfe-Y9-D5X" id="p76-Z9-2nI"/>
+                        <outlet property="btnClose" destination="7hD-VJ-Flu" id="BoV-Pn-Kvr"/>
                         <outlet property="checkboxButton" destination="1sE-E5-FFv" id="KS8-d4-nq9"/>
                         <outlet property="shareButton" destination="5xE-h0-13s" id="mSX-Fa-x9l"/>
                         <outlet property="termsAndConditionsTextView" destination="aHo-2k-iNc" id="4Wl-s9-P1e"/>
@@ -14703,8 +14704,8 @@ successfully</string>
         <image name="bankcard" width="22" height="18"/>
         <image name="bloodpressure" width="32" height="34"/>
         <image name="blue-info" width="18.666666030883789" height="18.666666030883789"/>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calendar" width="16" height="17.333333969116211"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calender-back" width="21.333333969116211" height="39.333332061767578"/>
         <image name="calender-next" width="21.333333969116211" height="39.333332061767578"/>
         <image name="calenderNext" width="21.333333969116211" height="39.333332061767578"/>

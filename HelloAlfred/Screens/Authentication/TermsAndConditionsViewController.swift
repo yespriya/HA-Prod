@@ -2,6 +2,7 @@ import UIKit
 
 class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     
+    @IBOutlet weak var btnClose: UIButton!
     @IBOutlet var termsAndConditionsTextView: UITextView!
     @IBOutlet var checkboxButton: UIButton! // Checkbox button added
     @IBOutlet var acceptButton: UIButton! // Accept button to proceed
@@ -14,23 +15,31 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     var isChecked = false // To track checkbox state
     var email = String()
     var isFromSideMenu: Bool = false
-    var isAccept:((Bool) -> Void)?
+    var isAccept:((Bool, String) -> Void)?
+    var isFromSignIn: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         termsAndConditionsTextView.delegate = self
-//        fetchTermsAndConditions()
+        fetchTermsAndConditions()
         self.updateUI()
         setupCheckbox()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isFromSignIn {
+            btnClose.isHidden = true
+            shareButton.isHidden = true
+            acceptButton.setTitle("Accept and Continue", for: .normal)
+        }
         bottomViewHeight.constant = isFromSideMenu ? 0 : 120
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
-        dismiss(animated: true)
+        if isFromSignIn == false {
+            dismiss(animated: true)
+        }
     }
     @IBAction func acceptButtonTapped(_ sender: UIButton) {
         dismissWithData(selectedData: isChecked)
@@ -56,26 +65,19 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
         acceptButton.isEnabled = isChecked 
     }
     
-    /*
+    
     func fetchTermsAndConditions() {
-        viewModel.fetchTermsAndConditions()
-        viewModel.fetchTermsAndContionsSuccess = {
-            self.updateUI()
+        viewModel.fetchTermsAndCondtions() { success in
+            if success {
+                self.updateUI()
+            }
         }
+        
         viewModel.errorMessageAlert = {
             self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
-        viewModel.loadingStatus =
-        {
-            if self.viewModel.isLoading {
-                self.activityIndicator(self.view, startAnimate: true)
-            } else {
-                self.activityIndicator(self.view, startAnimate: false)
-                UIApplication.shared.endIgnoringInteractionEvents()
-            }
-        }
     }
-    */
+    
     
     func sendTNCApiCall() {
         self.view.endEditing(true)
@@ -92,7 +94,7 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     }
     
     func updateUI() {
-        if let data = Constants.termsAndPolicy.data(using: .utf8) {
+        if let data = viewModel.termsAndCondtionsResponse?.content_html?.data(using: .utf8) {
             do {
                 let attributedString = try NSAttributedString(data: data,
                                                               options: [.documentType: NSAttributedString.DocumentType.html,
@@ -113,7 +115,7 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     
     // Call this method when you want to dismiss and send data back
     func dismissWithData(selectedData:Bool) {
-        isAccept?(selectedData)
+        isAccept?(selectedData, viewModel.termsAndCondtionsResponse?.version ?? "")
         self.dismiss(animated: true, completion: nil)
     }
     

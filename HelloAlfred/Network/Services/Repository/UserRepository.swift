@@ -28,28 +28,38 @@ struct UserRepository {
     }
      
     // generate OTP
-    func generateOTP(with model: OTPRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+    func generateOTP(with model: OTPRequestModel, isShowLoader: Bool) -> Single<SimpleResponse> {
         return api.request(router: .generateOtp(model: model), checking: isShowLoader ? .checked : .unchecked)
     }
     
     // updatePassword
-    func updatePassword(with model: SignInRequestModel, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+    func updatePassword(with model: SignInRequestModel, isShowLoader: Bool) -> Single<SimpleResponse> {
         return api.request(router: .updatePassword(model: model), checking: isShowLoader ? .checked : .unchecked)
     }
     
     // verify otp
-    func verifyOTP(with email: String, otp: String, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+    func verifyOTP(with email: String, otp: String, isShowLoader: Bool) -> Single<SimpleResponse> {
         return api.request(router: .verifyOTP(email: email, otp: otp), checking: isShowLoader ? .checked : .unchecked)
     }
     
     // change password
-    func changePassword(with oldPassword: String, newPassword: String, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+    func changePassword(with oldPassword: String, newPassword: String, isShowLoader: Bool) -> Single<SimpleResponse> {
         return api.request(router: .changePassword(old: oldPassword, new: newPassword), checking: isShowLoader ? .checked : .unchecked)
     }
 
     // sendTNC
-    func sendTNC(with email: String, isShowLoader: Bool) -> Single<BaseResponse<AccessToken>> {
+    func sendTNC(with email: String, isShowLoader: Bool) -> Single<SimpleResponse> {
         return api.request(router: .sendTNC(email: email), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // Accept Terms and conditions
+    func acceptTermsAndConditions(with model: TermsAcceptRequest, isShowLoader: Bool) -> Single<SimpleResponse> {
+        return api.request(router: .acceptTermsAndConditions(model: model), checking: isShowLoader ? .checked : .unchecked)
+    }
+    
+    // fetch terms and conditions
+    func fetchTermsAndConditions(isShowLoader: Bool) -> Single<BaseResponse<TermsAndConditionsData>> {
+        return api.request(router: .fetchTermsAndConditions, checking: isShowLoader ? .checked : .unchecked)
     }
     
     // get user details

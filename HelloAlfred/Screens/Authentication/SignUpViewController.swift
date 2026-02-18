@@ -98,13 +98,29 @@ class SignUpViewController: BaseViewController,UIDocumentPickerDelegate
         documentPicker.delegate = self
         present(documentPicker, animated: true, completion: nil)
     }
+    
     @IBAction func termsAndConditionsClicked(_ sender: Any) {
         if let currentViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "TermsAndConditionsViewController") as? TermsAndConditionsViewController {
             currentViewController.isChecked = isChecked
             currentViewController.email = emailTextFeild.text ?? ""
-            currentViewController.isAccept = { isAccept in
+            currentViewController.isAccept = { (isAccept, version) in
                 self.isChecked = isAccept
+                DispatchQueue.main.async {
+                    if let email = self.emailTextFeild.text, !email.isEmpty {
+                        let requestModel = TermsAcceptRequest(
+                            version: version,
+                            email: email,
+                            source: "self_signup",
+                        )
+                        self.viewModel.acceptTermsAndConditions(model: requestModel)
+                        
+                    } else {
+                        self.isChecked = false
+                        self.showAlert("Enter valid email address.")
+                    }
+                }
             }
+            
             currentViewController.modalPresentationStyle = .overFullScreen
             present(currentViewController, animated: true)
         }

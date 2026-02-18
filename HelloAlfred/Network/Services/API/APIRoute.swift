@@ -15,6 +15,7 @@ enum APIRoute {
     // GET:
     case profileDetails
     case getUserStatus
+    case fetchTermsAndConditions
     
     // POST:
     case signup(model: SignupRequestModel)
@@ -23,6 +24,7 @@ enum APIRoute {
     case generateOtp(model: OTPRequestModel)
     case verifyOTP(email: String, otp: String)
     case sendTNC(email: String)
+    case acceptTermsAndConditions(model: TermsAcceptRequest)
     case uploadProfileImage(data: APIUploadData)
     case setUserStatus(model: UserStatusModel)
     
@@ -49,7 +51,7 @@ enum APIRoute {
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .learningProgress, .weekWiseQuizAnalytics:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -92,6 +94,10 @@ enum APIRoute {
             return "common/verify_otp"
         case .sendTNC:
             return "common/send_tnc"
+        case .fetchTermsAndConditions:
+            return "common/terms_and_conditions"
+        case .acceptTermsAndConditions:
+            return "common/update_user_tc_acceptance"
         case .profileDetails:
             return "patient/userdetails"
         case .updateUserDetails:
@@ -143,6 +149,9 @@ enum APIRoute {
         case .sendTNC(let email):
             return ["email": email]
         
+        case .acceptTermsAndConditions(let model):
+            return parseModel(data: model)
+        
         case .updateUserDetails(let model):
             return parseModel(data: model)
             
@@ -168,7 +177,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .learningProgress, .weekWiseQuizAnalytics:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .learningProgress, .weekWiseQuizAnalytics:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -177,7 +186,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .learningProgress, .weekWiseQuizAnalytics:
             return true
         default:
             return false

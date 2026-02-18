@@ -248,18 +248,35 @@ class HealthHubViewModel {
         // Filter unlocked weeks (true values)
         let unlockedWeeks = weekStatus.filter { $0.value == true }.keys
         
-        // Find max week number
-        var maxWeekNum = -1
+        var maxWeight = -1
         var maxWeekKey = ""
         
         for key in unlockedWeeks {
-            // Extract number from "weekX"
-            let weekNumString = key.replacingOccurrences(of: "week", with: "")
-            if let weekNum = Int(weekNumString) {
-                if weekNum > maxWeekNum {
-                    maxWeekNum = weekNum
-                    maxWeekKey = key
+            var weight = -1
+            
+            // Special handling for week20 (Module 1) which numerically is 20
+            // but effectively should come after week0 and before week1.
+            // We assign:
+            // week0 -> 0
+            // week20 -> 1
+            // weekN -> N + 1 (for N >= 1)
+            
+            if key == "week20" {
+                weight = 1
+            } else {
+                let weekNumString = key.replacingOccurrences(of: "week", with: "")
+                if let weekNum = Int(weekNumString) {
+                    if weekNum == 0 {
+                        weight = 0
+                    } else {
+                        weight = weekNum + 1
+                    }
                 }
+            }
+            
+            if weight > maxWeight {
+                maxWeight = weight
+                maxWeekKey = key
             }
         }
         

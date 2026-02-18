@@ -131,9 +131,6 @@ class APIClient {
     static func lastUpdatedExpertMonitoringDetails(completion:@escaping(AFResult<LastestExpertMonitoringModel>)->Void){
         performRequest(route: APIRouter.getLastExpertMonitoringDetails,completion: completion)
     }
-    static func fetchTermsAndConditions(completion:@escaping(AFResult<TermsAndConditionsModel>)->Void){
-        performRequest(route: APIRouter.fetchTermsAndConditions,completion: completion)
-    }
     
     static func fetchVideoContent(completion:@escaping(AFResult<VideoListContentModel>)->Void) {
         performRequest(route: APIRouter.getVideoContent,completion: completion)

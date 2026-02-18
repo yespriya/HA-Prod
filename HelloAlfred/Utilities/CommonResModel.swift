@@ -10,8 +10,8 @@ struct CommonResModel : Codable {
 
 struct AccessToken : Codable {
     let token : String?
+    let terms: Terms?
 }
-
 
 import Foundation
 

@@ -112,48 +112,96 @@ class SignInViewController: BaseViewController {
         )
         viewModel.signIn(model: signInData) { success in
             if success {
-                if let token = self.viewModel.commonTokenResponse?.data?.token {
-                    let userdetails = self.decodeJWT(part: token)
-                    
-                    UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
-                    UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
-                    UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
-                    UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
-                    UserDefaults.standard.set(userdetails?["email"] ?? "Invalid email", forKey: "Email")
-                    if let accessArray = userdetails?["has_access"] as? [Int] {
-                        if !accessArray.contains(3) {
-                            UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
-                            if let role = userdetails?["role"] as? Int {
-                                self.displayLoginPopUpAdmin(role: role)
+                DispatchQueue.main.async {
+
+                    if let token = self.viewModel.commonTokenResponse?.data?.token {
+
+                        let userdetails = self.decodeJWT(part: token)
+
+                        UserDefaults.standard.set("Bearer \(token)", forKey: "Authorization")
+                        UserDefaults.standard.set(userdetails?["patient_id"] ?? "Invalid ID", forKey: "PateintId")
+                        UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
+                        UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
+                        UserDefaults.standard.set(userdetails?["email"] ?? "Invalid email", forKey: "Email")
+
+                        if self.viewModel.commonTokenResponse?.data?.terms?.accepted == false,
+                           self.viewModel.commonTokenResponse?.data?.terms?.required == true {
+
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                            if let vc = storyboard.instantiateViewController(
+                                withIdentifier: "TermsAndConditionsViewController"
+                            ) as? TermsAndConditionsViewController {
+
+                                vc.isFromSignIn = true
+
+                                vc.isAccept = { [weak self] (isAccepted, version) in
+                                    guard let self = self else { return }
+
+                                    if isAccepted {
+                                        let requestModel = TermsAcceptRequest(
+                                            version: version,
+                                            email: userdetails?["email"] as? String ?? "",
+                                            source: "admin_created",
+                                            user_id: userdetails?["patient_id"] as? String ?? ""
+                                        )
+                                        
+                                        self.viewModel.acceptTermsAndConditions(model: requestModel) { success in
+                                            if success{
+                                                DispatchQueue.main.async {
+                                                    self.handleLoginSuccess(userdetails: userdetails)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                vc.modalPresentationStyle = .overFullScreen
+                                self.present(vc, animated: true)
                             }
                             return
                         }
+
+                        self.handleLoginSuccess(userdetails: userdetails)
+
+                    } else {
+                        self.showAlert(self.viewModel.commonTokenResponse?.message ?? "Invalid Token")
                     }
-                    if let changePassword = userdetails?["change_pwd"] as? Bool {
-                        if changePassword == true {
-                            self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
-                            return
-                        }
-                    }
-                    
-                    // otp while login (client requuirement)
-                    /*
-                     if let otpFlow = userdetails?["otp_flow"] as? Bool {
-                     if otpFlow == true {
-                     self.generateOTPApiCall()
-                     return
-                     }
-                     }
-                     */
-                    
-                    UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
-                    self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
-                } else {
-                    self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
                 }
                 
             }
         }
+    }
+    
+    func handleLoginSuccess(userdetails: [String: Any]?) {
+        if let accessArray = userdetails?["has_access"] as? [Int] {
+            if !accessArray.contains(3) {
+                UserDefaults.standard.set(false, forKey: "IS_LOGGED_IN")
+                if let role = userdetails?["role"] as? Int {
+                    self.displayLoginPopUpAdmin(role: role)
+                }
+                return
+            }
+        }
+        if let changePassword = userdetails?["change_pwd"] as? Bool {
+            if changePassword == true {
+                self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
+                return
+            }
+        }
+        
+        // otp while login (client requuirement)
+        /*
+        if let otpFlow = userdetails?["otp_flow"] as? Bool {
+            if otpFlow == true {
+                self.generateOTPApiCall()
+                return
+            }
+        }
+        */
+        
+        UserDefaults.standard.set(true, forKey: "IS_LOGGED_IN")
+        self.navigateTo(viewController: DashboardViewController.self, withIdentifier: "DashboardViewController")
     }
     
     func generateOTP() {
