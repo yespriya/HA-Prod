@@ -240,50 +240,71 @@ class HealthHubViewModel {
         }
     }
     
+//    func getLatestUnlockedModule() -> HealthHubDropDownData? {
+//        guard let weekStatus = weeklyStatusRes?.data, let dropDownData = dropDownRes?.data else {
+//            return nil
+//        }
+//        
+//        // Filter unlocked weeks (true values)
+//        let unlockedWeeks = weekStatus.filter { $0.value == true }.keys
+//        
+//        var maxWeight = -1
+//        var maxWeekKey = ""
+//        
+//        for key in unlockedWeeks {
+//            var weight = -1
+//            
+//            // Special handling for week20 (Module 1) which numerically is 20
+//            // but effectively should come after week0 and before week1.
+//            // We assign:
+//            // week0 -> 0
+//            // week20 -> 1
+//            // weekN -> N + 1 (for N >= 1)
+//            
+//            if key == "week20" {
+//                weight = 1
+//            } else {
+//                let weekNumString = key.replacingOccurrences(of: "week", with: "")
+//                if let weekNum = Int(weekNumString) {
+//                    if weekNum == 0 {
+//                        weight = 0
+//                    } else {
+//                        weight = weekNum + 1
+//                    }
+//                }
+//            }
+//            
+//            if weight > maxWeight {
+//                maxWeight = weight
+//                maxWeekKey = key
+//            }
+//        }
+//        
+//        guard !maxWeekKey.isEmpty else { return nil }
+//        
+//        // Find corresponding drop down data
+//        return dropDownData.first(where: { $0.value == maxWeekKey })
+//    }
+    
     func getLatestUnlockedModule() -> HealthHubDropDownData? {
-        guard let weekStatus = weeklyStatusRes?.data, let dropDownData = dropDownRes?.data else {
+        guard let weekStatus = weeklyStatusRes?.data,
+              let dropDownData = dropDownRes?.data else {
             return nil
         }
         
-        // Filter unlocked weeks (true values)
-        let unlockedWeeks = weekStatus.filter { $0.value == true }.keys
-        
-        var maxWeight = -1
-        var maxWeekKey = ""
-        
-        for key in unlockedWeeks {
-            var weight = -1
+        // The dropdown list from the API determines the TRUE chronological order.
+        // We traverse it backwards to find the last module that is unlocked.
+        for module in dropDownData.reversed() {
+            guard let weekKey = module.value else { continue }
             
-            // Special handling for week20 (Module 1) which numerically is 20
-            // but effectively should come after week0 and before week1.
-            // We assign:
-            // week0 -> 0
-            // week20 -> 1
-            // weekN -> N + 1 (for N >= 1)
-            
-            if key == "week20" {
-                weight = 1
-            } else {
-                let weekNumString = key.replacingOccurrences(of: "week", with: "")
-                if let weekNum = Int(weekNumString) {
-                    if weekNum == 0 {
-                        weight = 0
-                    } else {
-                        weight = weekNum + 1
-                    }
-                }
-            }
-            
-            if weight > maxWeight {
-                maxWeight = weight
-                maxWeekKey = key
+            // Check if this module's value (e.g., "week20") is true/1 in the status response
+            if weekStatus[weekKey] == true {
+                return module
             }
         }
         
-        guard !maxWeekKey.isEmpty else { return nil }
-        
-        // Find corresponding drop down data
-        return dropDownData.first(where: { $0.value == maxWeekKey })
+        // Fallback to the first module if nothing is marked as unlocked yet
+        return dropDownData.first
     }
 }
 
