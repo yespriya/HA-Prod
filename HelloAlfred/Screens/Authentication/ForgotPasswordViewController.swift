@@ -58,8 +58,8 @@ class ForgotPasswordViewController: BaseViewController {
                 
                 let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
                 
-                if self?.viewModel.commonTokenResponse?.statuscode == 200 {
-                    popup.otpSentLabelText = self?.viewModel.commonTokenResponse?.message ?? ""
+                if self?.viewModel.simpleResponse?.statuscode == 200 {
+                    popup.otpSentLabelText = self?.viewModel.simpleResponse?.message ?? ""
                 } else {
                     popup.otpSentLabelText = ""
                 }

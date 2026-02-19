@@ -102,7 +102,7 @@ class PasswordViewController: BaseViewController {
         
         viewModel.signUp(model: signupRequestModel) { [weak self] success in
             if success  {
-                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
+                self?.showAlertWithHandler(message: self?.viewModel.simpleResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
                     self?.navigateTo(viewController: SubscriptionViewController.self, withIdentifier: "SubscriptionViewController")
                 }
             }
@@ -136,7 +136,7 @@ class PasswordViewController: BaseViewController {
         
         viewModel.updatePassword(model: updatePasswordModel) { [weak self] success in
             if success {
-                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
+                self?.showAlertWithHandler(message: self?.viewModel.simpleResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) { _ in
                     self?.navigateTo(viewController: SignInViewController.self, withIdentifier: "SignInViewController")
                 }
             }

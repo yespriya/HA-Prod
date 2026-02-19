@@ -219,20 +219,20 @@ class SignInViewController: BaseViewController {
         viewModel.generateOTP(model: otpDataModel) { [self] success in
             if success {
                 let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
-                if viewModel.commonTokenResponse?.statuscode == 200 {
-                    popup.otpSentLabelText = self.viewModel.commonTokenResponse?.message ?? ""
+                if viewModel.simpleResponse?.statuscode == 200 {
+                    popup.otpSentLabelText = self.viewModel.simpleResponse?.message ?? ""
                     popup.isFromSignIN = true
                 } else {
-                    self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP not sent.")
+                    self.showAlert(self.viewModel.simpleResponse?.message ?? "OTP not sent.")
                 }
                 popup.modalPresentationStyle = .overCurrentContext
                 present(popup, animated: true, completion: nil)
             } else {
-                self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP not sent.")
+                self.showAlert(self.viewModel.simpleResponse?.message ?? "OTP not sent.")
             }
         }
         viewModel.errorMessageAlert = {
-            self.showAlert(self.viewModel.commonTokenResponse?.message ?? "OTP sent failed.")
+            self.showAlert(self.viewModel.simpleResponse?.message ?? "OTP sent failed.")
         }
     }
     

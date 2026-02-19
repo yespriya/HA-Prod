@@ -88,7 +88,7 @@ class ChangePasswordViewController: BaseViewController {
         viewModel.changePassword(old: oldPwd, new: newPwd) { [weak self] success in
             if success {
                 print("success")
-                self?.showAlertWithHandler(message: self?.viewModel.commonTokenResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) {  _ in
+                self?.showAlertWithHandler(message: self?.viewModel.simpleResponse?.message ?? "Success",  okActionTitle: "Okay", enableCancel: false) {  _ in
                     self?.dismiss(animated: true)
                 }
             }

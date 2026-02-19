@@ -189,8 +189,8 @@ class SignUpViewController: BaseViewController,UIDocumentPickerDelegate
                 education: nil, ssn: nil, insuranceurl: nil, password: nil)
                 
                 let popup = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController ?? OTPViewController()
-                if viewModel.commonTokenResponse?.statuscode == 200 {
-                    popup.otpSentLabelText = self.viewModel.commonTokenResponse?.message ?? ""
+                if viewModel.simpleResponse?.statuscode == 200 {
+                    popup.otpSentLabelText = self.viewModel.simpleResponse?.message ?? ""
                 } else {
                     self.showAlert(self.viewModel.errorMessage ?? "OTP sent failed. Please try again.")
                 }

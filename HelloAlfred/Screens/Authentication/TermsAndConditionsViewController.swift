@@ -84,7 +84,7 @@ class TermsAndConditionsViewController: UIViewController, UITextViewDelegate {
     
         viewModel.sendTNC(email: email) { [weak self] success in
             if success {
-                self?.showAlert(self?.viewModel.commonTokenResponse?.message ?? "Success")
+                self?.showAlert(self?.viewModel.simpleResponse?.message ?? "Success")
             }
         }
         
