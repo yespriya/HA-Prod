@@ -186,7 +186,7 @@ class QuizViewController: UIViewController {
             "question_number": question.questionNo ?? 0,
             "question": question.question ?? "",
             "answer": answer,
-            "week_number": quizKey == "14" ? "post_test" : quizKey,
+            "week_number": quizKey,
             "choice": question.choice ?? "",
             "scale": type == "scale" ? selectedScaleOption : NSNull(),
             "label": type == "scale" ? selectedScaleOptionText : ""

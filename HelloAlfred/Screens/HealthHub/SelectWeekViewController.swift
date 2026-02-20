@@ -62,10 +62,10 @@ class SelectWeekViewController: UIViewController,UITableViewDelegate, UITableVie
         let selectedValue = details[indexPath.row].value ?? ""  
         if weekStatuses?.isWeekAvailable(selectedValue) == true {
             if details.count == indexPath.row + 1 {
-                dismissWithData(selectedData: details[indexPath.row], nextWeekQuizKey: details[indexPath.row].value ?? "")
+                dismissWithData(selectedData: details[indexPath.row], nextWeekQuizKey: details[indexPath.row].quizKey ?? "")
                 return
             }
-            dismissWithData(selectedData: details[indexPath.row], nextWeekQuizKey: details[indexPath.row + 1].value ?? "")
+            dismissWithData(selectedData: details[indexPath.row], nextWeekQuizKey: details[indexPath.row + 1].quizKey ?? "")
         } else {
             showAlert("Selected week not available")
         }

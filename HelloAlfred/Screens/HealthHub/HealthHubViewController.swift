@@ -162,7 +162,7 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
                     currentViewController.nextWeekQuizKey_pretest = nextWeekQuizKey
                     currentViewController.needToUpdateWeekStatus = { [weak self] status in
                         self?.updateHealthHubStatus(type: "update_complete_week")
-                        self?.healthViewModel.fetchWeeklyContent(params: self?.selectedWeekQuizKey.replacingOccurrences(of: "week", with: "") ?? "")
+                        self?.healthViewModel.fetchWeeklyContent(params: self?.selectedWeek.replacingOccurrences(of: "week", with: "") ?? "")
                         self?.fetchInitialData()
                         if let data = self?.healthViewModel.dropDownRes?.data {
                             if let dropDownData = data.first, let nextData = data.dropFirst().first {
@@ -244,30 +244,12 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
     func updateDisplayedSections(selectedWeekInt: Int) {
     }
 
-    private func updateHealthHubStatus(type: String) {
-        var unlockNextWeekKey = nextWeekQuizKey
+    
+    private func updateHealthHubStatus(type:String) {
+        let params: [String: Any] = type == "Skip" ? ["skip_week": selectedWeek] : ["update_current_week": selectedWeek.replacingOccurrences(of: "week", with: "").description, "unlock_next_week": nextWeekQuizKey.replacingOccurrences(of: "module_", with: "")]
         
-        // Dynamically find the EXACT next module from the chronological dropdown list
-        if let dropDownData = healthViewModel.dropDownRes?.data {
-            // Find the index of the currently selected module
-            let currentWeekValue = selectedWeek.contains("week") ? selectedWeek : "week\(selectedWeek)"
-            if let currentIndex = dropDownData.firstIndex(where: { $0.value == currentWeekValue }),
-               currentIndex + 1 < dropDownData.count {
-                // Grab the quizKey for the next chronological module
-                unlockNextWeekKey = dropDownData[currentIndex + 1].value ?? ""
-            }
-        }
-        
-        // Build parameters
-        let params: [String: Any] = type == "Skip"
-            ? ["skip_week": selectedWeek]
-            : [
-                "update_current_week": selectedWeek.replacingOccurrences(of: "week", with: ""),
-                "unlock_next_week": unlockNextWeekKey.replacingOccurrences(of: "week", with: "")
-              ]
-        
-        print("Sending Params to Unlock Module: \(params)")
-        
+//        ["update_complete_week": selectedWeek]
+        print("params \(params)")
         healthViewModel.updateHealthHubStatus(params: params)
         healthViewModel.healthHubStatusUpdateSuccess = {
             if case let .dataClass(dataClass) = self.healthViewModel.healthHubUpdateStatusRes?.data {
@@ -276,68 +258,33 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
                 } else {
                     if(type == "Proceed"){
                         self.updateUserStatusApiCall()
-                    }
-                    DispatchQueue.main.async {
-                        self.fetchInitialData()
+                        
+                    }else{
+                        DispatchQueue.main.async {
+                            self.fetchInitialData()
+                        }
                     }
                 }
             }
+
         }
-        
         healthViewModel.loadingStatus = {
-            if !self.healthViewModel.isLoading {
+            if self.healthViewModel.isLoading {
+//                self.activityIndicator(self.view, startAnimate: true)
+            } else {
                 DispatchQueue.main.async {
                     self.activityIndicator(self.view, startAnimate: false)
                     UIApplication.shared.endIgnoringInteractionEvents()
                 }
             }
         }
-        
         healthViewModel.errorMessageAlert = {
-            self.showAlert(self.healthViewModel.errorMessage ?? "Error")
+                self.showAlert(self.healthViewModel.errorMessage ?? "Error")
         }
     }
     
-//    private func updateHealthHubStatus(type:String) {
-//        let params: [String: Any] = type == "Skip" ? ["skip_week": selectedWeek] : ["update_current_week": selectedWeek.replacingOccurrences(of: "week", with: "").description, "unlock_next_week": nextWeekQuizKey.replacingOccurrences(of: "module_", with: "")]
-//        
-////        ["update_complete_week": selectedWeek]
-//        print("params \(params)")
-//        healthViewModel.updateHealthHubStatus(params: params)
-//        healthViewModel.healthHubStatusUpdateSuccess = {
-//            if case let .dataClass(dataClass) = self.healthViewModel.healthHubUpdateStatusRes?.data {
-//                if dataClass.quizStatus == false {
-//                    self.showAlert("Please complete the quiz to proceed")
-//                } else {
-//                    if(type == "Proceed"){
-//                        self.updateUserStatusApiCall()
-//                        
-//                    }
-//                    DispatchQueue.main.async {
-//                        self.fetchInitialData()
-//                    }
-//                }
-//            }
-//
-//        }
-//        healthViewModel.loadingStatus = {
-//            if self.healthViewModel.isLoading {
-////                self.activityIndicator(self.view, startAnimate: true)
-//            } else {
-//                DispatchQueue.main.async {
-//                    self.activityIndicator(self.view, startAnimate: false)
-//                    UIApplication.shared.endIgnoringInteractionEvents()
-//                }
-//            }
-//        }
-//        healthViewModel.errorMessageAlert = {
-//                self.showAlert(self.healthViewModel.errorMessage ?? "Error")
-//        }
-//    }
-    
     private func fetchWeeklyContentApiCall(selectedWeek: String) {
 //        let params = ["week": selectedWeek]
-        print(selectedWeek)
         healthViewModel.fetchWeeklyContent(params: selectedWeek)
         healthViewModel.weeklyContentFetchSuccess = { [weak self] in
             guard let self = self else { return }
@@ -414,8 +361,8 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
     }
     
     func didDismissWithData(_ data: HealthHubDropDownData, nextWeekQuizKey: String) {
-        selectedWeek = data.quizKey?.replacingOccurrences(of: "week ", with: "") ?? ""
-        fetchWeeklyContentApiCall(selectedWeek: data.value?.replacingOccurrences(of: "week", with: "") ?? "")
+        selectedWeek = data.value?.replacingOccurrences(of: "week ", with: "") ?? ""
+        fetchWeeklyContentApiCall(selectedWeek: data.quizKey?.replacingOccurrences(of: "module_", with: "") ?? "")
         //selectedWeekLabel.text = "Week \(selectedWeek)"
         selectedWeekLabel.text = data.label
         lblContentDescription.text = data.title
@@ -564,17 +511,15 @@ extension HealthHubViewController: UITableViewDelegate, UITableViewDataSource {
                                 currentViewController.modalPresentationStyle = .overFullScreen
                                 currentViewController.quizKey = selectedWeek.replacingOccurrences(of: "week", with: "") == "0" ? selectedWeekQuizKey.replacingOccurrences(of: "module_", with: "") : selectedWeek.replacingOccurrences(of: "week", with: "")
 
-                                
                                     currentViewController.needToUpdateWeekStatus = { [weak self] status in
                                         self?.updateHealthHubStatus(type: "update_complete_week")
-                                        
                                         self?.healthViewModel.fetchWeeklyContent(params: self?.selectedWeek.replacingOccurrences(of: "week", with: "") ?? "")
                                         self?.fetchInitialData()
                                         if let data = self?.healthViewModel.dropDownRes?.data {
                                             if let dropDownData = data.first, let nextData = data.dropFirst().first {
                                                 self?.selectedWeekLabel.text = dropDownData.label
                                                 self?.lblContentDescription.text = dropDownData.title
-                                                self?.nextWeekQuizKey = dropDownData.value ?? ""
+                                                self?.nextWeekQuizKey = dropDownData.quizKey ?? ""
                                                 self?.selectedWeekQuizKey = dropDownData.quizKey ?? ""
                                             }
                                         }
@@ -803,21 +748,20 @@ extension HealthHubViewController {
             if let data = healthViewModel.dropDownRes?.data,
                let idx = data.firstIndex(where: {$0.value == latestModule.value}),
                idx + 1 < data.count {
-                nextKey = data[idx+1].value ?? ""
+                nextKey = data[idx+1].quizKey ?? ""
             }
             
             // Prevent reloading if already on the correct week
             let newSelectedWeek = latestModule.value?.replacingOccurrences(of: "week ", with: "") ?? ""
             if selectedWeek == "week0" || selectedWeek != newSelectedWeek {
                  self.didDismissWithData(latestModule, nextWeekQuizKey: nextKey)
-                self.selectedWeek = newSelectedWeek
             }
         } else if let data = healthViewModel.dropDownRes?.data, healthViewModel.weeklyStatusRes == nil {
              // Fallback for initial load if status is not ready yet or failed
              if let dropDownData = data.first, let nextData = data.dropFirst().first {
                  selectedWeekLabel.text = dropDownData.label
                  lblContentDescription.text = dropDownData.title
-                 self.nextWeekQuizKey = nextData.value ?? ""
+                 self.nextWeekQuizKey = nextData.quizKey ?? ""
                  
                  if selectedWeek == "week0" && weeklyContent.isEmpty {
                      let weekVal = dropDownData.value?.replacingOccurrences(of: "week ", with: "") ?? "week0"
