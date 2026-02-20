@@ -24,7 +24,7 @@ class EducationChatViewModel {
     
     // Fetch Static Message
     func fetchStaticMessage(completion: ((Bool) -> Void)? = nil) {
-        educationChatRepository.getBotStaticMessage(isShowLoader: true)
+        educationChatRepository.getBotStaticMessage(isShowLoader: false)
             .subscribe(onSuccess: { [weak self] response in
                 if response.status ?? false == false {
                     if response.statuscode == 401 {

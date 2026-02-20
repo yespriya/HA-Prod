@@ -97,7 +97,6 @@ class EducationalChatViewController: BaseViewController,KeyboardHandling, SFSpee
         eduChatViewModel.fetchStaticMessage() { [weak self] success in
             if success {
                 guard let self = self else { return }
-                self.activityIndicator(view.self, startAnimate: false)
                 initializeChat(welcomeMessage: eduChatViewModel.staticMessageRes?.data?.welcome_message ?? "Hello, I am Alfred! How can i Assist you today?")
             }
         }
