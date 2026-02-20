@@ -47,3 +47,46 @@ struct SymptomsDetailsData : Codable {
     }
 
 }
+
+
+enum SymptomKey: String {
+    case breathnessda       = "breathnessda"
+    case breathnessea       = "breathnessea"
+    case dizziness          = "dizziness"
+    case col_swet           = "col_swet"
+    case p_tiredness        = "p_tiredness"
+    case chest_pain         = "chest_pain"
+    case pressurechest      = "pressurechest"
+    case worry              = "worry"
+    case weakness           = "weakness"
+    case infirmity          = "infirmity"
+    case nsynacpe           = "nsynacpe"
+    case syncope            = "syncope"
+    case tirednessafterwards = "tirednessafterwards"
+
+    var title: String {
+        switch self {
+        case .breathnessda:        return "Breathlessness during activity"
+        case .breathnessea:        return "Breathlessness even at rest"
+        case .dizziness:           return "Dizziness"
+        case .col_swet:            return "Cold sweat"
+        case .p_tiredness:         return "Pronounced tiredness"
+        case .chest_pain:          return "Chest pain"
+        case .pressurechest:       return "Pressure/ discomfort in chest"
+        case .worry:               return "Worry"
+        case .weakness:            return "Weakness"
+        case .infirmity:           return "Infirmity"
+        case .nsynacpe:            return "Near syncope"
+        case .syncope:             return "Syncope"
+        case .tirednessafterwards: return "Tiredness afterwards"
+        }
+    }
+    
+
+    static func title(for key: String?) -> String {
+        guard let key = key, let symptom = SymptomKey(rawValue: key) else {
+            return key ?? ""
+        }
+        return symptom.title
+    }
+}

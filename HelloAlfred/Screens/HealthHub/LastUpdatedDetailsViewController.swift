@@ -21,7 +21,18 @@ class LastUpdatedDetailsViewController: UIViewController{
     let healthViewModel = HealthDetailsViewModel()
     let symptomsViewModel = SymptomsViewModel()
     var symptomsDetails = [SymptomsDetailsData]()
+    
+    var filteredSymptomsDetails: [SymptomsDetailsData] {
+        return symptomsDetails.filter { item in
+            let freq = item.frequency?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let sev = item.severity?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let qol = item.quality_of_life?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            return !freq.isEmpty || !sev.isEmpty || !qol.isEmpty
+        }
+    }
     @IBOutlet var detailsTableView: UITableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         detailsTableView.delegate = self
@@ -113,18 +124,19 @@ class LastUpdatedDetailsViewController: UIViewController{
 }
 extension LastUpdatedDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fromListOfSymptoms ? symptomsDetails.count : 1
+        return fromListOfSymptoms ? filteredSymptomsDetails.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = detailsTableView.dequeueReusableCell(withIdentifier: "LastUpdatedDetailsTableViewCell") as! LastUpdatedDetailsTableViewCell
         if(fromListOfSymptoms)
         {
+            let filteredSymptomsData = filteredSymptomsDetails[indexPath.row]
             cell.details4Label.isHidden = false
-            cell.details1Label.text = symptomsDetails[indexPath.row].symptoms_key
-            cell.details2Label.text = symptomsDetails[indexPath.row].frequency
-            cell.details3Label.text = symptomsDetails[indexPath.row].severity
-            cell.details4Label.text = symptomsDetails[indexPath.row].quality_of_life
+            cell.details1Label.text = SymptomKey.title(for: filteredSymptomsData.symptoms_key)
+            cell.details2Label.text = filteredSymptomsData.frequency?.isEmpty == false ? filteredSymptomsData.frequency : "None"
+            cell.details3Label.text = filteredSymptomsData.severity?.isEmpty == false ? filteredSymptomsData.severity : "None"
+            cell.details4Label.text = filteredSymptomsData.quality_of_life?.isEmpty == false ? filteredSymptomsData.quality_of_life : "None"
             
             cell.title1Label.text = "Symptom"
             cell.title2Label.text = "Frequency"
