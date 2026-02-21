@@ -113,7 +113,6 @@ class SignInViewController: BaseViewController {
         viewModel.signIn(model: signInData) { success in
             if success {
                 DispatchQueue.main.async {
-
                     if let token = self.viewModel.commonTokenResponse?.data?.token {
 
                         let userdetails = self.decodeJWT(part: token)
@@ -123,6 +122,13 @@ class SignInViewController: BaseViewController {
                         UserDefaults.standard.set(userdetails?["username"] ?? "Invalid name", forKey: "Username")
                         UserDefaults.standard.set(userdetails?["profilePictureUrl"] ?? "Invalid img", forKey: "ProfileImg")
                         UserDefaults.standard.set(userdetails?["email"] ?? "Invalid email", forKey: "Email")
+                        
+                        if let changePassword = userdetails?["change_pwd"] as? Bool {
+                            if changePassword == true {
+                                self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
+                                return
+                            }
+                        }
 
                         if self.viewModel.commonTokenResponse?.data?.terms?.accepted == false,
                            self.viewModel.commonTokenResponse?.data?.terms?.required == true {
@@ -169,6 +175,8 @@ class SignInViewController: BaseViewController {
                     }
                 }
                 
+            } else {
+                self.showAlert(self.viewModel.errorMessage ?? "Invalid Token")
             }
         }
     }
@@ -183,6 +191,8 @@ class SignInViewController: BaseViewController {
                 return
             }
         }
+        
+        /*
         if let changePassword = userdetails?["change_pwd"] as? Bool {
             if changePassword == true {
                 self.navigateTo(viewController: PasswordViewController.self, withIdentifier: "PasswordViewController")
@@ -191,7 +201,7 @@ class SignInViewController: BaseViewController {
         }
         
         // otp while login (client requuirement)
-        /*
+        
         if let otpFlow = userdetails?["otp_flow"] as? Bool {
             if otpFlow == true {
                 self.generateOTPApiCall()

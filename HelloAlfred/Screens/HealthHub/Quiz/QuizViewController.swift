@@ -93,11 +93,6 @@ class QuizViewController: UIViewController {
             self.view.isHidden = false
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
 
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.dismiss(animated: true)

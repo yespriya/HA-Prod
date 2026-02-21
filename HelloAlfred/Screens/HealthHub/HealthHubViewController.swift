@@ -260,7 +260,7 @@ class HealthHubViewController: UIViewController, WeekViewControllerDelegate {
         
         // Build parameters
         let params: [String: Any] = type == "Skip"
-            ? ["skip_week": selectedWeek]
+        ? ["skip_week": selectedWeek.replacingOccurrences(of: "week", with: "")]
             : [
                 "update_current_week": selectedWeek.replacingOccurrences(of: "week", with: ""),
                 "unlock_next_week": unlockNextWeekKey.replacingOccurrences(of: "week", with: "")
