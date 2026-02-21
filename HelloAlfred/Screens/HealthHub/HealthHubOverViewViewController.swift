@@ -6,59 +6,10 @@
 //
 
 import UIKit
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let healthHubOverviewModel = try? JSONDecoder().decode(HealthHubOverviewModel.self, from: jsonData)
-
-import Foundation
-
-// MARK: - HealthHubOverviewModel
-struct HealthHubOverviewModel: Codable {
-    let status: Bool?
-    let statuscode: Int?
-    let message: String?
-    let data: [AFTopic]?
-}
-
-// MARK: - Datum
-struct AFTopic: Codable {
-    let week: Week
-    let title: String
-    let list: [String]
-}
-
-enum Week: Codable {
-    case string(String)
-    case stringArray([String])
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode([String].self) {
-            self = .stringArray(x)
-            return
-        }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
-        }
-        throw DecodingError.typeMismatch(Week.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Week"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .string(let x):
-            try container.encode(x)
-        case .stringArray(let x):
-            try container.encode(x)
-        }
-    }
-}
 
 class HealthHubOverViewViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-    var afTopics: [AFTopic] = []
+    var afTopics: [HealthhubOverView] = []
     
     @IBOutlet var overViewTableView: UITableView!
     override func viewDidLoad() {

@@ -11,13 +11,9 @@ import Alamofire
 enum APIRoute {
     
     // MARK: Users
-    
-    // GET:
     case profileDetails
     case getUserStatus
     case fetchTermsAndConditions
-    
-    // POST:
     case signup(model: SignupRequestModel)
     case signIn(model: SignInRequestModel)
     case socialAuth(model: SignInRequestModel)
@@ -27,31 +23,29 @@ enum APIRoute {
     case acceptTermsAndConditions(model: TermsAcceptRequest)
     case uploadProfileImage(data: APIUploadData)
     case setUserStatus(model: UserStatusModel)
-    
-    // PUT:
     case updatePassword(model: SignInRequestModel)
     case changePassword(old: String, new: String)
     case updateUserDetails(model: UserProfileRequest)
-    
-    // DELETE:
     case deleteProfileImage
     
-    // MARK: Chat
+    // MARK: Health Hub
+    case fetchWeeklyUnlockContent
+    case fetchHealthHubDropDownData
+    case fetchHealthHubOverviewData
+    case fetchWeeklyContent(weekNumber: String)
     
-    // POST:
+    // MARK: Chat
     case saveChat(model: ChatSaveModel)
     case preferenceChat(model: PrefereceChatModel)
     case getBotStaticMessage
-    
+
     // MARK: Learning Progress
-    
-    // POST:
     case learningProgress(model: LearningAnalyticsRequestModel)
     case weekWiseQuizAnalytics(model: WeekWiseQuizAnalyticsRequestModel)
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -116,6 +110,14 @@ enum APIRoute {
             return "patient/preference_chat"
         case .getBotStaticMessage:
             return "common/get_bot_static_message"
+        case .fetchWeeklyUnlockContent:
+            return "patient/weekly_unlock_content"
+        case .fetchHealthHubDropDownData:
+            return "patient/get_health_hub_dropdown"
+        case .fetchHealthHubOverviewData:
+            return "patient/get_health_hub_overivew"
+        case .fetchWeeklyContent(let param):
+            return "patient/getweeklycontent/\(param)"
         case .learningProgress:
             return "superadmin/patient_wise_module_analytics"
         case .weekWiseQuizAnalytics:
@@ -163,6 +165,9 @@ enum APIRoute {
         
         case .preferenceChat(let model):
             return parseModel(data: model)
+            
+        case .fetchHealthHubDropDownData, .fetchHealthHubOverviewData:
+            return ["subdomain": Constants.subdomain]
         
         case .learningProgress(let model):
             return parseModel(data: model)
@@ -177,7 +182,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .learningProgress, .weekWiseQuizAnalytics:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -186,7 +191,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .fetchWeeklyUnlockContent, .fetchHealthHubDropDownData, .fetchWeeklyContent, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
             return true
         default:
             return false

@@ -68,7 +68,7 @@ class QuizViewController: UIViewController {
         self.setupUI()
 
 //        self.activityIndicator(view.self, startAnimate: true)
-        viewModel.fetchQuizData(with: ["week_number" : quizKey.replacingOccurrences(of: "module_", with: "")])
+        viewModel.fetchQuizData(with: ["week_number" : quizKey])
         viewModel.quizListFetchSuccess = { [weak self] in
             guard let self = self else { return }
             self.activityIndicator(view.self, startAnimate: false)
@@ -181,7 +181,7 @@ class QuizViewController: UIViewController {
             "question_number": question.questionNo ?? 0,
             "question": question.question ?? "",
             "answer": answer,
-            "week_number": quizKey == "14" ? "post_test" : quizKey,
+            "week_number": quizKey,
             "choice": question.choice ?? "",
             "scale": type == "scale" ? selectedScaleOption : NSNull(),
             "label": type == "scale" ? selectedScaleOptionText : ""
@@ -260,7 +260,7 @@ extension QuizViewController {
     
     func setupUI() {
 
-        self.lblModule.text = moduelDisplyNumber//"Module \(quizKey)"
+        self.lblModule.text = moduelDisplyNumber
         setupDesclimer()
     }
     
@@ -333,8 +333,7 @@ extension QuizViewController {
     func setQuizProgress() {
         self.quizProgress.setProgress(Float(completedQuestionCount) / Float(totalQuestionCount), animated: true)
         let percentage = Int(Float(completedQuestionCount) / Float(totalQuestionCount) * 100)
-        let weekNumber =  quizKey.replacingOccurrences(of: "module_", with: "")
-        if weekNumber == "pre_test" {
+        if quizKey == "pre_test" {
             self.lblProgress.text = "Answer to personalize your quiz"
         } else {
             self.lblProgress.text = "\(percentage)% Completed | \(completedQuestionCount) of \(totalQuestionCount) Completed"
@@ -364,8 +363,7 @@ extension QuizViewController {
         
         if currentQuestionCount > totalQuestionCount {
             vwBackAndNext.isHidden = true
-            let weekNumber =  quizKey.replacingOccurrences(of: "module_", with: "")
-            if weekNumber == "pre_test" && totalQuestionCount == 1 {
+            if ((quizKey == "pre_test" || quizKey == "post_test") && totalQuestionCount == 1) {
                 fetchNextWeekData()
                 return
             }
@@ -596,7 +594,7 @@ extension QuizViewController {
     }
     
     func fetchNextWeekData() {
-        viewModel.fetchQuizData(with: ["week_number" : quizKey.replacingOccurrences(of: "module_", with: "")])
+        viewModel.fetchQuizData(with: ["week_number" : quizKey])
         viewModel.quizListFetchSuccess = { [weak self] in
             guard let self = self else { return }
             self.activityIndicator(view.self, startAnimate: false)

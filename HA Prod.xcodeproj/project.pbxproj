@@ -11,7 +11,6 @@
 		5047BAF42E6B6AAC0011F2D7 /* EducationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5047BAF32E6B6AA00011F2D7 /* EducationModels.swift */; };
 		5051CC2F2E23898400E1F6AA /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC2E2E23897C00E1F6AA /* TokenManager.swift */; };
 		5051CC322E2399BF00E1F6AA /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC312E2399BC00E1F6AA /* CommonView.swift */; };
-		5051CC342E25532D00E1F6AA /* HealthHubDropDownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CC332E25531300E1F6AA /* HealthHubDropDownModel.swift */; };
 		50784D782E465323000A2E17 /* InputOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50784D772E465323000A2E17 /* InputOptionView.xib */; };
 		50784D7A2E4654C8000A2E17 /* InputOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50784D792E4654BD000A2E17 /* InputOptionView.swift */; };
 		50784D7C2E4660D6000A2E17 /* ScaleOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50784D7B2E4660D6000A2E17 /* ScaleOptionView.xib */; };
@@ -55,7 +54,6 @@
 		843D32072BB194AE00ACB91B /* BottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843D32052BB194AE00ACB91B /* BottomMenu.xib */; };
 		843D32092BB2DE6200ACB91B /* HealthDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D32082BB2DE6200ACB91B /* HealthDetailsViewController.swift */; };
 		84405D012C69CBA300FE3F83 /* WeeklyHealthDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84405D002C69CBA300FE3F83 /* WeeklyHealthDetailsTableViewCell.swift */; };
-		84405D032C6C876F00FE3F83 /* WeekStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84405D022C6C876F00FE3F83 /* WeekStatusModel.swift */; };
 		8443404C2C7DAAF400097B26 /* UIImage+gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443404B2C7DAAF400097B26 /* UIImage+gif.swift */; };
 		844855012C355C3600544FAE /* EducationalChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844855002C355C3600544FAE /* EducationalChatViewController.swift */; };
 		844E0DD12BDFC15B00935EF0 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */; };
@@ -156,7 +154,7 @@
 		84A174152BA302710048D679 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A174142BA302710048D679 /* SignInViewController.swift */; };
 		84A2492F2C296C8E002442EF /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2492E2C296C8E002442EF /* NotificationsViewController.swift */; };
 		84A61FE82CB56F3E003CA35E /* ChatFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A61FE72CB56F3E003CA35E /* ChatFeedbackViewController.swift */; };
-		84A74EAF2C6256290048F0C5 /* WeeklyContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A74EAE2C6256290048F0C5 /* WeeklyContentModel.swift */; };
+		84A74EAF2C6256290048F0C5 /* HealthHubModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A74EAE2C6256290048F0C5 /* HealthHubModels.swift */; };
 		84A74EB12C625C360048F0C5 /* HealthHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A74EB02C625C360048F0C5 /* HealthHubViewModel.swift */; };
 		84A84EC72C0B2E7B00F10F5A /* HistoryTranscriptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A84EC62C0B2E7B00F10F5A /* HistoryTranscriptModel.swift */; };
 		84A84ECA2C0B2FA200F10F5A /* HistoryTranscriptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A84EC92C0B2FA200F10F5A /* HistoryTranscriptViewModel.swift */; };
@@ -215,6 +213,7 @@
 		9D7D8B1D2F3E3AD000242C32 /* LearningProgressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B1C2F3E3AC800242C32 /* LearningProgressModel.swift */; };
 		9D7D8B1F2F3E48B500242C32 /* ModulePerformanceBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B1E2F3E48B500242C32 /* ModulePerformanceBarChart.swift */; };
 		9D7D8B212F3E48E100242C32 /* BarAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D8B202F3E48E100242C32 /* BarAnnotationView.swift */; };
+		9D81924A2F4A080F0015E245 /* HealthHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8192492F4A07F90015E245 /* HealthHubRepository.swift */; };
 		9DB016EE2F3859C800B02923 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016ED2F3859BE00B02923 /* DashboardModels.swift */; };
 		9DB016F42F3871C900B02923 /* EducationChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */; };
 		9DD8ADDE2F3398DA00B51475 /* APIUploadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */; };
@@ -255,7 +254,6 @@
 		5047BAF32E6B6AA00011F2D7 /* EducationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationModels.swift; sourceTree = "<group>"; };
 		5051CC2E2E23897C00E1F6AA /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		5051CC312E2399BC00E1F6AA /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
-		5051CC332E25531300E1F6AA /* HealthHubDropDownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHubDropDownModel.swift; sourceTree = "<group>"; };
 		50784D772E465323000A2E17 /* InputOptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputOptionView.xib; sourceTree = "<group>"; };
 		50784D792E4654BD000A2E17 /* InputOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOptionView.swift; sourceTree = "<group>"; };
 		50784D7B2E4660D6000A2E17 /* ScaleOptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScaleOptionView.xib; sourceTree = "<group>"; };
@@ -299,7 +297,6 @@
 		843D32052BB194AE00ACB91B /* BottomMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomMenu.xib; sourceTree = "<group>"; };
 		843D32082BB2DE6200ACB91B /* HealthDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailsViewController.swift; sourceTree = "<group>"; };
 		84405D002C69CBA300FE3F83 /* WeeklyHealthDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyHealthDetailsTableViewCell.swift; sourceTree = "<group>"; };
-		84405D022C6C876F00FE3F83 /* WeekStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStatusModel.swift; sourceTree = "<group>"; };
 		8443404B2C7DAAF400097B26 /* UIImage+gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+gif.swift"; sourceTree = "<group>"; };
 		844855002C355C3600544FAE /* EducationalChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationalChatViewController.swift; sourceTree = "<group>"; };
 		844E0DD02BDFC15B00935EF0 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
@@ -391,7 +388,7 @@
 		84A174162BA306EC0048D679 /* HelloAlfred.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HelloAlfred.entitlements; sourceTree = "<group>"; };
 		84A2492E2C296C8E002442EF /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		84A61FE72CB56F3E003CA35E /* ChatFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFeedbackViewController.swift; sourceTree = "<group>"; };
-		84A74EAE2C6256290048F0C5 /* WeeklyContentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyContentModel.swift; sourceTree = "<group>"; };
+		84A74EAE2C6256290048F0C5 /* HealthHubModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthHubModels.swift; sourceTree = "<group>"; };
 		84A74EB02C625C360048F0C5 /* HealthHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHubViewModel.swift; sourceTree = "<group>"; };
 		84A84EC62C0B2E7B00F10F5A /* HistoryTranscriptModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTranscriptModel.swift; sourceTree = "<group>"; };
 		84A84EC92C0B2FA200F10F5A /* HistoryTranscriptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTranscriptViewModel.swift; sourceTree = "<group>"; };
@@ -451,6 +448,7 @@
 		9D7D8B1C2F3E3AC800242C32 /* LearningProgressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressModel.swift; sourceTree = "<group>"; };
 		9D7D8B1E2F3E48B500242C32 /* ModulePerformanceBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePerformanceBarChart.swift; sourceTree = "<group>"; };
 		9D7D8B202F3E48E100242C32 /* BarAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarAnnotationView.swift; sourceTree = "<group>"; };
+		9D8192492F4A07F90015E245 /* HealthHubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHubRepository.swift; sourceTree = "<group>"; };
 		9DB016ED2F3859BE00B02923 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
 		9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationChatRepository.swift; sourceTree = "<group>"; };
 		9DD8ADDD2F3398CF00B51475 /* APIUploadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUploadData.swift; sourceTree = "<group>"; };
@@ -845,20 +843,18 @@
 		84BA18812BB3FF63000131E9 /* HealthHub */ = {
 			isa = PBXGroup;
 			children = (
+				9D81924C2F4A09D40015E245 /* View Model */,
+				9D81924B2F4A09B70015E245 /* Models */,
 				507E12EC2E450FB800B930C9 /* QuizModel.swift */,
 				507E12E92E450E7500B930C9 /* Quiz */,
-				5051CC332E25531300E1F6AA /* HealthHubDropDownModel.swift */,
-				84A74EAE2C6256290048F0C5 /* WeeklyContentModel.swift */,
 				842A9A3A2BA9706200456694 /* VideoPlayerViewController.swift */,
 				842A9A3C2BAAC2B700456694 /* HealthHubViewController.swift */,
 				842A9A3E2BAAC35F00456694 /* VideoCollectionViewCell.swift */,
-				84A74EB02C625C360048F0C5 /* HealthHubViewModel.swift */,
 				84E8DB5A2C5E2CB500A03056 /* SelectWeekViewController.swift */,
 				84E8DB5C2C5E2CD800A03056 /* HealthHubOverViewViewController.swift */,
 				84E8DB5E2C5E2DD500A03056 /* WeekSelectionTableViewCell.swift */,
 				84E8DB602C5E46D600A03056 /* HealthHubOverviewTableViewCell.swift */,
 				84405D002C69CBA300FE3F83 /* WeeklyHealthDetailsTableViewCell.swift */,
-				84405D022C6C876F00FE3F83 /* WeekStatusModel.swift */,
 				8492EBB82C73563700F975B8 /* ImageCollectionViewCell.swift */,
 				8492EBB92C73563700F975B8 /* ImageCollectionViewCell.xib */,
 				84C9F1EE2C90111D00857601 /* ImageSwipeViewController.swift */,
@@ -1014,6 +1010,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9D81924B2F4A09B70015E245 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84A74EAE2C6256290048F0C5 /* HealthHubModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9D81924C2F4A09D40015E245 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				84A74EB02C625C360048F0C5 /* HealthHubViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		9DB016E92F38595D00B02923 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,6 +1082,7 @@
 		9DD8ADF02F33AA9D00B51475 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				9D8192492F4A07F90015E245 /* HealthHubRepository.swift */,
 				9DB016F32F3871BA00B02923 /* EducationChatRepository.swift */,
 				9DD8ADF22F33AACD00B51475 /* UserRepository.swift */,
 			);
@@ -1390,7 +1403,6 @@
 				9DF4D9E72F409E40002A573E /* QuizSummaryView.swift in Sources */,
 				84BF75C62BE8844400937ECD /* HistoryChatViewController.swift in Sources */,
 				84DB709F2BF4D5A90085A8C4 /* HealthDetailsViewModel.swift in Sources */,
-				84405D032C6C876F00FE3F83 /* WeekStatusModel.swift in Sources */,
 				8493CCB72C413D29007FA827 /* MedicalDetailsCollectionViewCell.swift in Sources */,
 				845AC5692D436BB800EA7410 /* iOSDropDown.swift in Sources */,
 				84B34E552BD66EF5002F2F49 /* QuestionUpdateResModel.swift in Sources */,
@@ -1458,7 +1470,6 @@
 				8451A3F12EFD8B2800633970 /* HTMLParser.swift in Sources */,
 				84BF59EE2CC0D2A30006EDF1 /* ChipsView.swift in Sources */,
 				84E8E97B2B8C66660092F746 /* AppIntroViewController.swift in Sources */,
-				5051CC342E25532D00E1F6AA /* HealthHubDropDownModel.swift in Sources */,
 				842079FF2B9F63DE0057DB6B /* PasswordSuccessViewController.swift in Sources */,
 				84207A072BA0879A0057DB6B /* SubscriptionSuccessViewController.swift in Sources */,
 				9DF4D9D52F408926002A573E /* ModulePerformanceDetailsView.swift in Sources */,
@@ -1493,7 +1504,8 @@
 				8413BE272C772785009ACB78 /* BottomMenuRedirections.swift in Sources */,
 				84B5182C2C818BC50045D7CC /* RiskManagementParentTableViewCell.swift in Sources */,
 				849E5E7B2C5CB70F003BE1FC /* SteppedLinearProgressBar.swift in Sources */,
-				84A74EAF2C6256290048F0C5 /* WeeklyContentModel.swift in Sources */,
+				84A74EAF2C6256290048F0C5 /* HealthHubModels.swift in Sources */,
+				9D81924A2F4A080F0015E245 /* HealthHubRepository.swift in Sources */,
 				84E3092B2D02E56500F53AEF /* VideoListContentModel.swift in Sources */,
 				84CAAF712BFB339D009A1961 /* OpticalRiskManagementViewController.swift in Sources */,
 				84F786E02C18679A002437A2 /* ChatKeyboardHandlings.swift in Sources */,

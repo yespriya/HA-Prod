@@ -14134,7 +14134,7 @@ successfully</string>
                                                             <constraint firstItem="hB9-Qa-lD9" firstAttribute="leading" secondItem="SGX-JB-mHf" secondAttribute="leading" id="x2a-Ml-QH4"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QUa-Cd-4EW">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QUa-Cd-4EW">
                                                         <rect key="frame" x="0.0" y="241.33333333333337" width="345" height="800.00000000000011"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
@@ -14316,6 +14316,10 @@ successfully</string>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="aMi-TE-yQq" id="ZdZ-NB-kHU"/>
+                                                            <outlet property="delegate" destination="aMi-TE-yQq" id="bqP-pP-Xix"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -14516,17 +14520,6 @@ successfully</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZQ-BE-jAg">
                                 <rect key="frame" x="0.0" y="763.66666666666663" width="393" height="102.33333333333337"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-hc-Rm4">
-                                        <rect key="frame" x="23.999999999999996" y="23.999999999999996" width="58.666666666666657" height="36.666666666666657"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Skip">
-                                            <fontDescription key="titleFontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
-                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="skipPressed:" destination="aMi-TE-yQq" eventType="touchUpInside" id="yI5-zG-HOF"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKi-Mw-vBm">
                                         <rect key="frame" x="151.33333333333334" y="28.666666666666742" width="90.666666666666657" height="45"/>
                                         <constraints>
@@ -14545,9 +14538,7 @@ successfully</string>
                                 <color key="backgroundColor" name="Label1"/>
                                 <constraints>
                                     <constraint firstItem="LKi-Mw-vBm" firstAttribute="centerY" secondItem="BZQ-BE-jAg" secondAttribute="centerY" id="1yT-e4-efx"/>
-                                    <constraint firstItem="xOP-hc-Rm4" firstAttribute="leading" secondItem="BZQ-BE-jAg" secondAttribute="leading" constant="24" id="knP-HZ-n1N"/>
                                     <constraint firstItem="LKi-Mw-vBm" firstAttribute="centerX" secondItem="BZQ-BE-jAg" secondAttribute="centerX" id="qOi-Es-3q0"/>
-                                    <constraint firstItem="xOP-hc-Rm4" firstAttribute="top" secondItem="BZQ-BE-jAg" secondAttribute="top" constant="24" id="w9L-XH-AUK"/>
                                 </constraints>
                             </view>
                         </subviews>

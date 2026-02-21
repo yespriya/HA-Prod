@@ -108,19 +108,7 @@ class APIClient {
     static func fetchLinearChartData(params:[String:Any],completion:@escaping(AFResult<LinearChartDataModel>)->Void){
         performRequest(route: APIRouter.fetchLinearChartData(params: params),completion: completion)
     }
-    static func fetchWeeklyContent(params: String, completion:@escaping(AFResult<WeeklyContentModel>)->Void){
-        performRequest(route: APIRouter.getWeeklyContent(params: params),completion: completion)
-    }
-    static func fetchWeekStatus(completion:@escaping(AFResult<WeekStatusModel>)->Void) {
-        performRequest(route: APIRouter.fetchWeekStatus,completion: completion)
-    }
     
-    static func fetchHealthHubDropDownData(params:[String:Any], completion:@escaping(AFResult<HealthHubDropDownModel>)->Void) {
-        performRequest(route: APIRouter.fetchHealthHubDropDownData(params: params), completion: completion)
-    }
-    static func fetechHealthHubOverview(params:[String:Any], completion:@escaping(AFResult<HealthHubOverviewModel>)->Void) {
-        performRequest(route: APIRouter.fetchHealthHubOverviewData(params: params), completion: completion)
-    }
     static func updateHealthHubStatus(params:[String:Any],completion:@escaping(AFResult<HealthHubStatusResponse>)->Void){
         performRequest(route: APIRouter.updateHealthHubStatus(params: params),completion: completion)
     }

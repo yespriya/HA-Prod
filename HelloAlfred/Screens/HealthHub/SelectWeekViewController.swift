@@ -9,8 +9,6 @@ import UIKit
 
 class SelectWeekViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
 
-    var weekStatuses: WeekStatusModel?
-    @IBOutlet var weeksTableViewHeight: NSLayoutConstraint!
     @IBOutlet var weeksTableView: UITableView!
     weak var delegate: WeekViewControllerDelegate?
     var dataToSendBack: String?
@@ -21,9 +19,7 @@ class SelectWeekViewController: UIViewController,UITableViewDelegate, UITableVie
         super.viewDidLoad()
         weeksTableView.delegate = self
         weeksTableView.dataSource = self
-       // weeksTableViewHeight.constant = CGFloat(90 * weeks.count)
-        details = viewModel.dropDownRes?.data ?? []
-        weekStatuses = viewModel.weeklyStatusRes
+        details = viewModel.dropDownResData ?? []
     }
     
     
@@ -50,7 +46,7 @@ class SelectWeekViewController: UIViewController,UITableViewDelegate, UITableVie
         cell.weekLabel.text = details[indexPath.row].label
         cell.descriptionLabel.text = details[indexPath.row].title
         let selectedValue = details[indexPath.row].value ?? ""
-        if weekStatuses?.isWeekAvailable(selectedValue) == true {
+        if viewModel.weeklyUnlockContent?.data?[selectedValue] == true {
             cell.blurView.isHidden = true
         } else {
             cell.blurView.isHidden = false
@@ -60,7 +56,7 @@ class SelectWeekViewController: UIViewController,UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let selectedValue = details[indexPath.row].value ?? ""  
-        if weekStatuses?.isWeekAvailable(selectedValue) == true {
+        if viewModel.weeklyUnlockContent?.data?[selectedValue] == true {
             if details.count == indexPath.row + 1 {
                 dismissWithData(selectedData: details[indexPath.row], nextWeekQuizKey: details[indexPath.row].value ?? "")
                 return

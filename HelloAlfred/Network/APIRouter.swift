@@ -12,14 +12,10 @@ enum APIRouter : URLRequestConvertible {
     case profileCompletion(params:[String:Any])
     case updateHealthHubStatus(params:[String:Any])
     case fetchLinearChartData(params:[String:Any])
-    case getWeeklyContent(params: String)
     
     case fetchInitialHistoryQuestion
 
     case fetchInitialHistoryTranscript
-    case fetchWeekStatus
-    case fetchHealthHubDropDownData(params:[String:Any])
-    case fetchHealthHubOverviewData(params:[String:Any])
     case fetchQuizData(params:[String:Any])
     case evaluateQuizAnswer(params:[String:Any])
     case chatQuestions
@@ -50,12 +46,6 @@ enum APIRouter : URLRequestConvertible {
             return .get
         case .lastUpdateHealthDetails:
             return .get
-        case .fetchWeekStatus:
-            return .get
-        case .fetchHealthHubDropDownData:
-            return .post
-        case .fetchHealthHubOverviewData:
-            return .post
         case .fetchQuizData:
             return .post
         case .evaluateQuizAnswer:
@@ -75,8 +65,6 @@ enum APIRouter : URLRequestConvertible {
         case .fetchLinearChartData:
             return .post
         case .lastUpdateListofSymptoms:
-            return .get
-        case .getWeeklyContent:
             return .get
         case .getLatestSymptoms:
             return .get
@@ -122,10 +110,6 @@ enum APIRouter : URLRequestConvertible {
             return "patient/health_details_graph"
         case .lastUpdateListofSymptoms:
             return "patient/latest_symptoms_record_date"
-        case .getWeeklyContent(let param):
-            return "patient/getweeklycontent/\(param)"
-        case .fetchWeekStatus:
-            return "patient/weekly_unlock_content"
         case .updateHealthHubStatus:
             return "patient/update_health_hub_status"
         case .getLatestSymptoms:
@@ -136,10 +120,6 @@ enum APIRouter : URLRequestConvertible {
             return "common/termsandconditions"
         case .getVideoContent:
             return "patient/get_healthhub_video_link"
-        case .fetchHealthHubDropDownData:
-            return "patient/get_health_hub_dropdown"
-        case .fetchHealthHubOverviewData:
-            return "patient/get_health_hub_overivew"
         case .fetchQuizData:
             return "patient/get_quiz_question"
         case .evaluateQuizAnswer:
@@ -166,8 +146,6 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .fetchLinearChartData(let params):
             return params
-        case .getWeeklyContent(let params):
-            return nil
         case .updateHealthHubStatus(let params):
             return params
         case .fetchInitialHistoryQuestion:
@@ -184,8 +162,6 @@ enum APIRouter : URLRequestConvertible {
             return params
         case .fetchInitialHistoryTranscript:
             return nil
-        case .fetchWeekStatus:
-            return nil
         case .getLatestSymptoms:
             return nil
         case .getLastExpertMonitoringDetails:
@@ -194,10 +170,6 @@ enum APIRouter : URLRequestConvertible {
             return nil
         case .getVideoContent:
             return nil
-        case .fetchHealthHubDropDownData(let params):
-            return params
-        case .fetchHealthHubOverviewData(let params):
-            return params
         case .fetchQuizData(let params):
             return params
         case .evaluateQuizAnswer(let params):
