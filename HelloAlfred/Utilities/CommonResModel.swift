@@ -20,15 +20,22 @@ struct HealthHubStatusResponse: Codable {
     let status: Bool?
     let statuscode: Int?
     let message: String?
-    let data: DataUnion
+    let data: DataUnion?
 }
 
 enum DataUnion: Codable {
     case bool(Bool)
     case dataClass(DataClass)
+    case null
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
+        
+        if container.decodeNil() {
+            self = .null
+            return
+        }
+        
         if let x = try? container.decode(Bool.self) {
             self = .bool(x)
             return
@@ -47,6 +54,8 @@ enum DataUnion: Codable {
             try container.encode(x)
         case .dataClass(let x):
             try container.encode(x)
+        case .null:
+            try container.encodeNil()
         }
     }
 }
