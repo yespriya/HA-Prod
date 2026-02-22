@@ -45,12 +45,12 @@ class HealthHubViewModel {
     func fetchWeeklyContent(weekNumber: String, completion: ((Bool) -> Void)? = nil) {
         healthRepository.fetchWeeklyContent(weekNumber: weekNumber, isShowLoader: false)
             .subscribe(onSuccess: { [weak self] response in
-                if response.status ?? false == false {
-                    if response.statuscode == 401 {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.redirectToLogin(errorMsg: response.message)
-                        }
+                if let statusCode = response.statuscode, (400..<501).contains(statusCode) {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.redirectToLogin(errorMsg: response.message)
                     }
+                }
+                if response.status ?? false == false {
                     completion?(false)
                 } else {
                     self?.weeklyContentResData = response.data
@@ -69,12 +69,13 @@ class HealthHubViewModel {
     func fetchWeeklyUnlockContent(completion: ((Bool) -> Void)? = nil) {
         healthRepository.fetchWeeklyUnlockContent(isShowLoader: false)
             .subscribe(onSuccess: { [weak self] response in
-                if response.status ?? false == false {
-                    if response.statuscode == 401 {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.redirectToLogin(errorMsg: response.message)
-                        }
+                if let statusCode = response.statuscode, (400..<501).contains(statusCode) {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.redirectToLogin(errorMsg: response.message)
                     }
+                }
+                
+                if response.status ?? false == false {
                     completion?(false)
                 } else {
                     self?.weeklyUnlockContent = response
@@ -93,12 +94,14 @@ class HealthHubViewModel {
     func fetchHealthHubDropDownData(completion: ((Bool) -> Void)? = nil) {
         healthRepository.fetchHealthHubDropDownData(isShowLoader: false)
             .subscribe(onSuccess: { [weak self] response in
-                if response.status ?? false == false {
-                    if response.statuscode == 401 || response.statuscode == 402 {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.redirectToLogin(errorMsg: response.message)
-                        }
+                
+                if let statusCode = response.statuscode, (400..<501).contains(statusCode) {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.redirectToLogin(errorMsg: response.message)
                     }
+                }
+                
+                if response.status ?? false == false {
                     completion?(false)
                 } else {
                     self?.dropDownResData = response.data
@@ -117,12 +120,14 @@ class HealthHubViewModel {
     func fetechHealthHubOverview(completion: ((Bool) -> Void)? = nil) {
         healthRepository.fetchHealthHubOverviewData(isShowLoader: true)
             .subscribe(onSuccess: { [weak self] response in
-                if response.status ?? false == false {
-                    if response.statuscode == 401 {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.redirectToLogin(errorMsg: response.message)
-                        }
+                
+                if let statusCode = response.statuscode, (400..<501).contains(statusCode) {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.redirectToLogin(errorMsg: response.message)
                     }
+                }
+                
+                if response.status ?? false == false {
                     completion?(false)
                 } else {
                     self?.overviewResData = response.data

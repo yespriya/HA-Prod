@@ -30,6 +30,7 @@ class HealthHubViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addObserver()
         setupUI()
         fetchInitialData()
     }
@@ -77,41 +78,29 @@ class HealthHubViewController: UIViewController {
     
     @IBAction func quizButtonClicked(_ sender: Any) {
         let viewModel = QuizViewModel()
-        viewModel.fetchQuizData(with: ["week_number" : selectedWeekQuizKey.replacingOccurrences(of: "module_", with: "")])
-        viewModel.quizListFetchSuccess = { [weak self] in
-            guard let self = self else { return }
-            self.activityIndicator(view.self, startAnimate: false)
+        viewModel.fetchQuizQuestions(weekNumber: selectedWeekQuizKey.replacingOccurrences(of: "module_", with: "")) { [weak self] success in
             
-            if !(viewModel.quizResponse?.status ?? true) {
-                self.showAlert(viewModel.quizResponse?.message ?? "")
-            } else {
+            guard let self = self else { return }
+            
+            if success {
                 if let currentViewController = Constants.mainStoryBoard.instantiateViewController(withIdentifier: "QuizViewController") as? QuizViewController {
                     currentViewController.modalPresentationStyle = .overFullScreen
 
-                    currentViewController.quizKey = selectedWeekQuizKey.replacingOccurrences(of: "module_", with: "")
-                    currentViewController.moduelDisplyNumber = selectedWeekLabel.text ?? ""
+                    currentViewController.quizKey = self.selectedWeekQuizKey.replacingOccurrences(of: "module_", with: "")
+                    currentViewController.moduelDisplyNumber = self.selectedWeekLabel.text ?? ""
                     currentViewController.nextWeekQuizKey_pretest = nextWeekQuizKey
-                    currentViewController.needToUpdateWeekStatus = { [weak self] status in
-                        self?.updateHealthHubStatus(type: "update_complete_week")
-                        self?.healthViewModel.fetchWeeklyContent(weekNumber: self?.selectedWeekQuizKey.replacingOccurrences(of: "week", with: "") ?? "")
-                        self?.fetchInitialData()
-                        if let data = self?.healthViewModel.dropDownResData {
-                            if let dropDownData = data.first {
-                                self?.selectedWeekLabel.text = dropDownData.label
-                                self?.lblContentDescription.text = dropDownData.title
-                                self?.nextWeekQuizKey = self?.nextWeekQuizKey ?? ""
-                                self?.selectedWeekQuizKey = dropDownData.quizKey ?? ""
-                            }
+                    currentViewController.needToUpdateWeekStatus = {
+                        DispatchQueue.main.async {
+                            self.updateHealthHubStatus(type: "update_complete_week")
                         }
-                        self?.fetchWeeklyUnlockContent()
                     }
-                    present(currentViewController, animated: true)
+                    self.present(currentViewController, animated: true)
                 }
+            } else {
+                self.showAlert(viewModel.errorMessage ?? "")
             }
         }
     }
-    
-    
 
     private func updateHealthHubStatus(type: String) {
         var unlockNextWeekKey = nextWeekQuizKey
@@ -157,7 +146,6 @@ class HealthHubViewController: UIViewController {
             if !self.healthViewModel.isLoading {
                 DispatchQueue.main.async {
                     self.activityIndicator(self.view, startAnimate: false)
-                    UIApplication.shared.endIgnoringInteractionEvents()
                 }
             }
         }
@@ -483,6 +471,16 @@ extension HealthHubViewController: WeekViewControllerDelegate {
 
 // MARK: Helper Methods
 extension HealthHubViewController {
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .updateLatestModule, object: nil)
+    }
+    
+    @objc func updateUI() {
+        setupUI()
+        fetchInitialData()
+    }
+    
     func setHTMLText(_ htmlString: String, to label: UILabel) {
         guard let data = htmlString.data(using: .utf8) else { return }
         

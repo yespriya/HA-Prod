@@ -16,7 +16,6 @@ enum APIRouter : URLRequestConvertible {
     case fetchInitialHistoryQuestion
 
     case fetchInitialHistoryTranscript
-    case fetchQuizData(params:[String:Any])
     case evaluateQuizAnswer(params:[String:Any])
     case chatQuestions
     case historyChatQuestions
@@ -46,8 +45,6 @@ enum APIRouter : URLRequestConvertible {
             return .get
         case .lastUpdateHealthDetails:
             return .get
-        case .fetchQuizData:
-            return .post
         case .evaluateQuizAnswer:
             return .post
         case .profileCompletion:
@@ -120,8 +117,6 @@ enum APIRouter : URLRequestConvertible {
             return "common/termsandconditions"
         case .getVideoContent:
             return "patient/get_healthhub_video_link"
-        case .fetchQuizData:
-            return "patient/get_quiz_question"
         case .evaluateQuizAnswer:
             return "patient/healthub_quiz_evaluate"
         case .sendChatToEmail:
@@ -170,8 +165,6 @@ enum APIRouter : URLRequestConvertible {
             return nil
         case .getVideoContent:
             return nil
-        case .fetchQuizData(let params):
-            return params
         case .evaluateQuizAnswer(let params):
             return params
         case .sendChatToEmail(let params):

@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct QuestionResponse: Codable {
-    let statuscode: Int?
-    let status: Bool?
-    let message: String?
-    let data: QuestionData?
-}
-
 struct QuestionData: Codable {
     let questions: [Question]?
     let questionCount: Int?

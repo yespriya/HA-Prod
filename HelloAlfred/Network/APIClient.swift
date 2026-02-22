@@ -124,9 +124,6 @@ class APIClient {
         performRequest(route: APIRouter.getVideoContent,completion: completion)
     }
     
-    static func fetchQuizData(params:[String:Any], completion:@escaping(AFResult<QuestionResponse>)->Void) {
-        performRequest(route: APIRouter.fetchQuizData(params: params), completion: completion)
-    }
     
     static func evaluateQuizAnswers(params:[String:Any], completion: @escaping(AFResult<QuestionEvaluatedResponse>)->Void) {
         performRequest(route: APIRouter.evaluateQuizAnswer(params: params), completion: completion)

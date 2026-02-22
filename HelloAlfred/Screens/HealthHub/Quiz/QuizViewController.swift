@@ -55,7 +55,7 @@ class QuizViewController: UIViewController {
     
     var attemptedQuestions: Set<Int> = []
     
-    var needToUpdateWeekStatus: ((Bool) -> Void)?
+    var needToUpdateWeekStatus: (() -> Void)?
     // store generic answers (single/multiple/input/scale label)
     var savedAnswers: [Int: [String]] = [:]
 
@@ -66,23 +66,12 @@ class QuizViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupUI()
-
-//        self.activityIndicator(view.self, startAnimate: true)
-        viewModel.fetchQuizData(with: ["week_number" : quizKey])
-        viewModel.quizListFetchSuccess = { [weak self] in
-            guard let self = self else { return }
-            self.activityIndicator(view.self, startAnimate: false)
-            self.quizData = self.viewModel.quizResponse?.data
-            
-            setQuizData()
-        }
         
-        viewModel.errorMessageAlert = { [weak self] in
-            guard let self = self else { return }
-            self.activityIndicator(view.self, startAnimate: false)
-            self.showAlert(self.viewModel.errorMessage ?? "Error")
+        fetchQuizQuestions(weekNumber: quizKey) {
+            self.setQuizData()
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -364,12 +353,20 @@ extension QuizViewController {
         if currentQuestionCount > totalQuestionCount {
             vwBackAndNext.isHidden = true
             if ((quizKey == "pre_test" || quizKey == "post_test") && totalQuestionCount == 1) {
-                fetchNextWeekData()
+                fetchQuizQuestions(weekNumber: quizKey) {
+                    self.totalQuestionCount = 0
+                    self.currentQuestionCount = 0
+                    self.completedQuestionCount = 0
+                    self.currentQuestionIndex = 0
+                    self.setQuizData()
+                }
                 return
             }
+            
             let alert = UIAlertController(title: "Hello Alfred", message: "You Completed All Questions", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { _ in
-                self.needToUpdateWeekStatus?(true)
+                self.needToUpdateWeekStatus?()
+                NotificationCenter.default.post(name: .updateLatestModule, object: nil)
                 self.dismiss(animated: true)
             }))
             self.present(alert, animated: true, completion: nil)
@@ -592,19 +589,24 @@ extension QuizViewController {
             self.btnSubmitAction(UIButton())
         }
     }
+}
+
+// MARK: API
+
+extension QuizViewController {
     
-    func fetchNextWeekData() {
-        viewModel.fetchQuizData(with: ["week_number" : quizKey])
-        viewModel.quizListFetchSuccess = { [weak self] in
+    func  fetchQuizQuestions(weekNumber: String, completion: (() -> Void)? = nil) {
+        viewModel.fetchQuizQuestions(weekNumber: weekNumber) { [weak self] success in
             guard let self = self else { return }
-            self.activityIndicator(view.self, startAnimate: false)
-            self.quizData = self.viewModel.quizResponse?.data
-         //   quizKey = self.nextWeekQuizKey_pretest
-             totalQuestionCount = 0
-             currentQuestionCount = 0
-             completedQuestionCount = 0
-             currentQuestionIndex = 0
-            setQuizData()
+            if success {
+                self.quizData = self.viewModel.quizResponseData?.data
+                completion?()
+            }
+        }
+        
+        viewModel.errorMessageAlert = { [weak self] in
+            guard let self = self else { return }
+            self.showAlert(self.viewModel.errorMessage ?? "Error")
         }
     }
 }

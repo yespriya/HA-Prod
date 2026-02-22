@@ -34,6 +34,9 @@ enum APIRoute {
     case fetchHealthHubOverviewData
     case fetchWeeklyContent(weekNumber: String)
     
+    // MARK: Quiz
+    case fetchQuizQuestions(weekNumber: String)
+    
     // MARK: Chat
     case saveChat(model: ChatSaveModel)
     case preferenceChat(model: PrefereceChatModel)
@@ -45,7 +48,7 @@ enum APIRoute {
     
     var method: HTTPMethod {
         switch self {
-        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .signIn, .socialAuth, .generateOtp, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .uploadProfileImage, .setUserStatus, .saveChat, .preferenceChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .fetchQuizQuestions, .learningProgress, .weekWiseQuizAnalytics:
             return .post
             
         case .updatePassword, .changePassword, .updateUserDetails:
@@ -118,6 +121,8 @@ enum APIRoute {
             return "patient/get_health_hub_overivew"
         case .fetchWeeklyContent(let param):
             return "patient/getweeklycontent/\(param)"
+        case .fetchQuizQuestions:
+            return "patient/get_quiz_question"
         case .learningProgress:
             return "superadmin/patient_wise_module_analytics"
         case .weekWiseQuizAnalytics:
@@ -168,6 +173,9 @@ enum APIRoute {
             
         case .fetchHealthHubDropDownData, .fetchHealthHubOverviewData:
             return ["subdomain": Constants.subdomain]
+            
+        case .fetchQuizQuestions(let weekNumber):
+            return ["week_number": weekNumber]
         
         case .learningProgress(let model):
             return parseModel(data: model)
@@ -182,7 +190,7 @@ enum APIRoute {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
+        case .signIn, .signup, .socialAuth, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .updateUserDetails, .setUserStatus, .preferenceChat, .saveChat, .fetchHealthHubDropDownData, .fetchHealthHubOverviewData, .fetchQuizQuestions, .learningProgress, .weekWiseQuizAnalytics:
             return JSONEncoding.default
         default:
             return URLEncoding.queryString
@@ -191,7 +199,7 @@ enum APIRoute {
     
     var needAuthorization: Bool {
         switch self {
-        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .fetchWeeklyUnlockContent, .fetchHealthHubDropDownData, .fetchWeeklyContent, .fetchHealthHubOverviewData, .learningProgress, .weekWiseQuizAnalytics:
+        case .signup, .generateOtp, .updatePassword, .verifyOTP, .sendTNC, .acceptTermsAndConditions, .changePassword, .profileDetails, .updateUserDetails, .deleteProfileImage, .uploadProfileImage, .setUserStatus, .getUserStatus, .saveChat, .preferenceChat, .getBotStaticMessage, .fetchWeeklyUnlockContent, .fetchHealthHubDropDownData, .fetchWeeklyContent, .fetchHealthHubOverviewData, .fetchQuizQuestions, .learningProgress, .weekWiseQuizAnalytics:
             return true
         default:
             return false
