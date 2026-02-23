@@ -143,6 +143,12 @@ class HealthHubViewModel {
     }
     
     func updateHealthHubStatus(params: [String: Any]) {
+        if let unlockNextWeek = params["unlock_next_week"] as? String, unlockNextWeek.isEmpty {
+            self.errorMessage = "All quiz is completed."
+            self.errorMessageAlert?()
+            return
+        }
+        
         isLoading = true
         APIClient.updateHealthHubStatus(params: params) { result in
             self.isLoading = false
