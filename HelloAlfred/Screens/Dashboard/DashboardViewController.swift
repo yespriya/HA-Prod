@@ -147,7 +147,8 @@ extension DashboardViewController:UITableViewDelegate,UITableViewDataSource{
         else if(indexPath.row == 1)
         {
             
-            navigateTo(viewController: ExpertMonitoringViewController.self, withIdentifier: "ExpertMonitoringViewController")
+//            navigateTo(viewController: ExpertMonitoringViewController.self, withIdentifier: "ExpertMonitoringViewController")
+            navigateTo(viewController: HealthDetailsViewController.self, withIdentifier: "HealthDetailsViewController")
         }
         else if(indexPath.row == 2)
         {
